@@ -7,7 +7,7 @@ INCLUDE	:= include
 LIB		:= lib
 
 LIBRARIES	:= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
-EXECUTABLE	:= main
+EXECUTABLE	:= coriTCG
 
 
 all: $(BIN)/$(EXECUTABLE)

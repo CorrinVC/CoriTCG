@@ -7,10 +7,10 @@ namespace Cori {
 class Window {
 private:
 
-    std::string mTitle;
-    unsigned int mWidth, mHeight;
+    std::string mTitle {};
+    int mWidth {}, mHeight {};
 
-    sf::RenderWindow mWindow;
+    sf::RenderWindow mWindow {};
 
 public:
     Window(std::string_view title, unsigned int width, unsigned int height);
@@ -18,8 +18,8 @@ public:
     void update();
     void draw();
 
-    unsigned int getWidth() const;
-    unsigned int getHeight() const;
+    int getWidth() const;
+    int getHeight() const;
     bool isOpen();
 };
 
