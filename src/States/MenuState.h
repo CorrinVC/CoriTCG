@@ -2,7 +2,10 @@
 
 namespace Cori {
 
-class MenuState { // INHERITS STATE CLASS
+class MenuState : public State { // INHERITS STATE CLASS
+
+public:
+    MenuState() {}
 
 };
 

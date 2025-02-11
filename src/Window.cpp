@@ -8,7 +8,9 @@ Window::Window(std::string_view title, int width, int height)
 , mWidth  { width }
 , mHeight { height } 
 , mWindow { sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), mTitle }
-{ }
+{ 
+    Cori::MouseManager::setWindow(*this);
+}
 
 void Window::update() {
     // Poll Events

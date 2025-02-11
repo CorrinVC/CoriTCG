@@ -6,8 +6,9 @@ BIN		:= bin
 SRC		:= src
 STATES  := src/States
 UI      := src/UI
+INPUT   := src/Input
 
-FILES   := $(SRC)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp
+FILES   := $(SRC)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp $(INPUT)/*.cpp
 
 INCLUDE	:= include
 LIB		:= lib

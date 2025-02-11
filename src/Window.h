@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
+#include "Input/MouseManager.h"
 
 namespace Cori {
 
@@ -11,7 +11,7 @@ private:
     int mWidth {}, mHeight {};
 
     sf::RenderWindow mWindow {};
-
+    
 public:
     Window(std::string_view title, int width, int height);
 
@@ -21,6 +21,7 @@ public:
     int getWidth() const { return mWidth; }
     int getHeight() const { return mHeight; }
     bool isOpen() const { return mWindow.isOpen(); }
+    sf::RenderWindow& getRenderWindow() { return mWindow; }
 };
 
 }
