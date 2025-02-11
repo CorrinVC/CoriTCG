@@ -13,14 +13,14 @@ private:
     sf::RenderWindow mWindow {};
 
 public:
-    Window(std::string_view title, unsigned int width, unsigned int height);
+    Window(std::string_view title, int width, int height);
 
     void update();
     void draw();
 
-    int getWidth() const;
-    int getHeight() const;
-    bool isOpen();
+    int getWidth() const { return mWidth; }
+    int getHeight() const { return mHeight; }
+    bool isOpen() const { return mWindow.isOpen(); }
 };
 
 }

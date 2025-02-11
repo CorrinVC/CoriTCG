@@ -1,12 +1,13 @@
-#include "Window.h"
+//#include "Window.h"
+#include "States/State.h"
 
 namespace Cori {
 
-Window::Window(std::string_view title, unsigned int width, unsigned int height) 
+Window::Window(std::string_view title, int width, int height) 
 : mTitle  { title }
 , mWidth  { width }
 , mHeight { height } 
-, mWindow { sf::VideoMode({width, height}), mTitle }
+, mWindow { sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), mTitle }
 { }
 
 void Window::update() {
@@ -16,19 +17,15 @@ void Window::update() {
             mWindow.close();
     }
 
-
+    State::getState().update();
 }
 
 void Window::draw() {
     mWindow.clear();
 
+    State::getState().draw(mWindow);
 
     mWindow.display();
 }
-
-int Window::getWidth() const { return mWidth; }
-int Window::getHeight() const { return mHeight; }
-
-bool Window::isOpen() { return mWindow.isOpen(); }
 
 }
