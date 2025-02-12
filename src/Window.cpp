@@ -9,7 +9,8 @@ Window::Window(std::string_view title, int width, int height)
 , mHeight { height } 
 , mWindow { sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), mTitle }
 { 
-    Cori::MouseManager::setWindow(*this);
+    Cori::MouseManager::setWindow(mWindow);
+    //Cori::State::setState(Cori::State {});
 }
 
 void Window::update() {
@@ -19,13 +20,15 @@ void Window::update() {
             mWindow.close();
     }
 
-    State::getState().update();
+    if(State::getState())
+        (*State::getState()).update();
 }
 
 void Window::draw() {
     mWindow.clear();
 
-    State::getState().draw(mWindow);
+    if(State::getState())
+        (*State::getState()).draw(mWindow);
 
     mWindow.display();
 }

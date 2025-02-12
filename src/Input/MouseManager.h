@@ -4,14 +4,14 @@
 
 namespace Cori {
 
-class Window;
+//class Window;
 
 class MouseManager {
 private:
-    static Window* mWindow;
+    static sf::RenderWindow* sWindow;
     
 public:
-    static void setWindow(Window& window) { mWindow = &window; }
+    static void setWindow(sf::RenderWindow& window) { sWindow = &window; }
 
     static sf::Vector2i getMousePosition();
 };

@@ -1,5 +1,7 @@
 #include "UIElement.h"
 
+#include <iostream>
+
 namespace Cori {
 
 UIElement::UIElement(float x, float y, float width, float height)
@@ -7,7 +9,9 @@ UIElement::UIElement(float x, float y, float width, float height)
 , mRect { { width, height } }
 {}
 
-void UIElement::onClick() {}
+void UIElement::onClick() {
+    std::cout << "Clicked!";
+}
 
 void UIElement::update() {
     if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)

@@ -2,7 +2,7 @@
 
 namespace Cori {
 
-State State::sCurrentState {};
+State* State::sCurrentState {};
 
 void State::update() { 
     for (UIElement e : uiElements) {
