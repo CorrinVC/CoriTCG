@@ -2,20 +2,18 @@
 
 namespace Cori {
 
-State* State::sCurrentState {};
-
 void State::update() { 
-    for (UIElement e : uiElements) {
+    /*for (UIElement e : this->uiElements) {
         e.update();
-    }
+    }*/
 }
 
 void State::draw(sf::RenderWindow& window) {
-    window.draw(sf::CircleShape(100.0f));
+    //window.draw(sf::CircleShape(100.0f));
 
-    for(UIElement e : uiElements) {
+   /*for(UIElement e : this->uiElements) {
         e.draw(window);
-    }
+    }*/
 }
 
 }

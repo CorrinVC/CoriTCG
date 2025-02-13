@@ -1,5 +1,5 @@
 //#include "Window.h"
-#include "States/State.h"
+#include "Window.h"
 
 namespace Cori {
 
@@ -10,7 +10,8 @@ Window::Window(std::string_view title, int width, int height)
 , mWindow { sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), mTitle }
 { 
     Cori::MouseManager::setWindow(mWindow);
-    //Cori::State::setState(Cori::State {});
+    menuState.init();
+    setState(&menuState);
 }
 
 void Window::update() {
@@ -20,15 +21,17 @@ void Window::update() {
             mWindow.close();
     }
 
-    if(State::getState())
-        (*State::getState()).update();
+    if(mCurrentState)
+        mCurrentState->update();
 }
 
 void Window::draw() {
     mWindow.clear();
 
-    if(State::getState())
-        (*State::getState()).draw(mWindow);
+    if(mCurrentState) {
+        mCurrentState->draw(mWindow);
+        //std::cout << "Penis\n";
+    }
 
     mWindow.display();
 }

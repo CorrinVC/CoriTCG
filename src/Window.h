@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Input/MouseManager.h"
+#include "States/MenuState.h"
 
 namespace Cori {
 
@@ -11,9 +11,15 @@ private:
     int mWidth {}, mHeight {};
 
     sf::RenderWindow mWindow {};
+
+    State* mCurrentState = new State {};
+
+    MenuState menuState {};
     
 public:
     Window(std::string_view title, int width, int height);
+
+    void setState(State* state) { mCurrentState = state; }
 
     void update();
     void draw();

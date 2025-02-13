@@ -1,16 +1,12 @@
 #include "UIElement.h"
 
-#include <iostream>
-
 namespace Cori {
 
 UIElement::UIElement(float x, float y, float width, float height)
 : mX { x }, mY { y }, mWidth { width }, mHeight { height }
 , mRect { { width, height } }
-{}
-
-void UIElement::onClick() {
-    std::cout << "Clicked!";
+{
+    mRect.setPosition( {x, y} );
 }
 
 void UIElement::update() {
