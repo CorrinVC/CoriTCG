@@ -1,6 +1,7 @@
 #pragma once
 
 #include "States/MenuState.h"
+#include <SFML/Graphics.hpp>
 
 namespace Cori {
 
@@ -12,7 +13,7 @@ private:
 
     sf::RenderWindow mWindow {};
 
-    State* mCurrentState = new State {};
+    State* mCurrentState {};
 
     MenuState menuState {};
     
@@ -24,10 +25,10 @@ public:
     void update();
     void draw();
 
-    int getWidth() const { return mWidth; }
-    int getHeight() const { return mHeight; }
-    bool isOpen() const { return mWindow.isOpen(); }
-    sf::RenderWindow& getRenderWindow() { return mWindow; }
+    int getWidth() const;
+    int getHeight() const;
+    bool isOpen() const;
+    sf::RenderWindow& getRenderWindow();
 };
 
 }

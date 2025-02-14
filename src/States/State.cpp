@@ -3,13 +3,15 @@
 namespace Cori {
 
 void State::update() { 
+    //TODO Create UIElement vector
+    
     /*for (UIElement e : this->uiElements) {
         e.update();
     }*/
 }
 
 void State::draw(sf::RenderWindow& window) {
-    //window.draw(sf::CircleShape(100.0f));
+    //TODO Create UIElement vector
 
    /*for(UIElement e : this->uiElements) {
         e.draw(window);

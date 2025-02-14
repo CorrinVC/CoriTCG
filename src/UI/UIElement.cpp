@@ -1,6 +1,14 @@
 #include "UIElement.h"
+#include "../Input/MouseManager.h"
 
 namespace Cori {
+
+//Generic Func to check if vector x,y is within bounds
+//Used primarily for mouse position
+bool UIElement::inBounds(const sf::Vector2i& position) {
+    return (position.x >= mX && position.x <= mX + mWidth)
+        && (position.y >= mY && position.y <= mY + mHeight);
+}
 
 UIElement::UIElement(float x, float y, float width, float height)
 : mX { x }, mY { y }, mWidth { width }, mHeight { height }
@@ -9,8 +17,17 @@ UIElement::UIElement(float x, float y, float width, float height)
     mRect.setPosition( {x, y} );
 }
 
+void UIElement::createClickFunction(std::function<void(void)> func) {
+    mClickFunc = func;
+}
+
+void UIElement::onClick()  {
+    if(mClickFunc) mClickFunc();
+}
+
 void UIElement::update() {
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)
+    //Check if element clicked
+    if (MouseManager::mouseLeftReleased
      && inBounds(MouseManager::getMousePosition()))
         onClick();
 }
