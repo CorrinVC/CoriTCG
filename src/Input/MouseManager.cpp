@@ -3,12 +3,11 @@
 
 namespace Cori {
 
-sf::RenderWindow* MouseManager::sWindow {};
-bool MouseManager::mouseLeftReleased { false };
+MouseManager gMouseManager {};
 
 // Clear Mouse Input Flags
 void MouseManager::resetFlags() {
-    if(mouseLeftReleased) mouseLeftReleased = false;
+    if(mMouseLeftReleased) mMouseLeftReleased = false;
 }
 
 void MouseManager::update() {
@@ -19,16 +18,27 @@ void MouseManager::setWindow(sf::RenderWindow& window) {
     sWindow = &window;
 }
 
+// Sets Mouse Release Flags
+void MouseManager::setMouseButtonReleased(sf::Mouse::Button button) {
+    switch(button) {
+    case sf::Mouse::Button::Left: 
+        mMouseLeftReleased = true;
+        break;
+    default: return;
+    }
+}
+
 // Gets Mouse Position relative to window
 sf::Vector2i MouseManager::getMousePosition() {
     return sf::Mouse::getPosition(*sWindow);
 }
 
-/*bool MouseManager::getMouseButtonReleased(sf::Mouse::Button button) {
+// Checks Button Released State
+bool MouseManager::getMouseButtonReleased(sf::Mouse::Button button) {
     switch(button) {
-    case sf::Mouse::Button::Left: return sMouseLeftReleased;
+    case sf::Mouse::Button::Left: return mMouseLeftReleased;
     default: return false;
     }
-}*/
+}
 
 }

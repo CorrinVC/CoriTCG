@@ -11,13 +11,13 @@ Window::Window(std::string_view title, int width, int height)
 , mWindow { sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), mTitle }
 {
     //Initialize menu state 
-    MouseManager::setWindow(mWindow);
-    menuState.init();
-    setState(&menuState);
+    gMouseManager.setWindow(mWindow);
+    initMenuState();
+    setState(&gMenuState);
 }
 
 void Window::update() {
-    MouseManager::update();
+    gMouseManager.update();
 
     // Poll Events
     while (const std::optional event = mWindow.pollEvent()) {
@@ -27,8 +27,9 @@ void Window::update() {
         // Mouse Released Event
         else if (const auto* buttonReleased = event->getIf<sf::Event::MouseButtonReleased>())
         {
+            // Set Mouse Left Released Flag
             if(buttonReleased->button == sf::Mouse::Button::Left) 
-                MouseManager::mouseLeftReleased = true;
+                gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left);
         }
     }
 

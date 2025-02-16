@@ -3,19 +3,19 @@
 namespace Cori {
 
 void State::update() { 
-    //TODO Create UIElement vector
-    
-    /*for (UIElement e : this->uiElements) {
-        e.update();
-    }*/
+    for (auto* e : mUIElements) {
+        e->update();
+    }
 }
 
 void State::draw(sf::RenderWindow& window) {
-    //TODO Create UIElement vector
+    for(auto* e : mUIElements) {
+        e->draw(window);
+    }
+}
 
-   /*for(UIElement e : this->uiElements) {
-        e.draw(window);
-    }*/
+void State::addUIElement(UIElement* e) {
+    mUIElements.push_back(e);
 }
 
 }

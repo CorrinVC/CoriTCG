@@ -1,17 +1,22 @@
 #pragma once
 
-//#include "../UI/UIElement.h"
+#include "../UI/UIElement.h"
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 namespace Cori {
 
 class State {
-public:
-    
-    virtual void init() {};
-    
-    virtual void update();
-    virtual void draw(sf::RenderWindow& window);
+private:
+    std::vector<UIElement*> mUIElements {};
+public:    
+    void update();
+    void draw(sf::RenderWindow& window);
+
+    void addUIElement(UIElement* e);
 };
+
+extern State gMenuState;
+extern void initMenuState();
 
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "States/MenuState.h"
+#include "States/State.h"
 #include <SFML/Graphics.hpp>
 
 namespace Cori {
@@ -15,7 +15,7 @@ private:
 
     State* mCurrentState {};
 
-    MenuState menuState {};
+    //MenuState menuState {};
     
 public:
     Window(std::string_view title, int width, int height);

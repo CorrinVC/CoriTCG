@@ -3,6 +3,8 @@
 
 namespace Cori {
 
+sf::Font gUIFont { "res/fonts/C059-Roman.pfb" };
+
 //Generic Func to check if vector x,y is within bounds
 //Used primarily for mouse position
 bool UIElement::inBounds(const sf::Vector2i& position) {
@@ -27,8 +29,8 @@ void UIElement::onClick()  {
 
 void UIElement::update() {
     //Check if element clicked
-    if (MouseManager::mouseLeftReleased
-     && inBounds(MouseManager::getMousePosition()))
+    if (gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)
+     && inBounds(gMouseManager.getMousePosition()))
         onClick();
 }
 

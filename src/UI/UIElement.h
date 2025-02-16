@@ -23,8 +23,10 @@ public:
     void createClickFunction(std::function<void(void)> func);
     void onClick();
 
-    void update();
-    void draw(sf::RenderWindow& window);
+    virtual void update();
+    virtual void draw(sf::RenderWindow& window);
 };
+
+extern sf::Font gUIFont;
 
 }

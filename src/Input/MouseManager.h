@@ -4,23 +4,27 @@
 
 namespace Cori {
 
-//class Window;
-
 class MouseManager {
 private:
-    static sf::RenderWindow* sWindow;
+    sf::RenderWindow* sWindow {};
+
+    // Mouse Input Flags
+    bool mMouseLeftReleased { false };
+    void resetFlags();
 
 public:
-    // Mouse Input Flags
-    static bool mouseLeftReleased;
-
-    static void resetFlags();
-
-    static void update();
+    void update();
 
     // Sets Window for relative mouse position
-    static void setWindow(sf::RenderWindow& window);
-    static sf::Vector2i getMousePosition();
+    void setWindow(sf::RenderWindow& window);
+    void setMouseButtonReleased(sf::Mouse::Button button);
+
+    // Input Getters
+    sf::Vector2i getMousePosition();
+    bool getMouseButtonReleased(sf::Mouse::Button button);
 };
+
+// Global Mouse Manager
+extern MouseManager gMouseManager;
 
 }
