@@ -7,7 +7,7 @@
 namespace Cori {
 
 class State {
-private:
+protected:
     std::vector<UIElement*> mUIElements {};
 public:    
     void update();
@@ -16,7 +16,13 @@ public:
     void addUIElement(UIElement* e);
 };
 
+extern State* gCurrentState;
+void gSetState(State& state);
+
 extern State gMenuState;
 extern void initMenuState();
+
+extern State gSetViewerState;
+extern void initSetViewerState();
 
 }

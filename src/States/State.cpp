@@ -2,6 +2,12 @@
 
 namespace Cori {
 
+State* gCurrentState {};
+
+void gSetState(State& state) {
+    gCurrentState = &state;
+}
+
 void State::update() { 
     for (auto* e : mUIElements) {
         e->update();

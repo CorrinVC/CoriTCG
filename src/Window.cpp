@@ -10,10 +10,13 @@ Window::Window(std::string_view title, int width, int height)
 , mHeight { height } 
 , mWindow { sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), mTitle }
 {
-    //Initialize menu state 
+    //Initialize mouse manager
     gMouseManager.setWindow(mWindow);
+    //Initialize states
     initMenuState();
-    setState(&gMenuState);
+    initSetViewerState();
+
+    gSetState(gMenuState);
 }
 
 void Window::update() {
@@ -33,21 +36,19 @@ void Window::update() {
         }
     }
 
-    if(mCurrentState)
-        mCurrentState->update();
+    if(gCurrentState)
+        gCurrentState->update();
 }
 
 void Window::draw() {
-    mWindow.clear();
+    mWindow.clear(sf::Color(60, 60, 60));
 
-    if(mCurrentState)
-        mCurrentState->draw(mWindow);
+    if(gCurrentState)
+        gCurrentState->draw(mWindow);
 
     mWindow.display();
 }
 
-int Window::getWidth() const { return mWidth; }
-int Window::getHeight() const { return mHeight; }
 bool Window::isOpen() const { return mWindow.isOpen(); }
 sf::RenderWindow& Window::getRenderWindow() { return mWindow; }
 
