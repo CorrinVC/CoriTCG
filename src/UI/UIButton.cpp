@@ -2,8 +2,8 @@
 
 namespace Cori {
 
-void UIButton::setText(const std::string_view text) {
-    mText.setString(std::string(text));
+void UIButton::setText(const std::string& text) {
+    mText.setString(text);
     mText.setPosition({ getX(), getY() });
 }
 

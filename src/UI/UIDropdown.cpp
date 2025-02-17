@@ -1,22 +1,39 @@
 #include "UIDropdown.h"
+#include <cstddef>
 
 namespace Cori {
 
-UIDropdown::UIDropdown(float width, float height, std::vector<std::string> values)
-: UIDropdown(0.0f, 0.0f, width, height, values)
+UIDropdown::UIDropdown(float width, float height, const std::string& baseText, 
+    const std::vector<std::string>& values, const sf::Color& color)
+: UIDropdown(0.0f, 0.0f, width, height, baseText, values, color)
 {}
 
-UIDropdown::UIDropdown(float x, float y, float width, float height, std::vector<std::string> values)
-: UIElement(x, y, width, height)
-, mTextValues { values }
+UIDropdown::UIDropdown(float x, float y, float width, float height, 
+    const std::string& baseText, const std::vector<std::string>& values, const sf::Color& color)
+: UIElement(x, y, width, height),
+mTextColor { color }
 {
+    initBaseText(baseText);
     initDownArrow();
+
+    initTextValues(values);
+}
+
+void UIDropdown::initBaseText(const std::string& text) {
+    mBaseText.setString(text);
+    mBaseText.setFillColor(mTextColor);
+
+    mBaseText.setCharacterSize(generateUICharSize(mHeight));
+    mBaseText.setPosition({ 
+        getX() + mBaseText.getCharacterSize() * 0.2f, 
+        getY() + mBaseText.getCharacterSize() * 0.2f 
+    });
 }
 
 void UIDropdown::initDownArrow() {
     mDownArrowText.setString("^");
     mDownArrowText.setRotation({ sf::degrees(180) });
-    mDownArrowText.setFillColor(sf::Color::Red);
+    mDownArrowText.setFillColor(mTextColor);
 
     mDownArrowText.setCharacterSize(generateUICharSize(mHeight));
     mDownArrowText.setPosition({ 
@@ -26,8 +43,27 @@ void UIDropdown::initDownArrow() {
     });
 }
 
-void UIDropdown::onClick() {
+void UIDropdown::initTextValues(const std::vector<std::string>& values) {
+    for(std::size_t i = 0; i < values.size(); ++i) {
+        mTextValues.push_back(sf::Text(gUIFont));
 
+        mTextValues[i].setString(values[i]);
+        mTextValues[i].setFillColor(mTextColor);
+
+        mTextValues[i].setCharacterSize(generateUICharSize(mHeight));
+        mTextValues[i].setPosition({
+            getX() + mBaseText.getCharacterSize() * 0.2f, 
+            getY() + (mBaseText.getCharacterSize() * 0.2f) + (mHeight * (i + 1))
+        });
+    }
+}
+
+void UIDropdown::onClick() {
+    mDroppedDown = !mDroppedDown;
+    if(mDroppedDown)
+        mRect.setSize({ mWidth, mHeight * (1 + mTextValues.size()) });
+    else   
+        mRect.setSize({ mWidth, mHeight });
 }
 
 void UIDropdown::update() {
@@ -37,7 +73,13 @@ void UIDropdown::update() {
 void UIDropdown::draw(sf::RenderWindow& window) {
     UIElement::draw(window);
 
-    window.draw(mDownArrowText);
+    window.draw(mBaseText);
+    if(!mDroppedDown)
+        window.draw(mDownArrowText);
+    else {
+        for(sf::Text text : mTextValues)
+            window.draw(text);
+    }
 }
 
 }

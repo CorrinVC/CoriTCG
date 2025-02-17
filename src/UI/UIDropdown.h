@@ -9,14 +9,25 @@ namespace Cori {
 
 class UIDropdown: public UIElement {
 private:
-    //List of values in dropdown
+    sf::Color mTextColor;
+
+    //Default dropdown text
+    sf::Text mBaseText { gUIFont };
     sf::Text mDownArrowText { gUIFont };
+    void initBaseText(const std::string& text);
     void initDownArrow();
 
-    std::vector<std::string> mTextValues;
+    bool mDroppedDown { false };
+    
+    //List of values in dropdown
+    std::vector<sf::Text> mTextValues {};
+    void initTextValues(const std::vector<std::string>& values);
 public:
-    UIDropdown(float width, float height, std::vector<std::string> values);
-    UIDropdown(float x, float y, float width, float height, std::vector<std::string> values);
+    UIDropdown(float width, float height, const std::string& baseText, 
+        const std::vector<std::string>& values, const sf::Color& color = sf::Color::Red);
+    UIDropdown(float x, float y, float width, float height, 
+        const std::string& baseText, const std::vector<std::string>& values, 
+        const sf::Color& color = sf::Color::Red);
 
     void onClick() override;
     void update();

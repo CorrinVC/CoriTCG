@@ -5,14 +5,14 @@
 
 namespace Cori {
 
-extern int gWindowWidth;
-extern int gWindowHeight;
+constexpr inline int gWindowWidth { 1200 };
+constexpr inline int gWindowHeight { 900 };
 
 class Window {
 private:
 
-    std::string mTitle {};
-    int mWidth {}, mHeight {};
+    const std::string mTitle {};
+    const int mWidth {}, mHeight {};
 
     sf::RenderWindow mWindow {};
 

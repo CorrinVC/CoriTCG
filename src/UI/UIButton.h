@@ -2,6 +2,7 @@
 
 #include "UIElement.h"
 #include <SFML/Graphics.hpp>
+#include <string>
 
 namespace Cori {
 
@@ -16,7 +17,7 @@ public:
     UIButton(float x, float y, float width, float height)
     : UIElement(x, y, width, height) {}
 
-    void setText(const std::string_view text);
+    void setText(const std::string& text);
     void setTextColor(const sf::Color color);
     void centerText();
 
