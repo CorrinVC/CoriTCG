@@ -17,7 +17,7 @@ protected:
     std::function<void(void)> mClickFunc {};
  
     // Check if position in mRect bounds
-    bool inBounds(const sf::Vector2i& position);
+    virtual bool inBounds(const sf::Vector2i& position);
 
 public:
     UIElement(float width, float height);

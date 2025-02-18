@@ -1,7 +1,11 @@
 #include "UIDropdown.h"
+#include "../Input/MouseManager.h"
 #include <cstddef>
+#include <iostream>
 
 namespace Cori {
+
+std::string gDefaultString {""};
 
 UIDropdown::UIDropdown(float width, float height, const std::string& baseText, 
     const std::vector<std::string>& values, const sf::Color& color)
@@ -10,13 +14,23 @@ UIDropdown::UIDropdown(float width, float height, const std::string& baseText,
 
 UIDropdown::UIDropdown(float x, float y, float width, float height, 
     const std::string& baseText, const std::vector<std::string>& values, const sf::Color& color)
-: UIElement(x, y, width, height),
-mTextColor { color }
+: UIElement(x, y, width, height)
+, mTextColor { color }
+, mTextValues { values }
 {
     initBaseText(baseText);
     initDownArrow();
 
     initTextValues(values);
+    initDropdownRectangles(values);
+}
+
+bool UIDropdown::inBounds(const sf::Vector2i& position) {
+    if(mDroppedDown)
+        return (position.x >= getX() && position.x <= getX() + mWidth
+            && position.y >= getY() && position.y <= getY() + mHeight * (1 + mTextValues.size()));
+    else
+        return UIElement::inBounds(position);
 }
 
 void UIDropdown::initBaseText(const std::string& text) {
@@ -45,29 +59,46 @@ void UIDropdown::initDownArrow() {
 
 void UIDropdown::initTextValues(const std::vector<std::string>& values) {
     for(std::size_t i = 0; i < values.size(); ++i) {
-        mTextValues.push_back(sf::Text(gUIFont));
+        mSFTexts.push_back(sf::Text(gUIFont));
 
-        mTextValues[i].setString(values[i]);
-        mTextValues[i].setFillColor(mTextColor);
+        mSFTexts[i].setString(values[i]);
+        mSFTexts[i].setFillColor(mTextColor);
 
-        mTextValues[i].setCharacterSize(generateUICharSize(mHeight));
-        mTextValues[i].setPosition({
+        mSFTexts[i].setCharacterSize(generateUICharSize(mHeight));
+        mSFTexts[i].setPosition({
             getX() + mBaseText.getCharacterSize() * 0.2f, 
             getY() + (mBaseText.getCharacterSize() * 0.2f) + (mHeight * (i + 1))
         });
     }
 }
 
+void UIDropdown::initDropdownRectangles(const std::vector<std::string>& values) {
+    for(std::size_t i = 0; i < values.size(); i++) {
+        mDropdownRectangles.push_back(sf::RectangleShape({ mWidth, mHeight }));
+
+        mDropdownRectangles[i].setPosition({ getX(), getY() + (mHeight * (i + 1))});
+    }
+}
+
 void UIDropdown::onClick() {
     mDroppedDown = !mDroppedDown;
-    if(mDroppedDown)
-        mRect.setSize({ mWidth, mHeight * (1 + mTextValues.size()) });
-    else   
-        mRect.setSize({ mWidth, mHeight });
+    std::cout << mSelectedText << ':' << *mSelectedText << '\n';
 }
 
 void UIDropdown::update() {
-    UIElement::update();
+    if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)
+        && inBounds(gMouseManager.getMousePosition())) {
+        if(mDroppedDown) {
+            int dropdownIndex = (gMouseManager.getMousePosition().y - getY()) / mHeight;
+            mSelectedIndex = dropdownIndex - 1;
+            if(dropdownIndex > 0)
+                mSelectedText = &mTextValues[dropdownIndex - 1];
+            else
+                mSelectedText = &gDefaultString;
+        }
+        std::cout << *mSelectedText << std::endl;
+        onClick();
+    }
 }
 
 void UIDropdown::draw(sf::RenderWindow& window) {
@@ -77,9 +108,21 @@ void UIDropdown::draw(sf::RenderWindow& window) {
     if(!mDroppedDown)
         window.draw(mDownArrowText);
     else {
-        for(sf::Text text : mTextValues)
+        for(sf::RectangleShape& rect : mDropdownRectangles)
+            window.draw(rect);
+        for(sf::Text& text : mSFTexts)
             window.draw(text);
     }
+}
+
+int UIDropdown::getSelectedIndex() {
+    return mSelectedIndex;
+}
+
+std::string* UIDropdown::getSelectedText() {
+    if(mSelectedIndex >= 0)
+        return mSelectedText;
+    return &gDefaultString;
 }
 
 }
