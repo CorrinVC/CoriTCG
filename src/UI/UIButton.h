@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UIElement.h"
+#include "UITextbox.h"
 #include <SFML/Graphics.hpp>
 #include <string>
 
@@ -9,19 +10,16 @@ namespace Cori {
 class UIButton : public UIElement {
 //TODO give text & image members
 private:
-    sf::Text mText { gUIFont };
+    // change to uitextbox
+    UITextbox mTextbox;
 
 public:
-    UIButton(float width, float height)
-    : UIElement(width, height) {}
-    UIButton(float x, float y, float width, float height)
-    : UIElement(x, y, width, height) {}
-
-    void setText(const std::string& text);
-    void setTextColor(const sf::Color color);
-    void centerText();
+    UIButton(float width, float height);
+    UIButton(float x, float y, float width, float height);
 
     void draw(sf::RenderWindow& window) override;
+
+    UITextbox& getTextbox();
 };
 
 }

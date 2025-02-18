@@ -16,9 +16,9 @@ void initMenuState() {
         }
     );
     testButton->setBackgroundColor(sf::Color::Cyan);
-    testButton->setText("Play");
-    testButton->setTextColor(sf::Color::Red);
-    testButton->centerText();
+    testButton->getTextbox().setText("Play");
+    testButton->getTextbox().setTextColor(sf::Color::Red);
+    testButton->getTextbox().centerTextRelativeTo(*testButton);
 
     gMenuState.addUIElement(testButton);
 }

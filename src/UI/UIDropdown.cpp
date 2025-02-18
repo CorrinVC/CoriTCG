@@ -1,7 +1,6 @@
 #include "UIDropdown.h"
 #include "../Input/MouseManager.h"
 #include <cstddef>
-#include <iostream>
 
 namespace Cori {
 
@@ -16,15 +15,17 @@ UIDropdown::UIDropdown(float x, float y, float width, float height,
     const std::string& baseText, const std::vector<std::string>& values, const sf::Color& color)
 : UIElement(x, y, width, height)
 , mTextColor { color }
+, mBaseString { baseText }
 , mTextValues { values }
 {
-    initBaseText(baseText);
+    initBaseText();
     initDownArrow();
 
     initTextValues(values);
     initDropdownRectangles(values);
 }
 
+// Overridden in bounds method to check if position is inside dropped down bounds
 bool UIDropdown::inBounds(const sf::Vector2i& position) {
     if(mDroppedDown)
         return (position.x >= getX() && position.x <= getX() + mWidth
@@ -33,8 +34,8 @@ bool UIDropdown::inBounds(const sf::Vector2i& position) {
         return UIElement::inBounds(position);
 }
 
-void UIDropdown::initBaseText(const std::string& text) {
-    mBaseText.setString(text);
+void UIDropdown::initBaseText() {
+    mBaseText.setString(mBaseString);
     mBaseText.setFillColor(mTextColor);
 
     mBaseText.setCharacterSize(generateUICharSize(mHeight));
@@ -82,7 +83,6 @@ void UIDropdown::initDropdownRectangles(const std::vector<std::string>& values) 
 
 void UIDropdown::onClick() {
     mDroppedDown = !mDroppedDown;
-    std::cout << mSelectedText << ':' << *mSelectedText << '\n';
 }
 
 void UIDropdown::update() {
@@ -91,12 +91,15 @@ void UIDropdown::update() {
         if(mDroppedDown) {
             int dropdownIndex = (gMouseManager.getMousePosition().y - getY()) / mHeight;
             mSelectedIndex = dropdownIndex - 1;
-            if(dropdownIndex > 0)
+            if(dropdownIndex > 0) {
                 mSelectedText = &mTextValues[dropdownIndex - 1];
-            else
+                mBaseText.setString(*mSelectedText);
+            } else {
                 mSelectedText = &gDefaultString;
+            }
+        } else {
+            mBaseText.setString(mBaseString);
         }
-        std::cout << *mSelectedText << std::endl;
         onClick();
     }
 }
@@ -119,10 +122,8 @@ int UIDropdown::getSelectedIndex() {
     return mSelectedIndex;
 }
 
-std::string* UIDropdown::getSelectedText() {
-    if(mSelectedIndex >= 0)
-        return mSelectedText;
-    return &gDefaultString;
+std::string*& UIDropdown::getSelectedText() {
+    return mSelectedText;
 }
 
 }

@@ -2,29 +2,25 @@
 
 namespace Cori {
 
-void UIButton::setText(const std::string& text) {
-    mText.setString(text);
-    mText.setPosition({ getX(), getY() });
-}
 
-void UIButton::setTextColor(const sf::Color color) {
-    mText.setFillColor(color);
-}
+UIButton::UIButton(float width, float height)
+: UIButton(0.0f, 0.0f, width, height) {}
 
-void UIButton::centerText() {
-    // Scale text proportional to button size
-    unsigned int charSize = generateUICharSize(mHeight);
-    mText.setCharacterSize(charSize);
-    mText.move({
-        // Center text relative to string length and font size
-        (mWidth / 2.0f) - (mText.getString().getSize() * charSize) / 4.0f, //scale adjuster of 4
-        (mHeight / 2.0f) - (charSize / 1.5f) //scale adjuster of 1.5
-    });
-}
+UIButton::UIButton(float x, float y, float width, float height)
+: UIElement(x, y, width, height)
+, mTextbox { x, y, width, height, "",  true}
+{}
 
 void UIButton::draw(sf::RenderWindow& window) {
     UIElement::draw(window);
-    window.draw(mText);
+    
+    // Render text if text is set
+    if(mTextbox.getText() != "")
+        mTextbox.draw(window);
+}
+
+UITextbox& UIButton::getTextbox() {
+    return mTextbox;
 }
 
 }

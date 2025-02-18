@@ -1,7 +1,6 @@
 #include "State.h"
 #include "../UI/UIDropdown.h"
-#include "../UI/UITextbox.h"
-#include <iostream>
+#include "../UI/UIReferenceTextbox.h"
 
 namespace Cori {
 
@@ -12,9 +11,9 @@ void initSetViewerState() {
         { "Base Set", "Jungle", "Fossil" });
     gSetViewerState.addUIElement(expansionDropdown);
 
-    std::cout << expansionDropdown->mSelectedText << '\n';
-
-    UITextbox* expansionTextbox = new UITextbox(200.0f, 40.0f, &(expansionDropdown->mSelectedText));
+    UIReferenceTextbox* expansionTextbox = new UIReferenceTextbox(200.0f, 40.0f, 
+            &(expansionDropdown->getSelectedText()));
+    expansionTextbox->centerText();
     gSetViewerState.addUIElement(expansionTextbox);
 }
 

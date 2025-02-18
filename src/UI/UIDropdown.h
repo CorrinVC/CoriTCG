@@ -14,12 +14,15 @@ private:
     sf::Color mTextColor;
     bool mDroppedDown { false };
 
-    bool inBounds(const sf::Vector2i& position);
+    bool inBounds(const sf::Vector2i& position) override;
 
     //Default dropdown text
     sf::Text mBaseText { gUIFont };
+    std::string mBaseString;
+    void initBaseText();
+
+    //Dropdown arrow
     sf::Text mDownArrowText { gUIFont };
-    void initBaseText(const std::string& text);
     void initDownArrow();
     
     //List of values in dropdown
@@ -29,6 +32,7 @@ private:
 
     void initTextValues(const std::vector<std::string>& values);
     int mSelectedIndex {}; // Dropdown selected index
+    std::string* mSelectedText { &gDefaultString };
 
     std::vector<sf::RectangleShape> mDropdownRectangles {};
     void initDropdownRectangles(const std::vector<std::string>& values);
@@ -40,14 +44,12 @@ public:
         const std::string& baseText, const std::vector<std::string>& values, 
         const sf::Color& color = sf::Color::Red);
 
-    std::string* mSelectedText { &gDefaultString };
-    
     void onClick() override;
     void update();
     void draw(sf::RenderWindow& window);
 
     int getSelectedIndex();
-    std::string* getSelectedText();
+    std::string*& getSelectedText();
 };
 
 }
