@@ -101,6 +101,10 @@ void UIElement::setPositionRelativeTo(const UIElement& element, float xOffset, f
     mRect.move({ xOffset, yOffset });
 }
 
+void UIElement::setSize(const sf::Vector2f& size) {
+    mRect.setSize(size);
+}
+
 void UIElement::setBackgroundColor(const sf::Color color) {
     mRect.setFillColor(color);
 }

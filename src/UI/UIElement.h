@@ -40,6 +40,8 @@ public:
     void setPositionRelativeTo(ScreenPosition position, float xOffset, float yOffset);
     void setPositionRelativeTo(const UIElement& element, float xOffset, float yOffset);
 
+    void setSize(const sf::Vector2f& size);
+
     void setBackgroundColor(const sf::Color color);
     // On Click behaviour
     void createClickFunction(std::function<void(void)> func);

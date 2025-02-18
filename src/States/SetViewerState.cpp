@@ -1,5 +1,6 @@
 #include "State.h"
 #include "../UI/UIDropdown.h"
+#include "../UI/UIImage.h"
 #include "../UI/UIReferenceTextbox.h"
 
 namespace Cori {
@@ -15,6 +16,9 @@ void initSetViewerState() {
             &(expansionDropdown->getSelectedText()));
     expansionTextbox->centerText();
     gSetViewerState.addUIElement(expansionTextbox);
+
+    UIImage* image = new UIImage(500.0f, 500.0f, "res/card.png");
+    gSetViewerState.addUIElement(image);
 }
 
 }
