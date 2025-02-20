@@ -4,6 +4,7 @@
 #include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIReferenceTextbox.h"
+#include <format>
 
 namespace Cori {
 
@@ -18,10 +19,13 @@ constexpr sf::Vector2f centeredCardPosition() {
     };
 }
 
+int currentCardID { 0 }; //default to Card Back
+
 void initSetViewerState() {
-    UIImage* image = new UIImage(centeredCardPosition().x, centeredCardPosition().y, "res/cards/BS/bs1.png");
+    UIImage* image = new UIImage(centeredCardPosition().x, centeredCardPosition().y, currentCardID > 0 ? std::format("res/cards/BS/bs{}.png", currentCardID) : "res/card-back.png");
+    //image->setSize({ gCardWidth, gCardHeight });
     gSetViewerState.addUIElement(image);
-    
+
     UIDropdown* expansionDropdown = new UIDropdown(centeredCardPosition().x, centeredCardPosition().y - 50.0f, 250.0f, 40.0f, "Select Expansion", 
         { "Base Set", "Jungle", "Fossil" });
     gSetViewerState.addUIElement(expansionDropdown);
