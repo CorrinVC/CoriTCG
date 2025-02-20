@@ -1,14 +1,28 @@
 #include "State.h"
+#include "../Window.h"
+#include "../Cards/Card.h"
 #include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIReferenceTextbox.h"
 
 namespace Cori {
 
+namespace SetViewer {
+
 State gSetViewerState {};
 
+constexpr sf::Vector2f centeredCardPosition() {
+    return { 
+        gWindowWidth / 2.0f - gCardWidth / 2.0f,
+        gWindowHeight / 2.0f - gCardHeight / 2.0f
+    };
+}
+
 void initSetViewerState() {
-    UIDropdown* expansionDropdown = new UIDropdown(100.0f, 100.0f, 250.0f, 40.0f, "Select Expansion", 
+    UIImage* image = new UIImage(centeredCardPosition().x, centeredCardPosition().y, "res/cards/BS/bs1.png");
+    gSetViewerState.addUIElement(image);
+    
+    UIDropdown* expansionDropdown = new UIDropdown(centeredCardPosition().x, centeredCardPosition().y - 50.0f, 250.0f, 40.0f, "Select Expansion", 
         { "Base Set", "Jungle", "Fossil" });
     gSetViewerState.addUIElement(expansionDropdown);
 
@@ -16,9 +30,8 @@ void initSetViewerState() {
             &(expansionDropdown->getSelectedText()));
     expansionTextbox->centerText();
     gSetViewerState.addUIElement(expansionTextbox);
+}
 
-    UIImage* image = new UIImage(500.0f, 500.0f, "res/card.png");
-    gSetViewerState.addUIElement(image);
 }
 
 }

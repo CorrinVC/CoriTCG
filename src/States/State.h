@@ -19,10 +19,14 @@ public:
 extern State* gCurrentState;
 void gSetState(State& state);
 
+namespace MainMenu {
 extern State gMenuState;
 extern void initMenuState();
+}
 
+namespace SetViewer {
 extern State gSetViewerState;
 extern void initSetViewerState();
+}
 
 }

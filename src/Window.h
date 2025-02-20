@@ -5,8 +5,8 @@
 
 namespace Cori {
 
-constexpr inline int gWindowWidth { 1200 };
-constexpr inline int gWindowHeight { 900 };
+constexpr int gWindowWidth { 1300 };
+constexpr int gWindowHeight { 1000 };
 
 class Window {
 private:

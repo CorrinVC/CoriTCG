@@ -7,8 +7,9 @@ SRC		:= src
 STATES  := src/States
 UI      := src/UI
 INPUT   := src/Input
+CARDS 	:= src/Cards
 
-FILES   := $(SRC)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp $(INPUT)/*.cpp
+FILES   := $(SRC)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp $(INPUT)/*.cpp $(CARDS)/*.cpp
 
 INCLUDE	:= include
 LIB		:= lib

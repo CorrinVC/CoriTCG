@@ -4,6 +4,7 @@
 
 namespace Cori {
 
+namespace MainMenu {
 
 State gMenuState {};
 
@@ -12,7 +13,7 @@ void initMenuState() {
     testButton->setPositionRelativeTo(UIElement::ScreenCenter);
     testButton->createClickFunction(
         []() {
-            gSetState(gSetViewerState);    
+            gSetState(SetViewer::gSetViewerState);    
         }
     );
     testButton->setBackgroundColor(sf::Color::Cyan);
@@ -21,6 +22,8 @@ void initMenuState() {
     testButton->getTextbox().centerTextRelativeTo(*testButton);
 
     gMenuState.addUIElement(testButton);
+}
+
 }
 
 }
