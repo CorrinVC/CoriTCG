@@ -32,7 +32,7 @@ private:
 
     void initTextValues(const std::vector<std::string>& values);
     int mSelectedIndex {}; // Dropdown selected index
-    std::string* mSelectedText { &gDefaultString };
+    std::string mSelectedText { gDefaultString };
 
     std::vector<sf::RectangleShape> mDropdownRectangles {};
     void initDropdownRectangles(const std::vector<std::string>& values);
@@ -49,7 +49,7 @@ public:
     void draw(sf::RenderWindow& window);
 
     int getSelectedIndex();
-    std::string*& getSelectedText();
+    std::string& getSelectedText();
 };
 
 }

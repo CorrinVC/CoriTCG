@@ -11,9 +11,13 @@ private:
     sf::Texture mImage;
     sf::Sprite mSprite;
 public:
-    UIImage(float x, float y, std::string_view texturePath);
+    // Do not include 'res/' in texturepath
+    UIImage(float x, float y, const std::string_view texturePath);
 
     void draw(sf::RenderWindow& window);
+
+    // Do not include 'res/' in texturepath
+    void changeTexture(const std::string_view texturePath);
 };
 
 }

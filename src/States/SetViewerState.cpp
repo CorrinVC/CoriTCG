@@ -1,9 +1,9 @@
 #include "State.h"
 #include "../Window.h"
 #include "../Cards/Card.h"
+#include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
-#include "../UI/UIReferenceTextbox.h"
 #include <format>
 
 namespace Cori {
@@ -20,20 +20,45 @@ constexpr sf::Vector2f centeredCardPosition() {
 }
 
 int currentCardID { 0 }; //default to Card Back
+std::string getCurrentCardTexturePath() {
+    return currentCardID > 0 
+        ? std::format("cards/BS/bs{}.png", currentCardID) 
+        : "card-back.png";
+}
 
 void initSetViewerState() {
-    UIImage* image = new UIImage(centeredCardPosition().x, centeredCardPosition().y, currentCardID > 0 ? std::format("res/cards/BS/bs{}.png", currentCardID) : "res/card-back.png");
-    //image->setSize({ gCardWidth, gCardHeight });
-    gSetViewerState.addUIElement(image);
+    UIImage* mainCardDisplay = new UIImage(centeredCardPosition().x, centeredCardPosition().y, getCurrentCardTexturePath());
+    //mainCardDisplay->setSize({ gCardWidth, gCardHeight });
+    gSetViewerState.addUIElement(mainCardDisplay);
+
+    UITextbox* expansionTextbox = new UITextbox(200.0f, 40.0f, "", true);
+    //expansionTextbox->centerText();
+    gSetViewerState.addUIElement(expansionTextbox);
 
     UIDropdown* expansionDropdown = new UIDropdown(centeredCardPosition().x, centeredCardPosition().y - 50.0f, 250.0f, 40.0f, "Select Expansion", 
         { "Base Set", "Jungle", "Fossil" });
+    expansionDropdown->createClickFunction(
+        [=]() {
+            currentCardID = 0;
+            mainCardDisplay->changeTexture(getCurrentCardTexturePath());
+            expansionTextbox->setText(expansionDropdown->getSelectedText());
+        }
+    );
     gSetViewerState.addUIElement(expansionDropdown);
 
-    UIReferenceTextbox* expansionTextbox = new UIReferenceTextbox(200.0f, 40.0f, 
+    UIButton* incrementButton = new UIButton(gWindowWidth - 100.0f, expansionDropdown->getY(), 50.0f, 50.0f);
+    incrementButton->createClickFunction(
+        [=]() {
+            ++currentCardID;
+            mainCardDisplay->changeTexture(getCurrentCardTexturePath());
+        }
+    );
+    gSetViewerState.addUIElement(incrementButton);
+
+    /*UIReferenceTextbox* expansionRTextbox = new UIReferenceTextbox(200.0f, 40.0f, 
             &(expansionDropdown->getSelectedText()));
-    expansionTextbox->centerText();
-    gSetViewerState.addUIElement(expansionTextbox);
+    expansionRTextbox->centerText();
+    gSetViewerState.addUIElement(expansionRTextbox);*/
 }
 
 }

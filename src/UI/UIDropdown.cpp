@@ -82,6 +82,8 @@ void UIDropdown::initDropdownRectangles(const std::vector<std::string>& values) 
 }
 
 void UIDropdown::onClick() {
+    if(mDroppedDown)
+        UIElement::onClick();
     mDroppedDown = !mDroppedDown;
 }
 
@@ -92,11 +94,12 @@ void UIDropdown::update() {
             int dropdownIndex = (gMouseManager.getMousePosition().y - getY()) / mHeight;
             mSelectedIndex = dropdownIndex - 1;
             if(dropdownIndex > 0) {
-                mSelectedText = &mTextValues[dropdownIndex - 1];
-                mBaseText.setString(*mSelectedText);
+                mSelectedText = mTextValues[dropdownIndex - 1];
+                mBaseText.setString(mSelectedText);
             } else {
-                mSelectedText = &gDefaultString;
+                mSelectedText = gDefaultString;
             }
+            std::cout << "UIDropdown::update() " << mSelectedText << std::endl;
         } else {
             mBaseText.setString(mBaseString);
         }
@@ -122,7 +125,7 @@ int UIDropdown::getSelectedIndex() {
     return mSelectedIndex;
 }
 
-std::string*& UIDropdown::getSelectedText() {
+std::string& UIDropdown::getSelectedText() {
     return mSelectedText;
 }
 

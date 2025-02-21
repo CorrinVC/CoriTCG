@@ -26,6 +26,7 @@ public:
     sf::Text& getRenderText();
 
     void setText(const std::string& text);
+
     void setTextColor(const sf::Color color);
     void centerText();
     void centerTextRelativeTo(UIElement& element);
