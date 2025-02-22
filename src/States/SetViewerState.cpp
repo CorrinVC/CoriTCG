@@ -39,7 +39,10 @@ void initSetViewerState() {
         { "Base Set", "Jungle", "Fossil" });
     expansionDropdown->createClickFunction(
         [=]() {
-            currentCardID = 0;
+            if(expansionDropdown->getSelectedText() == gDefaultString)
+                currentCardID = 0;
+            else
+                currentCardID = 1;
             mainCardDisplay->changeTexture(getCurrentCardTexturePath());
             expansionTextbox->setText(expansionDropdown->getSelectedText());
         }
@@ -49,16 +52,28 @@ void initSetViewerState() {
     UIButton* incrementButton = new UIButton(gWindowWidth - 100.0f, expansionDropdown->getY(), 50.0f, 50.0f);
     incrementButton->createClickFunction(
         [=]() {
-            ++currentCardID;
-            mainCardDisplay->changeTexture(getCurrentCardTexturePath());
+            if(currentCardID > 0) {
+                ++currentCardID;
+                mainCardDisplay->changeTexture(getCurrentCardTexturePath());
+            }
         }
     );
+    incrementButton->getTextbox().setText(">");
+    incrementButton->getTextbox().centerTextRelativeTo(*incrementButton);
     gSetViewerState.addUIElement(incrementButton);
 
-    /*UIReferenceTextbox* expansionRTextbox = new UIReferenceTextbox(200.0f, 40.0f, 
-            &(expansionDropdown->getSelectedText()));
-    expansionRTextbox->centerText();
-    gSetViewerState.addUIElement(expansionRTextbox);*/
+    UIButton* decrementButton = new UIButton(100.0f, expansionDropdown->getY(), 50.0f, 50.0f);
+    decrementButton->createClickFunction(
+        [=]() {
+            if(currentCardID > 1) {
+                --currentCardID;
+                mainCardDisplay->changeTexture(getCurrentCardTexturePath());
+            }
+        }
+    );
+    decrementButton->getTextbox().setText("<");
+    decrementButton->getTextbox().centerTextRelativeTo(*decrementButton);
+    gSetViewerState.addUIElement(decrementButton);
 }
 
 }
