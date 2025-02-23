@@ -105,8 +105,31 @@ void UIElement::setSize(const sf::Vector2f& size) {
     mRect.setSize(size);
 }
 
+void UIElement::setTransparent() {
+    mBackgroundColor = sf::Color::Transparent;
+    mHoverColor = mBackgroundColor;
+    mPressColor = mHoverColor;
+    mRect.setFillColor(mBackgroundColor);
+}
+
+// Ideally Called After setHoverColor
 void UIElement::setBackgroundColor(const sf::Color color) {
+    if(mHoverColor == mBackgroundColor)
+        setHoverColor(color);
+    mBackgroundColor = color;
     mRect.setFillColor(color);
+}
+
+// Ideally Called Before setBackgroundColor, After setPressedColor
+void UIElement::setHoverColor(const sf::Color color) {
+    if(mPressColor == mHoverColor)
+        setPressedColor(color);
+    mHoverColor = color;
+}
+
+// Ideally Called Before setHoverColor
+void UIElement::setPressedColor(const sf::Color color) {
+    mPressColor = color;
 }
 
 void UIElement::createClickFunction(std::function<void(void)> func) {
@@ -117,11 +140,47 @@ void UIElement::onClick()  {
     if(mClickFunc) mClickFunc();
 }
 
+void UIElement::onHover() {
+    if(hovering)
+        mRect.setFillColor(mHoverColor);
+    else
+        mRect.setFillColor(mBackgroundColor);
+}
+
+void UIElement::onPress() {
+    if(pressed)
+        mRect.setFillColor(mPressColor);
+    else if(hovering)
+        mRect.setFillColor(mHoverColor);
+    else
+        mRect.setFillColor(mBackgroundColor);
+}
+
 void UIElement::update() {
     //Check if element clicked
-    if (gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)
-     && inBounds(gMouseManager.getMousePosition()))
-        onClick();
+    if(inBounds(gMouseManager.getMousePosition())) {
+        if(!hovering) {
+            hovering = true;
+            onHover();
+        }
+        if(gMouseManager.getMouseButtonPressed(sf::Mouse::Button::Left)) {
+            pressed = true;
+            onPress();
+        } else if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)) {
+            onClick();
+            pressed = false;
+            onPress();
+        }
+    } else {
+        if(hovering) {
+            hovering = false;
+            onHover();
+        }
+        if(pressed) {
+            pressed = false;
+            onPress();
+        }
+    }
 }
 
 void UIElement::draw(sf::RenderWindow& window) {

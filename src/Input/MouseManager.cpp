@@ -7,6 +7,7 @@ MouseManager gMouseManager {};
 
 // Clear Mouse Input Flags
 void MouseManager::resetFlags() {
+    if(mMouseLeftPressed) mMouseLeftPressed = false;
     if(mMouseLeftReleased) mMouseLeftReleased = false;
 }
 
@@ -16,6 +17,16 @@ void MouseManager::update() {
 
 void MouseManager::setWindow(sf::RenderWindow& window) {
     sWindow = &window;
+}
+
+// Sets Mouse Pressed Flags
+void MouseManager::setMouseButtonPressed(sf::Mouse::Button button) {
+    switch(button) {
+    case sf::Mouse::Button::Left:
+        mMouseLeftPressed = true;
+        break;
+    default: return;
+    }
 }
 
 // Sets Mouse Release Flags
@@ -31,6 +42,14 @@ void MouseManager::setMouseButtonReleased(sf::Mouse::Button button) {
 // Gets Mouse Position relative to window
 sf::Vector2i MouseManager::getMousePosition() {
     return sf::Mouse::getPosition(*sWindow);
+}
+
+// Checks Button Pressed State
+bool MouseManager::getMouseButtonPressed(sf::Mouse::Button button) {
+    switch(button) {
+    case sf::Mouse::Button::Left: return mMouseLeftPressed;
+    default: return false;
+    }
 }
 
 // Checks Button Released State

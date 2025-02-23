@@ -38,8 +38,6 @@ private:
     void initDropdownRectangles(const std::vector<std::string>& values);
 
 public:
-    UIDropdown(float width, float height, const std::string& baseText, 
-        const std::vector<std::string>& values, const sf::Color& color = sf::Color::Red);
     UIDropdown(float x, float y, float width, float height, 
         const std::string& baseText, const std::vector<std::string>& values, 
         const sf::Color& color = sf::Color::Red);

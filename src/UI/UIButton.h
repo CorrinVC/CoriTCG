@@ -17,6 +17,7 @@ public:
     UIButton(float width, float height);
     UIButton(float x, float y, float width, float height);
 
+    void update();
     void draw(sf::RenderWindow& window) override;
 
     UITextbox& getTextbox();

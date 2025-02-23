@@ -16,8 +16,10 @@ void initMenuState() {
             gSetState(SetViewer::gSetViewerState);    
         }
     );
+    testButton->setHoverColor(sf::Color::Blue);
     testButton->setBackgroundColor(sf::Color::Cyan);
     testButton->getTextbox().setText("Play");
+    testButton->getTextbox().setTextHoverColor(sf::Color::Magenta);
     testButton->getTextbox().setTextColor(sf::Color::Red);
     testButton->getTextbox().centerTextRelativeTo(*testButton);
 

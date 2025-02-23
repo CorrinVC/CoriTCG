@@ -14,11 +14,20 @@ protected:
     // Bounding rectangle
     sf::RectangleShape mRect {};
 
+    // Background Colors
+    sf::Color mBackgroundColor { sf::Color::White };
+    sf::Color mHoverColor { mBackgroundColor };
+    sf::Color mPressColor { mHoverColor };
+
     //Unique click function
     std::function<void(void)> mClickFunc {};
  
     // Check if position in mRect bounds
     virtual bool inBounds(const sf::Vector2i& position);
+
+    // Hovering & Pressed States
+    bool hovering { false };
+    bool pressed { false };
 
 public:
     UIElement(float width, float height);
@@ -43,10 +52,15 @@ public:
 
     void setSize(const sf::Vector2f& size);
 
+    void setTransparent();
     void setBackgroundColor(const sf::Color color);
+    void setHoverColor(const sf::Color color);
+    void setPressedColor(const sf::Color color);
     // On Click behaviour
     void createClickFunction(std::function<void(void)> func);
     virtual void onClick();
+    virtual void onHover();
+    virtual void onPress();
 
     virtual void update();
     virtual void draw(sf::RenderWindow& window);

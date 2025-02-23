@@ -43,7 +43,7 @@ void initSetViewerState() {
     //expansionTextbox->centerText();
     gSetViewerState.addUIElement(currentCardTextbox);
 
-    UIDropdown* expansionDropdown = new UIDropdown(250.0f, 40.0f, "Select Expansion", 
+    UIDropdown* expansionDropdown = new UIDropdown(gWindowWidth / 2.0f - 150.0f, 10.0f, 300.0f, 40.0f, "Select Expansion", 
         { "Base Set", "Jungle", "Fossil" });
     expansionDropdown->setPositionRelativeTo(UIElement::ScreenTop, 10.0f);
     expansionDropdown->createClickFunction(

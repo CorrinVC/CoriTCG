@@ -12,10 +12,27 @@ UITextbox::UITextbox(float x, float y, float width, float height,
 {
     mText.setString(text);
     mText.setPosition({ getX(), getY() });
-    mText.setFillColor(sf::Color::Red);
+    mText.setFillColor(mTextColor);
 
-    if(transparent)
-        mRect.setFillColor(sf::Color::Transparent);
+    if(transparent) 
+        setTransparent();
+}
+
+void UITextbox::onHover() {
+    UIElement::onHover();
+    if(hovering)
+        mText.setFillColor(mTextHoverColor);
+    else
+        mText.setFillColor(mTextColor);
+}
+
+void UITextbox::onPress() {
+    if(pressed)
+        mText.setFillColor(mTextPressedColor);
+    else if(hovering)
+        mText.setFillColor(mTextHoverColor);
+    else
+        mText.setFillColor(mTextColor);
 }
 
 void UITextbox::draw(sf::RenderWindow& window) {
@@ -36,8 +53,23 @@ void UITextbox::setText(const std::string& text) {
     mText.setString(text);
 }
 
+// Ideally Called After setTextHoverColor
 void UITextbox::setTextColor(const sf::Color color) {
+    if(mTextHoverColor == mTextColor)
+        setTextHoverColor(color);
+    mTextColor = color;
     mText.setFillColor(color);
+}
+
+// Ideally Called Before setTextColor
+void UITextbox::setTextHoverColor(const sf::Color color) {
+    if(mTextPressedColor == mTextHoverColor)
+        setTextPressedColor(color);
+    mTextHoverColor = color;
+}
+
+void UITextbox::setTextPressedColor(const sf::Color color) {
+    mTextPressedColor = color;
 }
 
 void UITextbox::centerMove() {
@@ -59,7 +91,7 @@ void UITextbox::centerText() {
 
 void UITextbox::centerTextRelativeTo(UIElement& element) {
     mText.setPosition({ element.getX(), element.getY() });
-    centeredRelativeTo = &element;
+    mRect.setPosition({ element.getX(), element.getY() });
     centerMove();
 }
 

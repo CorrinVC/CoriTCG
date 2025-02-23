@@ -11,6 +11,14 @@ UIButton::UIButton(float x, float y, float width, float height)
 , mTextbox { x, y, width, height, "",  true}
 {}
 
+void UIButton::update() {
+    UIElement::update();
+
+    // Update text if text is set
+    if(mTextbox.getText() != "")
+        mTextbox.update();
+}
+
 void UIButton::draw(sf::RenderWindow& window) {
     UIElement::draw(window);
     

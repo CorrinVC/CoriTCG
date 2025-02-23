@@ -6,11 +6,6 @@ namespace Cori {
 
 std::string gDefaultString {""};
 
-UIDropdown::UIDropdown(float width, float height, const std::string& baseText, 
-    const std::vector<std::string>& values, const sf::Color& color)
-: UIDropdown(0.0f, 0.0f, width, height, baseText, values, color)
-{}
-
 UIDropdown::UIDropdown(float x, float y, float width, float height, 
     const std::string& baseText, const std::vector<std::string>& values, const sf::Color& color)
 : UIElement(x, y, width, height)

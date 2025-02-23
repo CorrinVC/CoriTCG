@@ -9,6 +9,7 @@ private:
     sf::RenderWindow* sWindow {};
 
     // Mouse Input Flags
+    bool mMouseLeftPressed { false };
     bool mMouseLeftReleased { false };
     void resetFlags();
 
@@ -17,10 +18,12 @@ public:
 
     // Sets Window for relative mouse position
     void setWindow(sf::RenderWindow& window);
+    void setMouseButtonPressed(sf::Mouse::Button button);
     void setMouseButtonReleased(sf::Mouse::Button button);
 
     // Input Getters
     sf::Vector2i getMousePosition();
+    bool getMouseButtonPressed(sf::Mouse::Button button);
     bool getMouseButtonReleased(sf::Mouse::Button button);
 };
 
