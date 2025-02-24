@@ -1,7 +1,7 @@
 #include "State.h"
 #include "../Window.h"
 #include "../Cards/Card.h"
-#include "../Cards/Expansion.h"
+#include "../Cards/Expansions/Expansions.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
@@ -26,13 +26,20 @@ int currentExpansionIndex { 0 };
 std::string getCurrentCardTexturePath() {
     return currentCardID > 0 
         ? std::format("cards/{}/{}{}.png", 
-            Expansion::gExpansionList[currentExpansionIndex].expansionAbbreviation, 
-            Expansion::gExpansionList[currentExpansionIndex].expansionLowerAbbreviation(),
+            Expansions::gExpansionList[currentExpansionIndex].expansionAbbreviation, 
+            Expansions::gExpansionList[currentExpansionIndex].expansionLowerAbbreviation(),
             currentCardID) 
         : "card-back.png";
 }
 
+void changeCardInfo(UIImage* image, UITextbox* textbox) {
+    image->changeTexture(getCurrentCardTexturePath());
+    textbox->setText(Expansions::gExpansionList[currentExpansionIndex].cards[currentCardID - 1].getCardName());
+    textbox->centerText();
+}
+
 void initSetViewerState() {
+
     UIImage* mainCardDisplay = new UIImage(centeredCardPosition().x, centeredCardPosition().y + 50.0f, getCurrentCardTexturePath());
     //mainCardDisplay->setSize({ gCardWidth, gCardHeight });
     gSetViewerState.addUIElement(mainCardDisplay);
@@ -54,8 +61,7 @@ void initSetViewerState() {
                 currentCardID = 1;
                 currentExpansionIndex = expansionDropdown->getSelectedIndex();
             }
-            mainCardDisplay->changeTexture(getCurrentCardTexturePath());
-            //currentCardTextbox->setText(expansionDropdown->getSelectedText());
+            changeCardInfo(mainCardDisplay, currentCardTextbox);
         }
     );
     gSetViewerState.addUIElement(expansionDropdown);
@@ -64,9 +70,9 @@ void initSetViewerState() {
     incrementButton->createClickFunction(
         [=]() {
             if(currentCardID > 0 && 
-                currentCardID <= Expansion::gExpansionList[currentExpansionIndex].cardCount) {
+                currentCardID < Expansions::gExpansionList[currentExpansionIndex].cardCount()) {
                 ++currentCardID;
-                mainCardDisplay->changeTexture(getCurrentCardTexturePath());
+                changeCardInfo(mainCardDisplay, currentCardTextbox);
             }
         }
     );
@@ -79,7 +85,7 @@ void initSetViewerState() {
         [=]() {
             if(currentCardID > 1) {
                 --currentCardID;
-                mainCardDisplay->changeTexture(getCurrentCardTexturePath());
+                changeCardInfo(mainCardDisplay, currentCardTextbox);
             }
         }
     );

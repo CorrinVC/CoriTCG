@@ -1,6 +1,6 @@
 #include "UIDropdown.h"
 #include "../Input/MouseManager.h"
-#include <cstddef>
+#include <cstddef> // for std::size_t
 
 namespace Cori {
 
@@ -94,7 +94,6 @@ void UIDropdown::update() {
             } else {
                 mSelectedText = gDefaultString;
             }
-            std::cout << "UIDropdown::update() " << mSelectedText << std::endl;
         } else {
             mBaseText.setString(mBaseString);
         }
