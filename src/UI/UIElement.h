@@ -68,6 +68,8 @@ public:
     // Getters
     float getX() const { return mRect.getPosition().x; }
     float getY() const { return mRect.getPosition().y; }
+    float getWidth() const { return mWidth; }
+    float getHeight() const { return mHeight; }
 
 private:
     sf::Vector2f getStartPosition(ScreenPosition position);

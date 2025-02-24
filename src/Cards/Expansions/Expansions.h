@@ -1,13 +1,9 @@
 #pragma once
 
 #include "BaseSet.h"
+#include "Jungle.h"
 
 namespace Cori { namespace Expansions {
-
-    constexpr Expansion jungle { "Jungle", "JU", ExpansionID::Jungle,
-        {
-    
-        }};
     
     constexpr Expansion fossil { "Fossil", "FO", ExpansionID::Fossil,
         {

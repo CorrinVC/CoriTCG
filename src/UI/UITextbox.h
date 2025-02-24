@@ -16,7 +16,7 @@ protected:
 
     bool centered { false };
 
-    void centerMove();
+    void centerMove(bool initial = false);
 
 public:
     UITextbox(float width, float height, const std::string& text, bool transparent = false);
