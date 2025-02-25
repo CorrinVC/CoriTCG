@@ -29,4 +29,9 @@ extern State gSetViewerState;
 extern void initSetViewerState();
 }
 
+namespace SetFullView {
+extern State gSetFullViewState;
+extern void initFullViewState();
+}
+
 }

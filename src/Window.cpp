@@ -15,8 +15,9 @@ Window::Window(std::string_view title, int width, int height)
     //Initialize states
     MainMenu::initMenuState();
     SetViewer::initSetViewerState();
+    SetFullView::initFullViewState();
 
-    gSetState(MainMenu::gMenuState);
+    gSetState(SetFullView::gSetFullViewState);
 }
 
 void Window::update() {
