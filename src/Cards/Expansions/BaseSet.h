@@ -7,515 +7,515 @@
 
 namespace Cori { namespace Expansions { namespace BaseSet {
 
-    const PokemonCard _001Alakazam {
+    DataCard* _001Alakazam { new PokemonCard(
         "Alakazam", 80, EnergyType::Psychic, Stage::Stage2, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 1, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _002Blastoise {
+    DataCard* _002Blastoise { new PokemonCard(
         "Blastoise", 100, EnergyType::Water, Stage::Stage2, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 2, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _003Chansey {
+    DataCard* _003Chansey { new PokemonCard(
         "Chansey", 120, EnergyType::Colorless, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 3, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _004Charizard {
+    DataCard* _004Charizard { new PokemonCard(
         "Charizard", 120, EnergyType::Fire, Stage::Stage2, 3,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 4, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _005Clefairy {
+    DataCard* _005Clefairy { new PokemonCard(
         "Clefairy", 40, EnergyType::Colorless, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 5, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _006Gyarados {
+    DataCard* _006Gyarados { new PokemonCard(
         "Gyarados", 100, EnergyType::Water, Stage::Stage1, 3,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 6, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _007Hitmonchan {
+    DataCard* _007Hitmonchan { new PokemonCard(
         "Hitmonchan", 70, EnergyType::Fighting, Stage::Basic, 2,
         "Ken Sugimori", ExpansionID::BaseSet, 7, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _008Machamp {
+    DataCard* _008Machamp { new PokemonCard(
         "Machamp", 100, EnergyType::Fighting, Stage::Stage2, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 8, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _009Magneton {
+    DataCard* _009Magneton { new PokemonCard(
         "Magneton", 60, EnergyType::Lightning, Stage::Stage1, 1,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 9, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _010Mewtwo {
+    DataCard* _010Mewtwo { new PokemonCard(
         "Mewtwo", 60, EnergyType::Psychic, Stage::Basic, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 10, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _011Nidoking {
+    DataCard* _011Nidoking { new PokemonCard(
         "Nidoking", 90, EnergyType::Grass, Stage::Stage2, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 11, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _012Ninetales {
+    DataCard* _012Ninetales { new PokemonCard(
         "Ninetales", 80, EnergyType::Fire, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 12, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _013Poliwrath {
+    DataCard* _013Poliwrath { new PokemonCard(
         "Poliwrath", 90, EnergyType::Water, Stage::Stage2, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 13, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _014Raichu {
+    DataCard* _014Raichu { new PokemonCard(
         "Raichu", 80, EnergyType::Lightning, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 14, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _015Venusaur {
+    DataCard* _015Venusaur { new PokemonCard(
         "Venusaur", 100, EnergyType::Grass, Stage::Stage2, 2,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 15, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _016Zapdos {
+    DataCard* _016Zapdos { new PokemonCard(
         "Zapdos", 90, EnergyType::Lightning, Stage::Basic, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 16, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _017Beedrill {
+    DataCard* _017Beedrill { new PokemonCard(
         "Beedrill", 80, EnergyType::Grass, Stage::Stage2, 0,
         "Ken Sugimori", ExpansionID::BaseSet, 17, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _018Dragonair {
+    DataCard* _018Dragonair { new PokemonCard(
         "Dragonair", 80, EnergyType::Colorless, Stage::Stage1, 2,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 18, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _019Dugtrio {
+    DataCard* _019Dugtrio { new PokemonCard(
         "Dugtrio", 70, EnergyType::Fighting, Stage::Stage1, 2,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 19, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _020Electabuzz {
+    DataCard* _020Electabuzz { new PokemonCard(
         "Electabuzz", 70, EnergyType::Lightning, Stage::Basic, 2,
         "Ken Sugimori", ExpansionID::BaseSet, 20, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _021Electrode {
+    DataCard* _021Electrode { new PokemonCard(
         "Electrode", 80, EnergyType::Lightning, Stage::Stage1, 1,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 21, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _022Pidgeotto {
+    DataCard* _022Pidgeotto { new PokemonCard(
         "Pidgeotto", 60, EnergyType::Colorless, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 22, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _023Arcanine {
+    DataCard* _023Arcanine { new PokemonCard(
         "Arcanine", 100, EnergyType::Fire, Stage::Stage1, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 23, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _024Charmeleon {
+    DataCard* _024Charmeleon { new PokemonCard(
         "Charmeleon", 80, EnergyType::Fire, Stage::Stage1, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 24, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _025Dewgong {
+    DataCard* _025Dewgong { new PokemonCard(
         "Dewgong", 80, EnergyType::Water, Stage::Stage1, 3,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 25, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _026Dratini {
+    DataCard* _026Dratini { new PokemonCard(
         "Dratini", 40, EnergyType::Colorless, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 26, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _027Farfetchd {
+    DataCard* _027Farfetchd { new PokemonCard(
         "Farfetch'd", 50, EnergyType::Colorless, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 27, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _028Growlithe {
+    DataCard* _028Growlithe { new PokemonCard(
         "Growlithe", 60, EnergyType::Fire, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 28, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _029Haunter {
+    DataCard* _029Haunter { new PokemonCard(
         "Haunter", 60, EnergyType::Psychic, Stage::Stage1, 1,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 29, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _030Ivysaur {
+    DataCard* _030Ivysaur { new PokemonCard(
         "Ivysaur", 60, EnergyType::Grass, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 30, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _031Jynx {
+    DataCard* _031Jynx { new PokemonCard(
         "Jynx", 70, EnergyType::Psychic, Stage::Basic, 2,
         "Ken Sugimori", ExpansionID::BaseSet, 31, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _032Kadabra {
+    DataCard* _032Kadabra { new PokemonCard(
         "Kadabra", 60, EnergyType::Psychic, Stage::Stage1, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 32, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _033Kakuna {
+    DataCard* _033Kakuna { new PokemonCard(
         "Kakuna", 80, EnergyType::Grass, Stage::Stage1, 2,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 33, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _034Machoke {
+    DataCard* _034Machoke { new PokemonCard(
         "Machoke", 80, EnergyType::Fighting, Stage::Stage1, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 34, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _035Magikarp {
+    DataCard* _035Magikarp { new PokemonCard(
         "Magikarp", 30, EnergyType::Water, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 35, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _036Magmar {
+    DataCard* _036Magmar { new PokemonCard(
         "Magmar", 50, EnergyType::Fire, Stage::Basic, 2,
         "Ken Sugimori", ExpansionID::BaseSet, 36, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _037Nidorino {
+    DataCard* _037Nidorino { new PokemonCard(
         "Nidorino", 60, EnergyType::Grass, Stage::Stage1, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 37, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _038Poliwhirl {
+    DataCard* _038Poliwhirl { new PokemonCard(
         "Poliwhirl", 60, EnergyType::Water, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 38, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _039Porygon {
+    DataCard* _039Porygon { new PokemonCard(
         "Porygon", 30, EnergyType::Colorless, Stage::Basic, 1,
         "Tomoaki Imakuni", ExpansionID::BaseSet, 39, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _040Raticate {
+    DataCard* _040Raticate { new PokemonCard(
         "Raticate", 60, EnergyType::Colorless, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 40, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _041Seel {
+    DataCard* _041Seel { new PokemonCard(
         "Seel", 60, EnergyType::Water, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 41, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _042Wartortle {
+    DataCard* _042Wartortle { new PokemonCard(
         "Wartortle", 70, EnergyType::Water, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 42, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _043Abra {
+    DataCard* _043Abra { new PokemonCard(
         "Abra", 30, EnergyType::Psychic, Stage::Basic, 0,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 43, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _044Bulbasaur {
+    DataCard* _044Bulbasaur { new PokemonCard(
         "Bulbasaur", 40, EnergyType::Grass, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 44, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _045Caterpie {
+    DataCard* _045Caterpie { new PokemonCard(
         "Caterpie", 40, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 45, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _046Charmander {
+    DataCard* _046Charmander { new PokemonCard(
         "Charmander", 50, EnergyType::Fire, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 46, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _047Diglett {
+    DataCard* _047Diglett { new PokemonCard(
         "Diglett", 30, EnergyType::Fighting, Stage::Basic, 0,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 47, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _048Doduo {
+    DataCard* _048Doduo { new PokemonCard(
         "Doduo", 50, EnergyType::Colorless, Stage::Basic, 0,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 48, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _049Drowzee {
+    DataCard* _049Drowzee { new PokemonCard(
         "Drowzee", 50, EnergyType::Psychic, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 49, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _050Gastly {
+    DataCard* _050Gastly { new PokemonCard(
         "Gastly", 30, EnergyType::Psychic, Stage::Basic, 0,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 50, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _051Koffing {
+    DataCard* _051Koffing { new PokemonCard(
         "Koffing", 50, EnergyType::Grass, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 51, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _052Machop {
+    DataCard* _052Machop { new PokemonCard(
         "Machop", 50, EnergyType::Fighting, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 52, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _053Magnemite {
+    DataCard* _053Magnemite { new PokemonCard(
         "Magnemite", 40, EnergyType::Lightning, Stage::Basic, 1,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 53, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _054Metapod {
+    DataCard* _054Metapod { new PokemonCard(
         "Metapod", 70, EnergyType::Grass, Stage::Stage1, 2,
         "Ken Sugimori", ExpansionID::BaseSet, 54, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _055NidoranM {
+    DataCard* _055NidoranM { new PokemonCard(
         "Nidoran ♂", 40, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 55, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _056Onix {
+    DataCard* _056Onix { new PokemonCard(
         "Onix", 90, EnergyType::Fighting, Stage::Basic, 3,
         "Ken Sugimori", ExpansionID::BaseSet, 56, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _057Pidgey {
+    DataCard* _057Pidgey { new PokemonCard(
         "Pidgey", 40, EnergyType::Colorless, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 57, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _058Pikachu {
+    DataCard* _058Pikachu { new PokemonCard(
         "Pikachu", 40, EnergyType::Lightning, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 58, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _059Poliwag {
+    DataCard* _059Poliwag { new PokemonCard(
         "Poliwag", 40, EnergyType::Water, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 59, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _060Ponyta {
+    DataCard* _060Ponyta { new PokemonCard(
         "Ponyta", 40, EnergyType::Fire, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 60, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _061Rattata {
+    DataCard* _061Rattata { new PokemonCard(
         "Rattata", 30, EnergyType::Colorless, Stage::Basic, 0,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 61, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _062Sandshrew {
+    DataCard* _062Sandshrew { new PokemonCard(
         "Sandshrew", 40, EnergyType::Fighting, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 62, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _063Squirtle {
+    DataCard* _063Squirtle { new PokemonCard(
         "Squirtle", 40, EnergyType::Water, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 63, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _064Starmie {
+    DataCard* _064Starmie { new PokemonCard(
         "Starmie", 60, EnergyType::Water, Stage::Stage1, 1,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 64, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _065Staryu {
+    DataCard* _065Staryu { new PokemonCard(
         "Staryu", 40, EnergyType::Water, Stage::Basic, 1,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 65, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _066Tangela {
+    DataCard* _066Tangela { new PokemonCard(
         "Tangela", 50, EnergyType::Grass, Stage::Basic, 2,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 66, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _067Voltorb {
+    DataCard* _067Voltorb { new PokemonCard(
         "Voltorb", 40, EnergyType::Lightning, Stage::Basic, 1,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 67, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _068Vulpix {
+    DataCard* _068Vulpix { new PokemonCard(
         "Vulpix", 50, EnergyType::Fire, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 68, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _069Weedle {
+    DataCard* _069Weedle { new PokemonCard(
         "Weedle", 40, EnergyType::Grass, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 69, Rarity::Common
-    };
+    )};
 
-    const TrainerCard _070ClefairyDoll {
+    DataCard* _070ClefairyDoll { new TrainerCard(
         "Clefairy Doll", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 70, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _071ComputerSearch {
+    DataCard* _071ComputerSearch { new TrainerCard(
         "Computer Search", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 71, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _072DevolutionSpray {
+    DataCard* _072DevolutionSpray { new TrainerCard(
         "Devolution Spray", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 72, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _073ImposterProfessorOak {
+    DataCard* _073ImposterProfessorOak { new TrainerCard(
         "Imposter Professor Oak", TrainerType::Item, "Ken Sugimori",
         ExpansionID::BaseSet, 73, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _074ItemFinder {
+    DataCard* _074ItemFinder { new TrainerCard(
         "Item Finder", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 74, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _075Lass {
+    DataCard* _075Lass { new TrainerCard(
         "Lass", TrainerType::Item, "Ken Sugimori",
         ExpansionID::BaseSet, 75, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _076PokémonBreeder {
+    DataCard* _076PokémonBreeder { new TrainerCard(
         "Pokémon Breeder", TrainerType::Supporter, "Ken Sugimori",
         ExpansionID::BaseSet, 76, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _077PokémonTrader {
+    DataCard* _077PokémonTrader { new TrainerCard(
         "Pokémon Trader", TrainerType::Item, "Ken Sugimori",
         ExpansionID::BaseSet, 77, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _078ScoopUp {
+    DataCard* _078ScoopUp { new TrainerCard(
         "Scoop Up", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 78, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _079SuperEnergyRemoval {
+    DataCard* _079SuperEnergyRemoval { new TrainerCard(
         "Super Energy Removal", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 79, Rarity::Rare
-    };
+    )};
 
-    const TrainerCard _080Defender {
+    DataCard* _080Defender { new TrainerCard(
         "Defender", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 80, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _081EnergyRetrieval {
+    DataCard* _081EnergyRetrieval { new TrainerCard(
         "Energy Retrieval", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 81, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _082FullHeal {
+    DataCard* _082FullHeal { new TrainerCard(
         "Full Heal", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 82, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _083Maintenance {
+    DataCard* _083Maintenance { new TrainerCard(
         "Maintenance", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 83, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _084PlusPower {
+    DataCard* _084PlusPower { new TrainerCard(
         "PlusPower", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 84, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _085PokémonCenter {
+    DataCard* _085PokémonCenter { new TrainerCard(
         "Pokémon Center", TrainerType::Stadium, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 85, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _086PokémonFlute {
+    DataCard* _086PokémonFlute { new TrainerCard(
         "Pokémon Flute", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 86, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _087Pokédex {
+    DataCard* _087Pokédex { new TrainerCard(
         "Pokédex", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 87, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _088ProfessorOak {
+    DataCard* _088ProfessorOak { new TrainerCard(
         "Professor Oak", TrainerType::Item, "Ken Sugimori",
         ExpansionID::BaseSet, 88, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _089Revive {
+    DataCard* _089Revive { new TrainerCard(
         "Revive", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 89, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _090SuperPotion {
+    DataCard* _090SuperPotion { new TrainerCard(
         "Super Potion", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 90, Rarity::Uncommon
-    };
+    )};
 
-    const TrainerCard _091Bill {
+    DataCard* _091Bill { new TrainerCard(
         "Bill", TrainerType::Supporter, "Ken Sugimori",
         ExpansionID::BaseSet, 91, Rarity::Common
-    };
+    )};
 
-    const TrainerCard _092EnergyRemoval {
+    DataCard* _092EnergyRemoval { new TrainerCard(
         "Energy Removal", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 92, Rarity::Common
-    };
+    )};
 
-    const TrainerCard _093GustofWind {
+    DataCard* _093GustofWind { new TrainerCard(
         "Gust of Wind", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 93, Rarity::Common
-    };
+    )};
 
-    const TrainerCard _094Potion {
+    DataCard* _094Potion { new TrainerCard(
         "Potion", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 94, Rarity::Common
-    };
+    )};
 
-    const TrainerCard _095Switch {
+    DataCard* _095Switch { new TrainerCard(
         "Switch", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 95, Rarity::Common
-    };
+    )};
 
-    const EnergyCard _096DoubleColorlessEnergy {
+    DataCard* _096DoubleColorlessEnergy { new EnergyCard(
         "Double Colorless Energy", false, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 96, Rarity::Uncommon
-    };
+    )};
 
-    const EnergyCard _097FightingEnergy {
+    DataCard* _097FightingEnergy { new EnergyCard(
         "Fighting Energy", true, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 97, Rarity::None
-    };
+    )};
 
-    const EnergyCard _098FireEnergy {
+    DataCard* _098FireEnergy { new EnergyCard(
         "Fire Energy", true, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 98, Rarity::None
-    };
+    )};
 
-    const EnergyCard _099GrassEnergy {
+    DataCard* _099GrassEnergy { new EnergyCard(
         "Grass Energy", true, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 99, Rarity::None
-    };
+    )};
 
-    const EnergyCard _100LightningEnergy {
+    DataCard* _100LightningEnergy { new EnergyCard(
         "Lightning Energy", true, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 100, Rarity::None
-    };
+    )};
 
-    const EnergyCard _101PsychicEnergy {
+    DataCard* _101PsychicEnergy { new EnergyCard(
         "Psychic Energy", true, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 101, Rarity::None
-    };
+    )};
 
-    const EnergyCard _102WaterEnergy {
+    DataCard* _102WaterEnergy { new EnergyCard(
         "Water Energy", true, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 102, Rarity::None
-    };
+    )};
 
 }
 
@@ -548,5 +548,5 @@ const Expansion base { "Base Set", "BS", ExpansionID::BaseSet,
 	    _093GustofWind, _094Potion, _095Switch, _096DoubleColorlessEnergy, 
 	    _097FightingEnergy, _098FireEnergy, _099GrassEnergy, _100LightningEnergy, 
 	    _101PsychicEnergy, _102WaterEnergy, 
-    }};
+	}};
 }}

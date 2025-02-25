@@ -7,331 +7,332 @@
 
 namespace Cori { namespace Expansions { namespace Jungle {
 
-    const PokemonCard _001Clefable {
+    DataCard* _001Clefable { new PokemonCard(
         "Clefable", 70, EnergyType::Colorless, Stage::Stage1, 2,
         "Mitsuhiro Arita", ExpansionID::Jungle, 1, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _002Electrode {
+    DataCard* _002Electrode { new PokemonCard(
         "Electrode", 90, EnergyType::Lightning, Stage::Stage1, 1,
         "Mitsuhiro Arita", ExpansionID::Jungle, 2, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _003Flareon {
+    DataCard* _003Flareon { new PokemonCard(
         "Flareon", 70, EnergyType::Fire, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 3, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _004Jolteon {
+    DataCard* _004Jolteon { new PokemonCard(
         "Jolteon", 70, EnergyType::Lightning, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 4, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _005Kangaskhan {
+    DataCard* _005Kangaskhan { new PokemonCard(
         "Kangaskhan", 90, EnergyType::Colorless, Stage::Basic, 3,
         "Mitsuhiro Arita", ExpansionID::Jungle, 5, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _006MrMime {
+    DataCard* _006MrMime { new PokemonCard(
         "Mr. Mime", 40, EnergyType::Psychic, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 6, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _007Nidoqueen {
+    DataCard* _007Nidoqueen { new PokemonCard(
         "Nidoqueen", 90, EnergyType::Grass, Stage::Stage2, 3,
         "Ken Sugimori", ExpansionID::Jungle, 7, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _008Pidgeot {
+    DataCard* _008Pidgeot { new PokemonCard(
         "Pidgeot", 80, EnergyType::Colorless, Stage::Stage2, 0,
         "Kagemaru Himeno", ExpansionID::Jungle, 8, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _009Pinsir {
+    DataCard* _009Pinsir { new PokemonCard(
         "Pinsir", 60, EnergyType::Grass, Stage::Basic, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 9, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _010Scyther {
+    DataCard* _010Scyther { new PokemonCard(
         "Scyther", 70, EnergyType::Grass, Stage::Basic, 0,
         "Ken Sugimori", ExpansionID::Jungle, 10, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _011Snorlax {
+    DataCard* _011Snorlax { new PokemonCard(
         "Snorlax", 90, EnergyType::Colorless, Stage::Basic, 4,
         "Ken Sugimori", ExpansionID::Jungle, 11, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _012Vaporeon {
+    DataCard* _012Vaporeon { new PokemonCard(
         "Vaporeon", 80, EnergyType::Water, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 12, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _013Venomoth {
+    DataCard* _013Venomoth { new PokemonCard(
         "Venomoth", 70, EnergyType::Grass, Stage::Stage1, 0,
         "Ken Sugimori", ExpansionID::Jungle, 13, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _014Victreebel {
+    DataCard* _014Victreebel { new PokemonCard(
         "Victreebel", 80, EnergyType::Grass, Stage::Stage2, 2,
         "Ken Sugimori", ExpansionID::Jungle, 14, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _015Vileplume {
+    DataCard* _015Vileplume { new PokemonCard(
         "Vileplume", 80, EnergyType::Grass, Stage::Stage2, 2,
         "Keiji Kinebuchi", ExpansionID::Jungle, 15, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _016Wigglytuff {
+    DataCard* _016Wigglytuff { new PokemonCard(
         "Wigglytuff", 80, EnergyType::Colorless, Stage::Stage1, 2,
         "Mitsuhiro Arita", ExpansionID::Jungle, 16, Rarity::HoloRare
-    };
+    )};
 
-    const PokemonCard _017Clefable {
+    DataCard* _017Clefable { new PokemonCard(
         "Clefable", 70, EnergyType::Colorless, Stage::Stage1, 2,
         "Mitsuhiro Arita", ExpansionID::Jungle, 17, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _018Electrode {
+    DataCard* _018Electrode { new PokemonCard(
         "Electrode", 90, EnergyType::Lightning, Stage::Stage1, 1,
         "Mitsuhiro Arita", ExpansionID::Jungle, 18, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _019Flareon {
+    DataCard* _019Flareon { new PokemonCard(
         "Flareon", 70, EnergyType::Fire, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 19, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _020Jolteon {
+    DataCard* _020Jolteon { new PokemonCard(
         "Jolteon", 70, EnergyType::Lightning, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 20, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _021Kangaskhan {
+    DataCard* _021Kangaskhan { new PokemonCard(
         "Kangaskhan", 90, EnergyType::Colorless, Stage::Basic, 3,
         "Mitsuhiro Arita", ExpansionID::Jungle, 21, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _022MrMime {
+    DataCard* _022MrMime { new PokemonCard(
         "Mr. Mime", 40, EnergyType::Psychic, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 22, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _023Nidoqueen {
+    DataCard* _023Nidoqueen { new PokemonCard(
         "Nidoqueen", 90, EnergyType::Grass, Stage::Stage2, 3,
         "Ken Sugimori", ExpansionID::Jungle, 23, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _024Pidgeot {
+    DataCard* _024Pidgeot { new PokemonCard(
         "Pidgeot", 80, EnergyType::Colorless, Stage::Stage2, 0,
         "Kagemaru Himeno", ExpansionID::Jungle, 24, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _025Pinsir {
+    DataCard* _025Pinsir { new PokemonCard(
         "Pinsir", 60, EnergyType::Grass, Stage::Basic, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 25, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _026Scyther {
+    DataCard* _026Scyther { new PokemonCard(
         "Scyther", 70, EnergyType::Grass, Stage::Basic, 0,
         "Ken Sugimori", ExpansionID::Jungle, 26, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _027Snorlax {
+    DataCard* _027Snorlax { new PokemonCard(
         "Snorlax", 90, EnergyType::Colorless, Stage::Basic, 4,
         "Ken Sugimori", ExpansionID::Jungle, 27, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _028Vaporeon {
+    DataCard* _028Vaporeon { new PokemonCard(
         "Vaporeon", 80, EnergyType::Water, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 28, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _029Venomoth {
+    DataCard* _029Venomoth { new PokemonCard(
         "Venomoth", 70, EnergyType::Grass, Stage::Stage1, 0,
         "Ken Sugimori", ExpansionID::Jungle, 29, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _030Victreebel {
+    DataCard* _030Victreebel { new PokemonCard(
         "Victreebel", 80, EnergyType::Grass, Stage::Stage2, 2,
         "Ken Sugimori", ExpansionID::Jungle, 30, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _031Vileplume {
+    DataCard* _031Vileplume { new PokemonCard(
         "Vileplume", 80, EnergyType::Grass, Stage::Stage2, 2,
         "Keiji Kinebuchi", ExpansionID::Jungle, 31, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _032Wigglytuff {
+    DataCard* _032Wigglytuff { new PokemonCard(
         "Wigglytuff", 80, EnergyType::Colorless, Stage::Stage1, 2,
         "Mitsuhiro Arita", ExpansionID::Jungle, 32, Rarity::Rare
-    };
+    )};
 
-    const PokemonCard _033Butterfree {
+    DataCard* _033Butterfree { new PokemonCard(
         "Butterfree", 70, EnergyType::Grass, Stage::Stage2, 0,
         "Kagemaru Himeno", ExpansionID::Jungle, 33, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _034Dodrio {
+    DataCard* _034Dodrio { new PokemonCard(
         "Dodrio", 70, EnergyType::Colorless, Stage::Stage1, 0,
         "Mitsuhiro Arita", ExpansionID::Jungle, 34, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _035Exeggutor {
+    DataCard* _035Exeggutor { new PokemonCard(
         "Exeggutor", 80, EnergyType::Grass, Stage::Stage1, 3,
         "Kagemaru Himeno", ExpansionID::Jungle, 35, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _036Fearow {
+    DataCard* _036Fearow { new PokemonCard(
         "Fearow", 70, EnergyType::Colorless, Stage::Stage1, 0,
         "Mitsuhiro Arita", ExpansionID::Jungle, 36, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _037Gloom {
+    DataCard* _037Gloom { new PokemonCard(
         "Gloom", 60, EnergyType::Grass, Stage::Stage1, 1,
         "Keiji Kinebuchi", ExpansionID::Jungle, 37, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _038Lickitung {
+    DataCard* _038Lickitung { new PokemonCard(
         "Lickitung", 90, EnergyType::Colorless, Stage::Basic, 3,
         "Mitsuhiro Arita", ExpansionID::Jungle, 38, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _039Marowak {
+    DataCard* _039Marowak { new PokemonCard(
         "Marowak", 60, EnergyType::Fighting, Stage::Stage1, 1,
         "Mitsuhiro Arita", ExpansionID::Jungle, 39, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _040Nidorina {
+    DataCard* _040Nidorina { new PokemonCard(
         "Nidorina", 70, EnergyType::Grass, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::Jungle, 40, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _041Parasect {
+    DataCard* _041Parasect { new PokemonCard(
         "Parasect", 60, EnergyType::Grass, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::Jungle, 41, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _042Persian {
+    DataCard* _042Persian { new PokemonCard(
         "Persian", 70, EnergyType::Colorless, Stage::Stage1, 0,
         "Kagemaru Himeno", ExpansionID::Jungle, 42, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _043Primeape {
+    DataCard* _043Primeape { new PokemonCard(
         "Primeape", 70, EnergyType::Fighting, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 43, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _044Rapidash {
+    DataCard* _044Rapidash { new PokemonCard(
         "Rapidash", 70, EnergyType::Fire, Stage::Stage1, 0,
         "Mitsuhiro Arita", ExpansionID::Jungle, 44, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _045Rhydon {
+    DataCard* _045Rhydon { new PokemonCard(
         "Rhydon", 100, EnergyType::Fighting, Stage::Stage1, 3,
         "Kagemaru Himeno", ExpansionID::Jungle, 45, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _046Seaking {
+    DataCard* _046Seaking { new PokemonCard(
         "Seaking", 70, EnergyType::Water, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 46, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _047Tauros {
+    DataCard* _047Tauros { new PokemonCard(
         "Tauros", 60, EnergyType::Colorless, Stage::Basic, 2,
         "Kagemaru Himeno", ExpansionID::Jungle, 47, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _048Weepinbell {
+    DataCard* _048Weepinbell { new PokemonCard(
         "Weepinbell", 70, EnergyType::Grass, Stage::Stage1, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 48, Rarity::Uncommon
-    };
+    )};
 
-    const PokemonCard _049Bellsprout {
+    DataCard* _049Bellsprout { new PokemonCard(
         "Bellsprout", 40, EnergyType::Grass, Stage::Basic, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 49, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _050Cubone {
+    DataCard* _050Cubone { new PokemonCard(
         "Cubone", 40, EnergyType::Fighting, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::Jungle, 50, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _051Eevee {
+    DataCard* _051Eevee { new PokemonCard(
         "Eevee", 50, EnergyType::Colorless, Stage::Basic, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 51, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _052Exeggcute {
+    DataCard* _052Exeggcute { new PokemonCard(
         "Exeggcute", 50, EnergyType::Grass, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::Jungle, 52, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _053Goldeen {
+    DataCard* _053Goldeen { new PokemonCard(
         "Goldeen", 40, EnergyType::Water, Stage::Basic, 0,
         "Kagemaru Himeno", ExpansionID::Jungle, 53, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _054Jigglypuff {
+    DataCard* _054Jigglypuff { new PokemonCard(
         "Jigglypuff", 60, EnergyType::Colorless, Stage::Basic, 1,
         "Kagemaru Himeno", ExpansionID::Jungle, 54, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _055Mankey {
+    DataCard* _055Mankey { new PokemonCard(
         "Mankey", 30, EnergyType::Fighting, Stage::Basic, 0,
         "Kagemaru Himeno", ExpansionID::Jungle, 55, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _056Meowth {
+    DataCard* _056Meowth { new PokemonCard(
         "Meowth", 50, EnergyType::Colorless, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::Jungle, 56, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _057NidoranF {
+    DataCard* _057NidoranF { new PokemonCard(
         "Nidoran ♀", 60, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 57, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _058Oddish {
+    DataCard* _058Oddish { new PokemonCard(
         "Oddish", 50, EnergyType::Grass, Stage::Basic, 1,
         "Keiji Kinebuchi", ExpansionID::Jungle, 58, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _059Paras {
+    DataCard* _059Paras { new PokemonCard(
         "Paras", 40, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 59, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _060Pikachu {
+    DataCard* _060Pikachu { new PokemonCard(
         "Pikachu", 50, EnergyType::Lightning, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 60, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _061Rhyhorn {
+    DataCard* _061Rhyhorn { new PokemonCard(
         "Rhyhorn", 70, EnergyType::Fighting, Stage::Basic, 3,
         "Mitsuhiro Arita", ExpansionID::Jungle, 61, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _062Spearow {
+    DataCard* _062Spearow { new PokemonCard(
         "Spearow", 50, EnergyType::Colorless, Stage::Basic, 0,
         "Mitsuhiro Arita", ExpansionID::Jungle, 62, Rarity::Common
-    };
+    )};
 
-    const PokemonCard _063Venonat {
+    DataCard* _063Venonat { new PokemonCard(
         "Venonat", 40, EnergyType::Grass, Stage::Basic, 1,
         "Mitsuhiro Arita", ExpansionID::Jungle, 63, Rarity::Common
-    };
+    )};
 
-    const TrainerCard _064PokéBall {
+    DataCard* _064PokéBall { new TrainerCard(
         "Poké Ball", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::Jungle, 64, Rarity::Common
-    };
+    )};
 
 }
 
 using namespace Jungle;
 const Expansion jungle { "Jungle", "JU", ExpansionID::Jungle,
-	{	    _001Clefable, _002Electrode, _003Flareon, _004Jolteon, 
+	{	    
+        _001Clefable, _002Electrode, _003Flareon, _004Jolteon, 
 	    _005Kangaskhan, _006MrMime, _007Nidoqueen, _008Pidgeot, 
 	    _009Pinsir, _010Scyther, _011Snorlax, _012Vaporeon, 
 	    _013Venomoth, _014Victreebel, _015Vileplume, _016Wigglytuff, 
@@ -346,6 +347,7 @@ const Expansion jungle { "Jungle", "JU", ExpansionID::Jungle,
 	    _049Bellsprout, _050Cubone, _051Eevee, _052Exeggcute, 
 	    _053Goldeen, _054Jigglypuff, _055Mankey, _056Meowth, 
 	    _057NidoranF, _058Oddish, _059Paras, _060Pikachu, 
-	    _061Rhyhorn, _062Spearow, _063Venonat, _064PokéBall,
+	    _061Rhyhorn, _062Spearow, _063Venonat, _064PokéBall, 
+	    
 	}};
 }}
