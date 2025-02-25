@@ -5,14 +5,16 @@
 
 namespace Cori { namespace Expansions {
     
+    Expansion base {"Base","BS",ExpansionID::BaseSet,{}};
+
     constexpr Expansion fossil { "Fossil", "FO", ExpansionID::Fossil,
         {
     
         }};
     
 
-    const std::vector<Expansion> gExpansionList {
-        base, jungle, fossil
+    const Expansion* gExpansionList[] {
+        &base, &jungle, &fossil
     };
 
 }}

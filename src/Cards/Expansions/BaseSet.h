@@ -5,7 +5,7 @@
 #include "../PokemonCard.h"
 #include "../TrainerCard.h"
 
-namespace Cori { namespace Expansions { namespace BaseSet {
+/*namespace Cori { namespace Expansions { namespace BaseSet {
 
     const PokemonCard _001Alakazam {
         "Alakazam", 80, EnergyType::Psychic, Stage::Stage2, 3,
@@ -549,4 +549,4 @@ const Expansion base { "Base Set", "BS", ExpansionID::BaseSet,
 	    _097FightingEnergy, _098FireEnergy, _099GrassEnergy, _100LightningEnergy, 
 	    _101PsychicEnergy, _102WaterEnergy, 
     }};
-}}
+}}*/

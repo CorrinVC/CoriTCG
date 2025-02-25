@@ -3,7 +3,6 @@
 #include "Card.h"
 #include "ExpansionID.h"
 #include <algorithm>
-#include <memory>
 #include <string>
 #include <vector>
 
@@ -13,7 +12,7 @@ struct Expansion {
     const std::string expansionName;
     const std::string expansionAbbreviation;
     const ExpansionID expansionID;
-    const std::vector<DataCard> cards;
+    const std::vector<DataCard*> cards;
 
     std::string expansionLowerAbbreviation() const {
         std::string abbreviation { expansionAbbreviation };
@@ -23,7 +22,7 @@ struct Expansion {
     }
 
     int cardCount() const {
-        return cards.size();
+        return std::size(cards);
     }
 };
 

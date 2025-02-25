@@ -27,15 +27,15 @@ int currentExpansionIndex { 0 };
 std::string getCurrentCardTexturePath() {
     return currentCardID > 0 
         ? std::format("cards/{}/{}{}.png", 
-            Expansions::gExpansionList[currentExpansionIndex].expansionAbbreviation, 
-            Expansions::gExpansionList[currentExpansionIndex].expansionLowerAbbreviation(),
+            Expansions::gExpansionList[currentExpansionIndex]->expansionAbbreviation, 
+            Expansions::gExpansionList[currentExpansionIndex]->expansionLowerAbbreviation(),
             currentCardID) 
         : "card-back.png";
 }
 
 void changeCardInfo(UIImage* image, UITextbox* textbox) {
     image->changeTexture(getCurrentCardTexturePath());
-    textbox->setText(Expansions::gExpansionList[currentExpansionIndex].cards[currentCardID - 1].getCardName());
+    textbox->setText(Expansions::gExpansionList[currentExpansionIndex]->cards[currentCardID - 1]->getCardName());
     textbox->centerText();
 }
 
@@ -71,7 +71,7 @@ void initSetViewerState() {
     incrementButton->createClickFunction(
         [=]() {
             if(currentCardID > 0 && 
-                currentCardID < Expansions::gExpansionList[currentExpansionIndex].cardCount()) {
+                currentCardID < Expansions::gExpansionList[currentExpansionIndex]->cardCount()) {
                 ++currentCardID;
                 changeCardInfo(mainCardDisplay, currentCardTextbox);
             }
