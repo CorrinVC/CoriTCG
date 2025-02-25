@@ -27,20 +27,28 @@ int currentExpansionIndex { 0 };
 std::string getCurrentCardTexturePath() {
     return currentCardID > 0 
         ? std::format("cards/{}/{}{}.png", 
-            Expansions::gExpansionList[currentExpansionIndex]->expansionAbbreviation, 
+            Expansions::gExpansionList[currentExpansionIndex]->expansionAbbreviation(), 
             Expansions::gExpansionList[currentExpansionIndex]->expansionLowerAbbreviation(),
             currentCardID) 
         : "card-back.png";
 }
 
+sf::Texture getCurrentCardTexture() {
+    return sf::Texture( 
+        currentCardID > 0
+        ? Expansions::gExpansionList[currentExpansionIndex]->cards[currentCardID - 1]->mTexture
+        : sf::Texture("card-back.png")
+    );
+}
+
 void changeCardInfo(UIImage* image, UITextbox* textbox) {
-    image->changeTexture(getCurrentCardTexturePath());
+    image->changeTexture(getCurrentCardTexture());
     textbox->setText(Expansions::gExpansionList[currentExpansionIndex]->cards[currentCardID - 1]->mCardName);
     textbox->centerText();
 }
 
 void initSetViewerState() {
-    std::cout << Expansions::BaseSet::_001Alakazam->mCardName.toAnsiString() << std::endl;
+    //std::cout << Expansions::BaseSet::_001Alakazam->mCardName.toAnsiString() << std::endl;
 
     UIImage* mainCardDisplay = new UIImage(centeredCardPosition().x, centeredCardPosition().y + 50.0f, getCurrentCardTexturePath());
     //mainCardDisplay->setSize({ gCardWidth, gCardHeight });

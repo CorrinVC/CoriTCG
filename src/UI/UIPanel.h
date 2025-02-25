@@ -14,6 +14,7 @@ protected:
 public:
     UIPanel(float width, float height);
     UIPanel(float x, float y, float width, float height);
+    ~UIPanel();
 
     void update();
     void draw(sf::RenderWindow& window);
@@ -21,6 +22,7 @@ public:
     void addElement(UIElement* element);
 
     sf::View& getView();
+    std::vector<UIElement*>& getElements();
 };
 
 }

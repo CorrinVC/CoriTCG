@@ -12,12 +12,6 @@ Window::Window(std::string_view title, int width, int height)
 {
     //Initialize mouse manager
     gMouseManager.setWindow(mWindow);
-    //Initialize states
-    MainMenu::initMenuState();
-    SetViewer::initSetViewerState();
-    SetFullView::initFullViewState();
-
-    gSetState(SetFullView::gSetFullViewState);
 }
 
 void Window::update() {

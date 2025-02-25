@@ -8,6 +8,12 @@ void gSetState(State& state) {
     gCurrentState = &state;
 }
 
+State::~State() {
+    for(auto* e : mUIElements) {
+        delete e;
+    }
+}
+
 void State::update() { 
     for (auto* e : mUIElements) {
         e->update();

@@ -520,7 +520,7 @@ namespace Cori { namespace Expansions { namespace BaseSet {
 }
 
 using namespace BaseSet;
-const Expansion base { "Base Set", "BS", ExpansionID::BaseSet,
+Expansion base { "Base Set", ExpansionID::BaseSet,
 	{
 	    _001Alakazam, _002Blastoise, _003Chansey, _004Charizard, 
 	    _005Clefairy, _006Gyarados, _007Hitmonchan, _008Machamp, 

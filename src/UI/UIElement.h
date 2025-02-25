@@ -32,6 +32,7 @@ protected:
 public:
     UIElement(float width, float height);
     UIElement(float x, float y, float width, float height);
+    virtual ~UIElement() {}
 
     // Used in relative position functions
     enum ScreenPosition {
@@ -45,6 +46,7 @@ public:
         ScreenBottomRight,
     };
 
+    virtual void setPosition(float x, float y);
     // Set relative position functions
     void setPositionRelativeTo(ScreenPosition position, float offset = 0.0f);
     void setPositionRelativeTo(ScreenPosition position, float xOffset, float yOffset);

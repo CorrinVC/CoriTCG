@@ -11,15 +11,20 @@ UIPanel::UIPanel(float x, float y, float width, float height)
 , mPanelView { sf::FloatRect({ x, y }, { width, height }) }
 { }
 
+UIPanel::~UIPanel() {
+    for(auto* element : mPanelElements)
+        delete element;
+}
+
 void UIPanel::update() {
-    for(UIElement* element : mPanelElements)
+    for(auto* element : mPanelElements)
         element->update();
 }
 
 void UIPanel::draw(sf::RenderWindow& window) {
     window.setView(mPanelView);
 
-    for(UIElement* element : mPanelElements)
+    for(auto* element : mPanelElements)
         element->draw(window);
 
     window.setView(window.getDefaultView());
@@ -31,6 +36,10 @@ void UIPanel::addElement(UIElement* element) {
 
 sf::View& UIPanel::getView() {
     return mPanelView;
+}
+
+std::vector<UIElement*>& UIPanel::getElements() {
+    return mPanelElements;
 }
 
 }

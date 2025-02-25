@@ -70,6 +70,10 @@ sf::Vector2f UIElement::getStartPosition(ScreenPosition position) {
     return {};
 }
 
+void UIElement::setPosition(float x, float y) {
+    mRect.setPosition({ x, y });
+}
+
 // Sets UIElement position relative to predetermined screen positions
 void UIElement::setPositionRelativeTo(ScreenPosition position, float offset) {
     // Get screen position

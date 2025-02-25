@@ -34,6 +34,8 @@ enum EnergyType {
 };
 
 class DataCard {
+protected:
+
 public:
     const sf::String mCardName {};
     const CardType mCardType {};
@@ -44,7 +46,9 @@ public:
     const int mCardNumber {};
     const Rarity mRarity {};
 
-    constexpr DataCard(const sf::String name, const CardType type, const std::string_view illustrator,
+    const sf::Texture mTexture {};
+
+    DataCard(const sf::String name, const CardType type, const std::string_view illustrator,
         const ExpansionID expansion, const int cardNumber, const Rarity rarity)
     : mCardName { name }
     , mCardType { type }
@@ -52,7 +56,13 @@ public:
     , mExpansion { expansion }
     , mCardNumber { cardNumber }
     , mRarity { rarity }
-    {}
+    , mTexture { 
+        std::format("res/cards/{}/{}{}.png",
+            Expansions::getExpansionAbbreviation(expansion),
+            Expansions::getExpansionLowerAbbreviation(expansion),
+            cardNumber) 
+    }
+    { }
 };
 
 //constexpr DataCard card {"Penis", CardType::Energy, "Bob", Expansions::base, 0, Rarity::None};

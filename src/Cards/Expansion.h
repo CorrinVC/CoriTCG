@@ -10,15 +10,15 @@ namespace Cori {
 
 struct Expansion {
     const std::string expansionName;
-    const std::string expansionAbbreviation;
     const ExpansionID expansionID;
     const std::vector<DataCard*> cards;
 
+    std::string expansionAbbreviation() const {
+        return Expansions::getExpansionAbbreviation(expansionID);
+    }
+
     std::string expansionLowerAbbreviation() const {
-        std::string abbreviation { expansionAbbreviation };
-        for(auto& ch : abbreviation)
-            ch = std::tolower(static_cast<unsigned char>(ch));
-        return abbreviation;
+        return Expansions::getExpansionLowerAbbreviation(expansionID);
     }
 
     int cardCount() const {

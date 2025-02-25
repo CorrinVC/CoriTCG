@@ -330,7 +330,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
 }
 
 using namespace Jungle;
-const Expansion jungle { "Jungle", "JU", ExpansionID::Jungle,
+Expansion jungle { "Jungle", ExpansionID::Jungle,
 	{	    
         _001Clefable, _002Electrode, _003Flareon, _004Jolteon, 
 	    _005Kangaskhan, _006MrMime, _007Nidoqueen, _008Pidgeot, 

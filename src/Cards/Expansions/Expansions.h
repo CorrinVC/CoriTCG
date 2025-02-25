@@ -1,18 +1,14 @@
 #pragma once
 
-#include "BaseSet.h"
-#include "Jungle.h"
+#include "../Expansion.h"
+#include <vector>
 
 namespace Cori { namespace Expansions {
 
-    constexpr Expansion fossil { "Fossil", "FO", ExpansionID::Fossil,
-        {
+    extern Expansion base;
+    extern Expansion jungle;
+    extern Expansion fossil;
     
-        }};
-    
-
-    const Expansion* gExpansionList[] {
-        &base, &jungle, &fossil
-    };
+    extern std::vector<Expansion*> gExpansionList;
 
 }}

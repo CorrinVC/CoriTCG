@@ -10,6 +10,8 @@ class State {
 protected:
     std::vector<UIElement*> mUIElements {};
 public:    
+    ~State();
+
     void update();
     void draw(sf::RenderWindow& window);
 

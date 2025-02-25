@@ -13,7 +13,7 @@ void initMenuState() {
     testButton->setPositionRelativeTo(UIElement::ScreenCenter);
     testButton->createClickFunction(
         []() {
-            gSetState(SetViewer::gSetViewerState);    
+            gSetState(SetFullView::gSetFullViewState);    
         }
     );
     testButton->setHoverColor(sf::Color::Green);

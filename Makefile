@@ -4,11 +4,11 @@ CXX_FLAGS := -Wall -Wextra -std=c++23 -ggdb
 BIN		:= bin
 
 SRC		:= src
+INPUT   := src/Input
 STATES  := src/States
 UI      := src/UI
-INPUT   := src/Input
 
-FILES   := $(SRC)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp $(INPUT)/*.cpp
+FILES   := $(SRC)/*.cpp src/Cards/ExpansionID.cpp src/Cards/Expansions/Expansions.cpp $(INPUT)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp
 
 INCLUDE	:= include
 LIB		:= lib
