@@ -52,7 +52,7 @@ sf::Text& UITextbox::getRenderText() {
     return mText;
 }
 
-void UITextbox::setText(const std::string& text) {
+void UITextbox::setText(const sf::String& text) {
     mText.setString(text);
 }
 

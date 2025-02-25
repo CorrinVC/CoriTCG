@@ -278,7 +278,7 @@ namespace Cori { namespace Expansions { namespace BaseSet {
     )};
 
     DataCard* _055NidoranM { new PokemonCard(
-        "Nidoran ♂", 40, EnergyType::Grass, Stage::Basic, 1,
+        L"Nidoran ♂", 40, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 55, Rarity::Common
     )};
 
@@ -383,12 +383,12 @@ namespace Cori { namespace Expansions { namespace BaseSet {
     )};
 
     DataCard* _076PokémonBreeder { new TrainerCard(
-        "Pokémon Breeder", TrainerType::Supporter, "Ken Sugimori",
+        L"Pokémon Breeder", TrainerType::Supporter, "Ken Sugimori",
         ExpansionID::BaseSet, 76, Rarity::Rare
     )};
 
     DataCard* _077PokémonTrader { new TrainerCard(
-        "Pokémon Trader", TrainerType::Item, "Ken Sugimori",
+        L"Pokémon Trader", TrainerType::Item, "Ken Sugimori",
         ExpansionID::BaseSet, 77, Rarity::Rare
     )};
 
@@ -428,17 +428,17 @@ namespace Cori { namespace Expansions { namespace BaseSet {
     )};
 
     DataCard* _085PokémonCenter { new TrainerCard(
-        "Pokémon Center", TrainerType::Stadium, "Keiji Kinebuchi",
+        L"Pokémon Center", TrainerType::Stadium, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 85, Rarity::Uncommon
     )};
 
     DataCard* _086PokémonFlute { new TrainerCard(
-        "Pokémon Flute", TrainerType::Item, "Keiji Kinebuchi",
+        L"Pokémon Flute", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 86, Rarity::Uncommon
     )};
 
     DataCard* _087Pokédex { new TrainerCard(
-        "Pokédex", TrainerType::Item, "Keiji Kinebuchi",
+        L"Pokédex", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::BaseSet, 87, Rarity::Uncommon
     )};
 

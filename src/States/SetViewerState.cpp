@@ -35,17 +35,18 @@ std::string getCurrentCardTexturePath() {
 
 void changeCardInfo(UIImage* image, UITextbox* textbox) {
     image->changeTexture(getCurrentCardTexturePath());
-    textbox->setText(Expansions::gExpansionList[currentExpansionIndex]->cards[currentCardID - 1]->getCardName());
+    textbox->setText(Expansions::gExpansionList[currentExpansionIndex]->cards[currentCardID - 1]->mCardName);
     textbox->centerText();
 }
 
 void initSetViewerState() {
+    std::cout << Expansions::BaseSet::_001Alakazam->mCardName.toAnsiString() << std::endl;
 
     UIImage* mainCardDisplay = new UIImage(centeredCardPosition().x, centeredCardPosition().y + 50.0f, getCurrentCardTexturePath());
     //mainCardDisplay->setSize({ gCardWidth, gCardHeight });
     gSetViewerState.addUIElement(mainCardDisplay);
 
-    UITextbox* currentCardTextbox = new UITextbox(300.0f, 60.0f, "Big Schmenis");
+    UITextbox* currentCardTextbox = new UITextbox(300.0f, 60.0f, "", true);
     currentCardTextbox->setPositionRelativeTo(UIElement::ScreenTop, 65.0f);
     currentCardTextbox->centerText();
     //expansionTextbox->centerText();

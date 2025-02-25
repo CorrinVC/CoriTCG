@@ -288,7 +288,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
     )};
 
     DataCard* _057NidoranF { new PokemonCard(
-        "Nidoran ♀", 60, EnergyType::Grass, Stage::Basic, 1,
+        L"Nidoran ♀", 60, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 57, Rarity::Common
     )};
 
@@ -323,7 +323,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
     )};
 
     DataCard* _064PokéBall { new TrainerCard(
-        "Poké Ball", TrainerType::Item, "Keiji Kinebuchi",
+        L"Poké Ball", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::Jungle, 64, Rarity::Common
     )};
 

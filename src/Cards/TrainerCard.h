@@ -12,10 +12,10 @@ enum TrainerType {
 };
 
 class TrainerCard : public DataCard {
-protected:
-    const TrainerType mTrainerType {};
 public:
-    constexpr TrainerCard(const std::string_view name, const TrainerType trainerType, 
+    const TrainerType mTrainerType {};
+
+    constexpr TrainerCard(const sf::String name, const TrainerType trainerType, 
         const std::string_view illustrator, const ExpansionID expansion, 
         const int cardNumber, const Rarity rarity)
     : DataCard(name, CardType::Trainer, illustrator, expansion, cardNumber, rarity)

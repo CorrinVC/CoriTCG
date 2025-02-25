@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ExpansionID.h"
+#include <SFML/Graphics.hpp>
 #include <string>
 #include <string_view>
 
@@ -15,11 +16,11 @@ enum CardType {
     Energy
 };
 enum Rarity {
+    None,
     HoloRare,
     Rare,
     Uncommon,
-    Common,
-    None
+    Common
 };
 enum EnergyType {
     NoType,
@@ -33,8 +34,8 @@ enum EnergyType {
 };
 
 class DataCard {
-protected:
-    const std::string mCardName {};
+public:
+    const sf::String mCardName {};
     const CardType mCardType {};
 
     const std::string mCardIllustrator {};
@@ -42,8 +43,8 @@ protected:
     const ExpansionID mExpansion;
     const int mCardNumber {};
     const Rarity mRarity {};
-public:
-    constexpr DataCard(const std::string_view name, const CardType type, const std::string_view illustrator,
+
+    constexpr DataCard(const sf::String name, const CardType type, const std::string_view illustrator,
         const ExpansionID expansion, const int cardNumber, const Rarity rarity)
     : mCardName { name }
     , mCardType { type }
@@ -52,10 +53,6 @@ public:
     , mCardNumber { cardNumber }
     , mRarity { rarity }
     {}
-    
-    constexpr const std::string& getCardName() const {
-        return mCardName;
-    }
 };
 
 //constexpr DataCard card {"Penis", CardType::Energy, "Bob", Expansions::base, 0, Rarity::None};

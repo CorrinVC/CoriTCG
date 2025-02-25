@@ -32,7 +32,7 @@ public:
     const std::string getText();
     sf::Text& getRenderText();
 
-    void setText(const std::string& text);
+    void setText(const sf::String& text);
 
     void setTextColor(const sf::Color color);
     void setTextHoverColor(const sf::Color color);

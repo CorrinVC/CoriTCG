@@ -12,7 +12,7 @@ enum Stage {
 
 // Name, HP, Type, Stage, Retreat, Illus., Exp., Card#, Rarity
 class PokemonCard : public DataCard {
-protected:
+public:
     const int mHP {};
     const EnergyType mEnergyType {};
 
@@ -22,8 +22,8 @@ protected:
     EnergyType mWeakness {};
     EnergyType mResistance {};
     const int mRetreatCost {};
-public:
-    constexpr PokemonCard(const std::string_view name, const int hp, 
+
+    constexpr PokemonCard(const sf::String name, const int hp, 
         const EnergyType energyType, const Stage stage, const int retreatCost, 
         const std::string_view illustrator, const ExpansionID expansion, 
         const int cardNumber, const Rarity rarity)
