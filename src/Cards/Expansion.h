@@ -3,6 +3,7 @@
 #include "Card.h"
 #include "ExpansionID.h"
 #include <algorithm>
+#include <memory>
 #include <string>
 #include <vector>
 

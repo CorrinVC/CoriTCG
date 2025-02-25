@@ -287,7 +287,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
         "Mitsuhiro Arita", ExpansionID::Jungle, 56, Rarity::Common
     };
 
-    const PokemonCard _057Nidoran {
+    const PokemonCard _057NidoranF {
         "Nidoran ♀", 60, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 57, Rarity::Common
     };
@@ -345,7 +345,7 @@ const Expansion jungle { "Jungle", "JU", ExpansionID::Jungle,
 	    _045Rhydon, _046Seaking, _047Tauros, _048Weepinbell, 
 	    _049Bellsprout, _050Cubone, _051Eevee, _052Exeggcute, 
 	    _053Goldeen, _054Jigglypuff, _055Mankey, _056Meowth, 
-	    _057Nidoran, _058Oddish, _059Paras, _060Pikachu, 
+	    _057NidoranF, _058Oddish, _059Paras, _060Pikachu, 
 	    _061Rhyhorn, _062Spearow, _063Venonat, _064PokéBall,
 	}};
 }}

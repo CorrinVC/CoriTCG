@@ -277,7 +277,7 @@ namespace Cori { namespace Expansions { namespace BaseSet {
         "Ken Sugimori", ExpansionID::BaseSet, 54, Rarity::Common
     };
 
-    const PokemonCard _055Nidoran {
+    const PokemonCard _055NidoranM {
         "Nidoran ♂", 40, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::BaseSet, 55, Rarity::Common
     };
@@ -535,7 +535,7 @@ const Expansion base { "Base Set", "BS", ExpansionID::BaseSet,
 	    _041Seel, _042Wartortle, _043Abra, _044Bulbasaur, 
 	    _045Caterpie, _046Charmander, _047Diglett, _048Doduo, 
 	    _049Drowzee, _050Gastly, _051Koffing, _052Machop, 
-	    _053Magnemite, _054Metapod, _055Nidoran, _056Onix, 
+	    _053Magnemite, _054Metapod, _055NidoranM, _056Onix, 
 	    _057Pidgey, _058Pikachu, _059Poliwag, _060Ponyta, 
 	    _061Rattata, _062Sandshrew, _063Squirtle, _064Starmie, 
 	    _065Staryu, _066Tangela, _067Voltorb, _068Vulpix, 

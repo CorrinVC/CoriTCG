@@ -10,6 +10,7 @@ namespace Cori { namespace Expansions {
     
         }};
     
+
     const std::vector<Expansion> gExpansionList {
         base, jungle, fossil
     };

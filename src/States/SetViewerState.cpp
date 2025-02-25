@@ -6,6 +6,7 @@
 #include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
 #include <format>
+#include <iostream>
 
 namespace Cori {
 
