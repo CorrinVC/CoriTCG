@@ -24,6 +24,7 @@ public:
     void setPosition(float x, float y);
     void setScale(float scaleFactor);
     void setScale(float scaleX, float scaleY);
+    void setSize();
 };
 
 }

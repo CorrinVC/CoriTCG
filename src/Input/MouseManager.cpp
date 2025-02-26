@@ -40,8 +40,8 @@ void MouseManager::setMouseButtonReleased(sf::Mouse::Button button) {
 }
 
 // Gets Mouse Position relative to window
-sf::Vector2i MouseManager::getMousePosition() {
-    return sf::Mouse::getPosition(*sWindow);
+sf::Vector2f MouseManager::getMousePosition() {
+    return { float(sf::Mouse::getPosition(*sWindow).x), float(sf::Mouse::getPosition(*sWindow).y) };
 }
 
 // Checks Button Pressed State

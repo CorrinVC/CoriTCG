@@ -53,7 +53,7 @@ void updatePanelScale(UIPanel* panel) {
 void initFullViewState() {
     UIPanel* panel = new UIPanel(gWindowWidth, gWindowHeight * 0.9f);
 
-    UIElement* bkgd = new UIElement(gWindowWidth, gWindowHeight);
+    UIElement* bkgd = new UIElement(panel->getWidth(), panel->getHeight());
     bkgd->setBackgroundColor(sf::Color(255, 100, 100));
     panel->addElement(bkgd);
 

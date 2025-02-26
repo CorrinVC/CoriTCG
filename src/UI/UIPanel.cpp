@@ -24,8 +24,16 @@ void UIPanel::update() {
 void UIPanel::draw(sf::RenderWindow& window) {
     window.setView(mPanelView);
 
-    for(auto* element : mPanelElements)
-        element->draw(window);
+    int i = 0;
+    for(auto* element : mPanelElements) {
+        if(inBounds({ element->getX(), element->getY() })
+            || inBounds({ element->getX() + element->getWidth() - 1, element->getY() + element->getHeight() - 1 })) {
+                element->draw(window);
+                ++i;
+                //std::cout << element->getWidth() << ',' << element->getHeight() << std::endl;
+        }
+    }
+    std::cout << "Drawing " << i << " elements" << std::endl;
 
     window.setView(window.getDefaultView());
 }

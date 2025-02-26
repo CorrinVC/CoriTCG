@@ -21,7 +21,7 @@ UIDropdown::UIDropdown(float x, float y, float width, float height,
 }
 
 // Overridden in bounds method to check if position is inside dropped down bounds
-bool UIDropdown::inBounds(const sf::Vector2i& position) {
+bool UIDropdown::inBounds(const sf::Vector2f& position) {
     if(mDroppedDown)
         return (position.x >= getX() && position.x <= getX() + mWidth
             && position.y >= getY() && position.y <= getY() + mHeight * (1 + mTextValues.size()));

@@ -13,7 +13,7 @@ unsigned int generateUICharSize(float height) {
 
 //Generic Func to check if vector x,y is within bounds
 //Used primarily for mouse position
-bool UIElement::inBounds(const sf::Vector2i& position) {
+bool UIElement::inBounds(const sf::Vector2f& position) {
     return (position.x >= getX() && position.x <= getX() + mWidth)
         && (position.y >= getY() && position.y <= getY() + mHeight);
 }
@@ -106,6 +106,8 @@ void UIElement::setPositionRelativeTo(const UIElement& element, float xOffset, f
 }
 
 void UIElement::setSize(const sf::Vector2f& size) {
+    mWidth = size.x;
+    mHeight = size.y;
     mRect.setSize(size);
 }
 

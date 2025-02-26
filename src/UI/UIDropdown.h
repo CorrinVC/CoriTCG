@@ -14,7 +14,7 @@ private:
     sf::Color mTextColor;
     bool mDroppedDown { false };
 
-    bool inBounds(const sf::Vector2i& position) override;
+    bool inBounds(const sf::Vector2f& position) override;
 
     //Default dropdown text
     sf::Text mBaseText { gUIFont };

@@ -22,7 +22,7 @@ public:
     void setMouseButtonReleased(sf::Mouse::Button button);
 
     // Input Getters
-    sf::Vector2i getMousePosition();
+    sf::Vector2f getMousePosition();
     bool getMouseButtonPressed(sf::Mouse::Button button);
     bool getMouseButtonReleased(sf::Mouse::Button button);
 };

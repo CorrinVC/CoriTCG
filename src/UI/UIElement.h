@@ -23,7 +23,7 @@ protected:
     std::function<void(void)> mClickFunc {};
  
     // Check if position in mRect bounds
-    virtual bool inBounds(const sf::Vector2i& position);
+    virtual bool inBounds(const sf::Vector2f& position);
 
     // Hovering & Pressed States
     bool hovering { false };
@@ -52,7 +52,7 @@ public:
     void setPositionRelativeTo(ScreenPosition position, float xOffset, float yOffset);
     void setPositionRelativeTo(const UIElement& element, float xOffset, float yOffset);
 
-    void setSize(const sf::Vector2f& size);
+    virtual void setSize(const sf::Vector2f& size);
 
     void setTransparent();
     void setBackgroundColor(const sf::Color color);
