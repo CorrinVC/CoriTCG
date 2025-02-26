@@ -21,20 +21,22 @@ void UIPanel::update() {
         element->update();
 }
 
-void UIPanel::draw(sf::RenderWindow& window) {
-    window.setView(mPanelView);
+void UIPanel::drawElements(sf::RenderWindow& window) {
+    window.draw(mRect);
 
-    int i = 0;
     for(auto* element : mPanelElements) {
         if(inBounds({ element->getX(), element->getY() })
             || inBounds({ element->getX() + element->getWidth() - 1, element->getY() + element->getHeight() - 1 })) {
-                element->draw(window);
-                ++i;
+                element->draw(window);\
                 //std::cout << element->getWidth() << ',' << element->getHeight() << std::endl;
         }
     }
-    std::cout << "Drawing " << i << " elements" << std::endl;
 
+}
+
+void UIPanel::draw(sf::RenderWindow& window) {
+    window.setView(mPanelView);
+    drawElements(window);
     window.setView(window.getDefaultView());
 }
 

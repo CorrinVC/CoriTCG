@@ -105,6 +105,10 @@ void UIElement::setPositionRelativeTo(const UIElement& element, float xOffset, f
     mRect.move({ xOffset, yOffset });
 }
 
+void UIElement::move(float x, float y) {
+    mRect.move({ x, y });
+}
+
 void UIElement::setSize(const sf::Vector2f& size) {
     mWidth = size.x;
     mHeight = size.y;

@@ -11,13 +11,14 @@ protected:
     sf::View mPanelView;
     std::vector<UIElement*> mPanelElements {};
 
+    void drawElements(sf::RenderWindow& window);
 public:
     UIPanel(float width, float height);
     UIPanel(float x, float y, float width, float height);
-    ~UIPanel();
+    virtual ~UIPanel();
 
-    void update();
-    void draw(sf::RenderWindow& window);
+    virtual void update();
+    virtual void draw(sf::RenderWindow& window);
 
     void addElement(UIElement* element);
 

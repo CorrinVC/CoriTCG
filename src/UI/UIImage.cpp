@@ -63,6 +63,11 @@ void UIImage::setPosition(float x, float y) {
     mSprite.setPosition({ x, y });
 }
 
+void UIImage::move(float x, float y) {
+    UIElement::move(x, y);
+    mSprite.move({ x, y });
+}
+
 void UIImage::setScale(float scaleFactor) {
     setScale(scaleFactor, scaleFactor);
 }

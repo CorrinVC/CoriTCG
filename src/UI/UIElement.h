@@ -52,6 +52,8 @@ public:
     void setPositionRelativeTo(ScreenPosition position, float xOffset, float yOffset);
     void setPositionRelativeTo(const UIElement& element, float xOffset, float yOffset);
 
+    virtual void move(float x, float y);
+
     virtual void setSize(const sf::Vector2f& size);
 
     void setTransparent();

@@ -4,7 +4,8 @@
 #include "../Cards/Expansions/Expansions.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIImage.h"
-#include "../UI/UIPanel.h"
+#include "../UI/UIScrollBar.h"
+#include "../UI/UIScrollPanel.h"
 #include <format>
 #include <iostream>
 
@@ -12,6 +13,7 @@ namespace Cori { namespace SetFullView {
 
 State gSetFullViewState {};
 
+//int nonCardElementCount { 0 };
 float currentScale { 2.0f };
 int currentImgCount { 102 };
 float regionBorder { 12.0f };
@@ -34,7 +36,7 @@ void updateImgTransformations(std::vector<UIElement*>& elements) {
     cardsPerLine = int((gWindowWidth - regionBorder * 2) / (gCardWidth / currentScale + cardGap));
 
     for(int i = 0; i < currentImgCount; ++i) {
-        UIImage* ptr { static_cast<UIImage*>(elements[i + 1]) };
+        UIImage* ptr { static_cast<UIImage*>(elements[i]) };
         ptr->setScale(1.0f / currentScale);
         setImgPosition(i, ptr);
     }
@@ -51,11 +53,8 @@ void updatePanelScale(UIPanel* panel) {
 }
 
 void initFullViewState() {
-    UIPanel* panel = new UIPanel(gWindowWidth, gWindowHeight * 0.9f);
-
-    UIElement* bkgd = new UIElement(panel->getWidth(), panel->getHeight());
-    bkgd->setBackgroundColor(sf::Color(255, 100, 100));
-    panel->addElement(bkgd);
+    UIScrollPanel* panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, UIScrollBar(20.0f, 50.0f));
+    panel->setBackgroundColor(sf::Color(255, 100, 100));
 
     //panel->getView().setScissor({{ 0.05f, 0.08f }, { 0.9f, 0.8f }});
     for(int i = 0; i < currentImgCount; ++i) {
@@ -88,33 +87,27 @@ void initFullViewState() {
         }
     );
 
-    UIButton* downsize = new UIButton(0.0f, gWindowHeight - 50.0f, 50.0f, 50.0f);
-    downsize->getTextbox().setText("-");
-    downsize->createClickFunction(
+    UIButton* scrollDown = new UIButton(0.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
+    scrollDown->getTextbox().setText("-");
+    scrollDown->createClickFunction(
         [=]() {
-            if(panelScaleFactor > 0.1f) {
-                panelScaleFactor -= 0.1f;
-                updatePanelScale(panel);
-            }
+            panel->offsetElements(0.0f, 1.0f);
         }
     );
 
-    UIButton* upsize = new UIButton(gWindowWidth - 50.0f, gWindowHeight - 50.0f, 50.0f, 50.0f);
-    upsize->getTextbox().setText("+");
-    upsize->createClickFunction(
+    UIButton* scrollUp = new UIButton(gWindowWidth - 50.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
+    scrollUp->getTextbox().setText("+");
+    scrollUp->createClickFunction(
         [=]() {
-            if(panelScaleFactor < 1.0f) {
-                panelScaleFactor += 0.1f;
-                updatePanelScale(panel);
-            }
+            panel->offsetElements(0.0f, -1.0f);
         }
     );
 
     gSetFullViewState.addUIElement(panel);
     gSetFullViewState.addUIElement(scaleDown);
-    gSetFullViewState.addUIElement(scaleUp);
-    gSetFullViewState.addUIElement(upsize);
-    gSetFullViewState.addUIElement(downsize);
+    //gSetFullViewState.addUIElement(scaleUp);
+    gSetFullViewState.addUIElement(scrollUp);
+    gSetFullViewState.addUIElement(scrollDown);
 }
 
 
