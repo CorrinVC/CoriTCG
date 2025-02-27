@@ -1,6 +1,5 @@
 #pragma once
 
-#include "States/State.h"
 #include <SFML/Graphics.hpp>
 
 namespace Cori {
@@ -15,8 +14,6 @@ private:
     const int mWidth {}, mHeight {};
 
     sf::RenderWindow mWindow {};
-
-    //MenuState menuState {};
     
 public:
     Window(std::string_view title, int width, int height);

@@ -23,7 +23,7 @@ public:
     EnergyType mResistance {};
     const int mRetreatCost {};
 
-    constexpr PokemonCard(const sf::String name, const int hp, 
+    PokemonCard(const sf::String name, const int hp, 
         const EnergyType energyType, const Stage stage, const int retreatCost, 
         const std::string_view illustrator, const ExpansionID expansion, 
         const int cardNumber, const Rarity rarity)
@@ -34,17 +34,17 @@ public:
     , mRetreatCost { retreatCost }
     {}
 
-    constexpr PokemonCard& evolvesFrom(const std::string_view evolvesFrom) {
+    constexpr PokemonCard* evolvesFrom(const std::string_view evolvesFrom) {
         mEvolvesFrom = evolvesFrom;
-        return *this;
+        return this;
     }
-    constexpr PokemonCard& weakTo(const EnergyType type) {
+    constexpr PokemonCard* weakTo(const EnergyType type) {
         mWeakness = type;
-        return *this;
+        return this;
     }
-    constexpr PokemonCard& resists(const EnergyType type) {
+    constexpr PokemonCard* resists(const EnergyType type) {
         mResistance = type;
-        return *this;
+        return this;
     }
 };
 

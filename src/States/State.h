@@ -18,20 +18,21 @@ public:
     void addUIElement(UIElement* e);
 };
 
+// Global Current State Ptr
 extern State* gCurrentState;
 void gSetState(State& state);
 
-namespace MainMenu {
+namespace MainMenu { // Main Menu State
 extern State gMenuState;
 extern void initMenuState();
 }
 
-namespace SetViewer {
+namespace SetViewer { // Individual Card View State
 extern State gSetViewerState;
 extern void initSetViewerState();
 }
 
-namespace SetFullView {
+namespace SetFullView { // Full Expansion View State
 extern State gSetFullViewState;
 extern void initFullViewState();
 }

@@ -2,7 +2,6 @@
 
 namespace Cori {
 
-
 UIButton::UIButton(float width, float height)
 : UIButton(0.0f, 0.0f, width, height) {}
 
@@ -27,6 +26,7 @@ void UIButton::draw(sf::RenderWindow& window) {
         mTextbox.draw(window);
 }
 
+// Change - Write Wrapper Functions
 UITextbox& UIButton::getTextbox() {
     return mTextbox;
 }

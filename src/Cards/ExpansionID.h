@@ -11,6 +11,8 @@ enum ExpansionID {
 };
 
 namespace Expansions {
+    // Defined in ExpansionID.cpp
+
     std::string getExpansionAbbreviation(ExpansionID expansion);
 
     std::string getExpansionLowerAbbreviation(ExpansionID expansion);

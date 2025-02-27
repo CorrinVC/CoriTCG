@@ -6,6 +6,9 @@
 
 namespace Cori {
 
+// Global Card Back Texture, Defined in UIImage.cpp
+extern sf::Texture gCardBackTexture;
+
 class UIImage: public UIElement {
 private:
     sf::Texture mImage;
@@ -24,7 +27,9 @@ public:
     void setPosition(float x, float y);
     void move(float x, float y);
 
+    // Scale Uniformly
     void setScale(float scaleFactor);
+    // Scale Non-Uniformly
     void setScale(float scaleX, float scaleY);
     void setSize();
 };

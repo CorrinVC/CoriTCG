@@ -40,6 +40,7 @@ public:
     const sf::String mCardName {};
     const CardType mCardType {};
 
+    // Possible Change - Refactor to sf::String
     const std::string mCardIllustrator {};
 
     const ExpansionID mExpansion;

@@ -7,6 +7,7 @@
 
 namespace Cori {
 
+// Defined in UIDropdown.cpp as ""
 extern std::string gDefaultString;
 
 class UIDropdown: public UIElement {
@@ -32,8 +33,9 @@ private:
 
     void initTextValues(const std::vector<std::string>& values);
     int mSelectedIndex {}; // Dropdown selected index
-    std::string mSelectedText { gDefaultString };
+    std::string mSelectedText { gDefaultString }; // Dropdown selected text
 
+    // Drawable Boxes for Dropped Down Values
     std::vector<sf::RectangleShape> mDropdownRectangles {};
     void initDropdownRectangles(const std::vector<std::string>& values);
 

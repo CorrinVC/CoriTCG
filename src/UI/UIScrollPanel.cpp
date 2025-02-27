@@ -9,9 +9,7 @@ UIScrollPanel::UIScrollPanel(float width, float height, UIScrollBar scrollBar)
 UIScrollPanel::UIScrollPanel(float x, float y, float width, float height, UIScrollBar scrollBar)
 : UIPanel(x, y, width, height)
 , mScrollBar { scrollBar }
-{
-    //addElement(mScrollBar);
-}
+{}
 
 void UIScrollPanel::offsetElements(float xOffset, float yOffset) {
     for(auto* element : mPanelElements)
@@ -22,7 +20,7 @@ void UIScrollPanel::draw(sf::RenderWindow& window) {
     window.setView(mPanelView);
 
     drawElements(window);
-    mScrollBar.draw(window);
+    mScrollBar.draw(window); // Draw ScrollBar within view, on top of all elements
 
     window.setView(window.getDefaultView());
 }

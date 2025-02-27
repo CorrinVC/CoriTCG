@@ -21,14 +21,16 @@ void UIPanel::update() {
         element->update();
 }
 
+// Helper Function for Subclasses Drawing Elements Besides mPanelElements Members
 void UIPanel::drawElements(sf::RenderWindow& window) {
     window.draw(mRect);
 
     for(auto* element : mPanelElements) {
-        if(inBounds({ element->getX(), element->getY() })
-            || inBounds({ element->getX() + element->getWidth() - 1, element->getY() + element->getHeight() - 1 })) {
-                element->draw(window);\
-                //std::cout << element->getWidth() << ',' << element->getHeight() << std::endl;
+        if(inBounds({ element->getX(), element->getY() }) // Checks if Element Top Left is inBounds
+            // Checks if Element Bottom Right is inBounds
+            || inBounds({ element->getX() + element->getWidth() - 1, 
+                          element->getY() + element->getHeight() - 1 })) {
+            element->draw(window);
         }
     }
 
@@ -36,7 +38,9 @@ void UIPanel::drawElements(sf::RenderWindow& window) {
 
 void UIPanel::draw(sf::RenderWindow& window) {
     window.setView(mPanelView);
+
     drawElements(window);
+
     window.setView(window.getDefaultView());
 }
 

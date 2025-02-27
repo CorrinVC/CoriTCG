@@ -20,6 +20,7 @@ public:
     void update();
     void draw(sf::RenderWindow& window) override;
 
+    // Write Wrapper Functions
     UITextbox& getTextbox();
 };
 

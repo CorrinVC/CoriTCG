@@ -7,10 +7,12 @@
 
 namespace Cori { namespace Expansions { namespace BaseSet {
 
-    DataCard* _001Alakazam { new PokemonCard(
+    DataCard* _001Alakazam { (new PokemonCard(
         "Alakazam", 80, EnergyType::Psychic, Stage::Stage2, 3,
-        "Ken Sugimori", ExpansionID::BaseSet, 1, Rarity::HoloRare
-    )};
+        "Ken Sugimori", ExpansionID::BaseSet, 1, Rarity::HoloRare))
+    ->evolvesFrom("Kadabra")
+    ->weakTo(EnergyType::Psychic)
+    };
 
     DataCard* _002Blastoise { new PokemonCard(
         "Blastoise", 100, EnergyType::Water, Stage::Stage2, 3,

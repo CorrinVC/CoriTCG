@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "Input/MouseManager.h"
+#include "States/State.h"
 #include <optional>
 
 namespace Cori {
@@ -10,24 +11,25 @@ Window::Window(std::string_view title, int width, int height)
 , mHeight { height } 
 , mWindow { sf::VideoMode({static_cast<unsigned int>(width), static_cast<unsigned int>(height)}), mTitle }
 {
-    //Initialize mouse manager
+    // Initialize mouse manager
     gMouseManager.setWindow(mWindow);
 }
 
 void Window::update() {
-    gMouseManager.update();
+    gMouseManager.update(); // Reset Mouse Input Flags
 
     // Poll Events
     while(const std::optional event = mWindow.pollEvent()) {
         // Window Closed Event
         if(event->is<sf::Event::Closed>())
-            mWindow.close();
-        // Mouse Released Event
+            mWindow.close(); //Close Window
+        // Mouse Pressed Event
         else if(const auto* buttonPressed = event->getIf<sf::Event::MouseButtonPressed>())
         {
-            //Set Mouse Pressed Flag
+            // Set Mouse Pressed Flag
             gMouseManager.setMouseButtonPressed(buttonPressed->button);
         }
+        // Mouse Released Event
         else if(const auto* buttonReleased = event->getIf<sf::Event::MouseButtonReleased>())
         {
             // Set Mouse Left Released Flag
@@ -48,6 +50,7 @@ void Window::draw() {
     mWindow.display();
 }
 
+// Getters
 bool Window::isOpen() const { return mWindow.isOpen(); }
 sf::RenderWindow& Window::getRenderWindow() { return mWindow; }
 

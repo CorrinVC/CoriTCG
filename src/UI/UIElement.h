@@ -21,6 +21,9 @@ protected:
 
     //Unique click function
     std::function<void(void)> mClickFunc {};
+
+    // Rework to include factors other than element height?
+    unsigned int generateUICharSize(float height);
  
     // Check if position in mRect bounds
     virtual bool inBounds(const sf::Vector2f& position);
@@ -60,7 +63,8 @@ public:
     void setBackgroundColor(const sf::Color color);
     void setHoverColor(const sf::Color color);
     void setPressedColor(const sf::Color color);
-    // On Click behaviour
+
+    // Mouse Input Related Behaviour
     void createClickFunction(std::function<void(void)> func);
     virtual void onClick();
     virtual void onHover();
@@ -79,8 +83,7 @@ private:
     sf::Vector2f getStartPosition(ScreenPosition position);
 };
 
+// Default UI Font, Defined in UIElement.cpp
 extern sf::Font gUIFont;
-
-unsigned int generateUICharSize(float height);
 
 }

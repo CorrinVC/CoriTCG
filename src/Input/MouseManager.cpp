@@ -1,5 +1,4 @@
 #include "MouseManager.h"
-#include <iostream>
 
 namespace Cori {
 

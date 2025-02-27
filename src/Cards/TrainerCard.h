@@ -11,11 +11,12 @@ enum TrainerType {
     Stadium
 };
 
+// Name, Trainer Type, Illustrator, ExpansionID, #, Rarity
 class TrainerCard : public DataCard {
 public:
     const TrainerType mTrainerType {};
 
-    constexpr TrainerCard(const sf::String name, const TrainerType trainerType, 
+    TrainerCard(const sf::String name, const TrainerType trainerType, 
         const std::string_view illustrator, const ExpansionID expansion, 
         const int cardNumber, const Rarity rarity)
     : DataCard(name, CardType::Trainer, illustrator, expansion, cardNumber, rarity)

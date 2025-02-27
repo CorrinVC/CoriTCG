@@ -18,6 +18,8 @@ public:
 
     // Sets Window for relative mouse position
     void setWindow(sf::RenderWindow& window);
+
+    // Input Setters
     void setMouseButtonPressed(sf::Mouse::Button button);
     void setMouseButtonReleased(sf::Mouse::Button button);
 

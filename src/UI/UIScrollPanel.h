@@ -15,7 +15,7 @@ public:
 
 
     void offsetElements(float xOffset, float yOffset);
-    //void update();
+    
     void draw(sf::RenderWindow& window);
 };
 

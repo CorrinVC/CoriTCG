@@ -9,18 +9,21 @@ void gSetState(State& state) {
 }
 
 State::~State() {
+    // Free UIElement Ptrs
     for(auto* e : mUIElements) {
         delete e;
     }
 }
 
 void State::update() { 
+    // Update UIElements
     for (auto* e : mUIElements) {
         e->update();
     }
 }
 
 void State::draw(sf::RenderWindow& window) {
+    // Render UIElements
     for(auto* e : mUIElements) {
         e->draw(window);
     }

@@ -7,7 +7,8 @@ namespace Cori {
 // Default Global Font
 sf::Font gUIFont { "res/fonts/C059-Roman.pfb" };
 
-unsigned int generateUICharSize(float height) {
+// Return Scaled Font Size Relative to Element Height
+unsigned int UIElement::generateUICharSize(float height) {
     return static_cast<unsigned int>(height * 0.6f);
 }
 
@@ -150,6 +151,7 @@ void UIElement::onClick()  {
     if(mClickFunc) mClickFunc();
 }
 
+// Change Background Color When Hovering
 void UIElement::onHover() {
     if(hovering)
         mRect.setFillColor(mHoverColor);
@@ -157,36 +159,36 @@ void UIElement::onHover() {
         mRect.setFillColor(mBackgroundColor);
 }
 
+// Change Background Color if Pressed
 void UIElement::onPress() {
     if(pressed)
         mRect.setFillColor(mPressColor);
-    else if(hovering)
-        mRect.setFillColor(mHoverColor);
     else
-        mRect.setFillColor(mBackgroundColor);
+        onHover();
 }
 
 void UIElement::update() {
-    //Check if element clicked
     if(inBounds(gMouseManager.getMousePosition())) {
-        if(!hovering) {
+        if(!hovering) { // Sets Hover State if not already hovering
             hovering = true;
             onHover();
         }
+        // Element Pressed State
         if(gMouseManager.getMouseButtonPressed(sf::Mouse::Button::Left)) {
             pressed = true;
             onPress();
         } else if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)) {
             onClick();
+            // Update Pressed Behaviour
             pressed = false;
             onPress();
         }
     } else {
-        if(hovering) {
+        if(hovering) { // Clear Hovering
             hovering = false;
             onHover();
         }
-        if(pressed) {
+        if(pressed) { // Clear Pressed
             pressed = false;
             onPress();
         }

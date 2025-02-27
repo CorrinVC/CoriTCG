@@ -20,12 +20,13 @@ UIDropdown::UIDropdown(float x, float y, float width, float height,
     initDropdownRectangles(values);
 }
 
-// Overridden in bounds method to check if position is inside dropped down bounds
+// Overridden inBounds method to check if position is inside dropped down bounds
+// Invokes Base UIElement Functionality if not Dropped Down
 bool UIDropdown::inBounds(const sf::Vector2f& position) {
     if(mDroppedDown)
         return (position.x >= getX() && position.x <= getX() + mWidth
             && position.y >= getY() && position.y <= getY() + mHeight * (1 + mTextValues.size()));
-    else
+    else 
         return UIElement::inBounds(position);
 }
 
@@ -34,7 +35,7 @@ void UIDropdown::initBaseText() {
     mBaseText.setFillColor(mTextColor);
 
     mBaseText.setCharacterSize(generateUICharSize(mHeight));
-    mBaseText.setPosition({ 
+    mBaseText.setPosition({ // 0.2f * charsize scale adjuster
         getX() + mBaseText.getCharacterSize() * 0.2f, 
         getY() + mBaseText.getCharacterSize() * 0.2f 
     });
@@ -42,7 +43,7 @@ void UIDropdown::initBaseText() {
 
 void UIDropdown::initDownArrow() {
     mDownArrowText.setString("^");
-    mDownArrowText.setRotation({ sf::degrees(180) });
+    mDownArrowText.setRotation({ sf::degrees(180) }); // Rotate so it's upside down
     mDownArrowText.setFillColor(mTextColor);
 
     mDownArrowText.setCharacterSize(generateUICharSize(mHeight));
@@ -86,15 +87,18 @@ void UIDropdown::update() {
     if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)
         && inBounds(gMouseManager.getMousePosition())) {
         if(mDroppedDown) {
+            // Set Dropdown Index to Respective Entry Rectangle
             int dropdownIndex = (gMouseManager.getMousePosition().y - getY()) / mHeight;
+            // Adjust for Base Dropdown Rect
             mSelectedIndex = dropdownIndex - 1;
-            if(dropdownIndex > 0) {
-                mSelectedText = mTextValues[dropdownIndex - 1];
+            if(dropdownIndex > 0) { // Base Rect not clicked
+                mSelectedText = mTextValues[mSelectedIndex];
                 mBaseText.setString(mSelectedText);
-            } else {
-                mSelectedText = gDefaultString;
+            } else { // Base Rect Clicked
+                // Set to empty string for default comparison purposes
+                mSelectedText = gDefaultString; 
             }
-        } else {
+        } else { // To Change Base Text from Entry Text to Original
             mBaseText.setString(mBaseString);
         }
         onClick();
@@ -107,7 +111,7 @@ void UIDropdown::draw(sf::RenderWindow& window) {
     window.draw(mBaseText);
     if(!mDroppedDown)
         window.draw(mDownArrowText);
-    else {
+    else { // Draw Dropped Down Menu
         for(sf::RectangleShape& rect : mDropdownRectangles)
             window.draw(rect);
         for(sf::Text& text : mSFTexts)
