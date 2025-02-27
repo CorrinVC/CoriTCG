@@ -7,7 +7,7 @@ int main() {
     Cori::SetViewer::initSetViewerState();
     Cori::SetFullView::initFullViewState();
 
-    Cori::gSetState(Cori::SetViewer::gSetViewerState);
+    Cori::gSetState(Cori::MainMenu::gMenuState);
     
     // Initialize Window
     Cori::Window window("CoriTCG", Cori::gWindowWidth, Cori::gWindowHeight);

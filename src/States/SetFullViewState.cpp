@@ -57,7 +57,7 @@ void updatePanelScale(UIPanel* panel) {
 
 void initFullViewState() {
     // Main Panel on which to Display main Card UIImages
-    UIScrollPanel* panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, UIScrollBar(20.0f, 50.0f));
+    UIScrollPanel* panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     panel->setBackgroundColor(sf::Color(255, 100, 100));
 
     // Initialize Amount of UIImages equal to Current Expansion Card Count
