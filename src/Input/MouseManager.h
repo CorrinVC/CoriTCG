@@ -1,12 +1,16 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 namespace Cori {
 
 class MouseManager {
 private:
-    sf::RenderWindow* sWindow {};
+    sf::RenderWindow* mWindow {};
+
+    bool mInView { false };
+    sf::View* mView {};
 
     // Mouse Input Flags
     bool mMouseLeftPressed { false };
@@ -18,6 +22,10 @@ public:
 
     // Sets Window for relative mouse position
     void setWindow(sf::RenderWindow& window);
+
+    // View Control
+    void setInView(bool inView = true);
+    void setInView(sf::View& view);
 
     // Input Setters
     void setMouseButtonPressed(sf::Mouse::Button button);

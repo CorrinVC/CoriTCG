@@ -1,4 +1,5 @@
 #include "UIScrollPanel.h"
+#include "../Input/MouseManager.h"
 
 namespace Cori {
 
@@ -17,8 +18,10 @@ void UIScrollPanel::offsetElements(float xOffset, float yOffset) {
 }
 
 void UIScrollPanel::update() {
+    gMouseManager.setInView(mPanelView);
     mScrollBar.update();
-    UIPanel::update();
+    updateElements();
+    gMouseManager.setInView(false);
 }
 
 void UIScrollPanel::draw(sf::RenderWindow& window) {

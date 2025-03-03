@@ -1,4 +1,5 @@
 #include "UIPanel.h"
+#include "../Input/MouseManager.h"
 
 namespace Cori {
 
@@ -16,9 +17,15 @@ UIPanel::~UIPanel() {
         delete element;
 }
 
-void UIPanel::update() {
+void UIPanel::updateElements() {
     for(auto* element : mPanelElements)
         element->update();
+}
+
+void UIPanel::update() {
+    gMouseManager.setInView(mPanelView);
+    updateElements();
+    gMouseManager.setInView(false);
 }
 
 // Helper Function for Subclasses Drawing Elements Besides mPanelElements Members

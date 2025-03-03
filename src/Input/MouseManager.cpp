@@ -15,7 +15,18 @@ void MouseManager::update() {
 }
 
 void MouseManager::setWindow(sf::RenderWindow& window) {
-    sWindow = &window;
+    mWindow = &window;
+}
+
+// Sets In View Var, Defaults to True
+void MouseManager::setInView(bool inView) {
+    mInView = inView;
+}
+
+// Use setInView(false) to set out of view
+void MouseManager::setInView(sf::View& view) {
+    setInView();
+    mView = &view;
 }
 
 // Sets Mouse Pressed Flags
@@ -40,7 +51,10 @@ void MouseManager::setMouseButtonReleased(sf::Mouse::Button button) {
 
 // Gets Mouse Position relative to window
 sf::Vector2f MouseManager::getMousePosition() {
-    return { float(sf::Mouse::getPosition(*sWindow).x), float(sf::Mouse::getPosition(*sWindow).y) };
+    if(mInView)
+        return mWindow->mapPixelToCoords(sf::Mouse::getPosition(*mWindow), *mView);
+    else
+        return { float(sf::Mouse::getPosition(*mWindow).x), float(sf::Mouse::getPosition(*mWindow).y) };
 }
 
 // Checks Button Pressed State

@@ -12,6 +12,7 @@ protected:
     std::vector<UIElement*> mPanelElements {};
 
     // Helper Function For Subclasses
+    void updateElements();
     void drawElements(sf::RenderWindow& window);
 public:
     UIPanel(float width, float height);
