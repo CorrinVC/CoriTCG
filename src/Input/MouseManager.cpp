@@ -6,7 +6,8 @@ MouseManager gMouseManager {};
 
 // Clear Mouse Input Flags
 void MouseManager::resetFlags() {
-    if(mMouseLeftPressed) mMouseLeftPressed = false;
+    if(mMouseLeftPressed && !sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) 
+        mMouseLeftPressed = false;
     if(mMouseLeftReleased) mMouseLeftReleased = false;
 }
 

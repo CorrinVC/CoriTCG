@@ -1,4 +1,6 @@
 #include "UIScrollBar.h"
+#include "../Input/MouseManager.h"
+#include <algorithm>
 
 namespace Cori {
 
@@ -22,6 +24,27 @@ UIScrollBar::UIScrollBar(float x, float y, float width, float height, float scro
     mScrollBarBkgd.setFillColor(sf::Color(200, 200, 200));
 }
 
+void UIScrollBar::onPress() {
+    if(!pressed && gMouseManager.getMouseButtonPressed(sf::Mouse::Button::Left))
+        pressed = true;
+    UIElement::onPress();
+}
+
+void UIScrollBar::update() {
+    UIElement::update();
+    if(pressed) {
+        setPosition(
+            getX(), 
+            std::max(0.0f, 
+                std::min(gMouseManager.getMousePosition().y - (mHeight / 2),
+                mScrollAreaHeight - mHeight))
+        );
+    }
+
+    // FIX SCROLL OFFSET CALCULATIONS
+    //mScrollOffset = int(getY()) - mScrollOffset;
+}
+
 void UIScrollBar::draw(sf::RenderWindow& window) {
     window.draw(mScrollBarBkgd);
     UIElement::draw(window);
@@ -29,6 +52,10 @@ void UIScrollBar::draw(sf::RenderWindow& window) {
 
 void UIScrollBar::setScrollBarBkgdColor(sf::Color color) {
     mScrollBarBkgd.setFillColor(color);
+}
+
+int UIScrollBar::getScrollOffset() {
+    return mScrollOffset;
 }
 
 }

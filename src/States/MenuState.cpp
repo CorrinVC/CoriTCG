@@ -12,6 +12,7 @@ void initMenuState() {
     // "Play" Button
     UIButton* testButton = new UIButton(100.0f, 60.0f);
     testButton->setPositionRelativeTo(UIElement::ScreenCenter);
+    testButton->setPressedColor(sf::Color::Red);
     testButton->setHoverColor(sf::Color::Green);
     testButton->setBackgroundColor(sf::Color::Cyan);
 
@@ -22,6 +23,7 @@ void initMenuState() {
     );
 
     testButton->getTextbox().setText("Play");
+    testButton->getTextbox().setTextPressedColor(sf::Color::Black);
     testButton->getTextbox().setTextHoverColor(sf::Color::Magenta);
     testButton->getTextbox().setTextColor(sf::Color::Red);
     testButton->getTextbox().centerTextRelativeTo(*testButton);

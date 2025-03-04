@@ -20,6 +20,7 @@ void UIScrollPanel::offsetElements(float xOffset, float yOffset) {
 void UIScrollPanel::update() {
     gMouseManager.setInView(mPanelView);
     mScrollBar.update();
+    offsetElements(0.0f, float(mScrollBar.getScrollOffset()));
     updateElements();
     gMouseManager.setInView(false);
 }
