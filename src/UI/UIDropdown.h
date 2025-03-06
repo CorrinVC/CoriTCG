@@ -50,6 +50,8 @@ public:
 
     int getSelectedIndex();
     std::string& getSelectedText();
+
+    void setSelectedIndex(int index);
 };
 
 }

@@ -127,4 +127,10 @@ std::string& UIDropdown::getSelectedText() {
     return mSelectedText;
 }
 
+void UIDropdown::setSelectedIndex(int index) {
+    mSelectedIndex = index;
+    mSelectedText = mTextValues[mSelectedIndex];
+    mBaseText.setString(mSelectedText);
+}
+
 }

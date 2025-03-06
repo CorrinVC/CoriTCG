@@ -7,10 +7,13 @@ namespace MainMenu {
 
 State gMenuState {};
 
+// UI Elements
+UIButton* testButton;
+
 void initMenuState() {
 
     // "Play" Button
-    UIButton* testButton = new UIButton(100.0f, 60.0f);
+    testButton = new UIButton(100.0f, 60.0f);
     testButton->setPositionRelativeTo(UIElement::ScreenCenter);
     testButton->setPressedColor(sf::Color::Red);
     testButton->setHoverColor(sf::Color::Green);

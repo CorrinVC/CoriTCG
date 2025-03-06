@@ -55,9 +55,17 @@ void updatePanelScale(UIPanel* panel) {
     });
 }
 
+// UI Elements
+UIScrollPanel* panel;
+
+UIButton* scaleDown;
+UIButton* scaleUp;
+UIButton* scrollDown;
+UIButton* scrollUp;
+
 void initFullViewState() {
     // Main Panel on which to Display main Card UIImages
-    UIScrollPanel* panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
+    panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     panel->setBackgroundColor(sf::Color(255, 100, 100));
     panel->setInnerBorder(regionBorder);
 
@@ -65,6 +73,15 @@ void initFullViewState() {
     // Rework? Needs Functionality for Changing Amount of Cards to Display
     for(int i = 0; i < currentImgCount; ++i) {
         UIImage* image = new UIImage(getIndexedPosition(i).x, getIndexedPosition(i).y, Expansions::gExpansionList[0]->cards[i]->mTexture);
+        image->createClickFunction(
+            [=]() {
+                SetViewer::currentCardID = i + 1;
+                SetViewer::currentExpansionIndex = 0;
+                SetViewer::changeCardInfo();
+                SetViewer::expansionDropdown->setSelectedIndex(0);
+                gSetState(SetViewer::gSetViewerState);
+            }
+        );
         image->setScale(1.0f / currentScale);
         panel->addElement(image);
     }
@@ -73,7 +90,7 @@ void initFullViewState() {
     panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
 
     // Temporary? Scales UIElements Down
-    UIButton* scaleDown = new UIButton(0.0f, 0.0f, 50.0f, 50.0f);
+    scaleDown = new UIButton(0.0f, 0.0f, 50.0f, 50.0f);
     scaleDown->getTextbox().setText("Down");
     scaleDown->createClickFunction(
         [=]() {
@@ -84,7 +101,7 @@ void initFullViewState() {
     );
 
     // Temporary? Scales UIElements Up
-    UIButton* scaleUp = new UIButton(gWindowWidth - 50.0f, 0.0f, 50.0f, 50.0f);
+    scaleUp = new UIButton(gWindowWidth - 50.0f, 0.0f, 50.0f, 50.0f);
     scaleUp->getTextbox().setText("Up");
     scaleUp->createClickFunction(
         [=]() {
@@ -97,7 +114,7 @@ void initFullViewState() {
     );
 
     // Temporary Button in Place of Scroll Functionality
-    UIButton* scrollDown = new UIButton(0.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
+    scrollDown = new UIButton(0.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
     scrollDown->getTextbox().setText("-");
     scrollDown->createClickFunction(
         [=]() {
@@ -106,7 +123,7 @@ void initFullViewState() {
     );
 
     // Temporary Button in Place of Scroll Functionality
-    UIButton* scrollUp = new UIButton(gWindowWidth - 50.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
+    scrollUp = new UIButton(gWindowWidth - 50.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
     scrollUp->getTextbox().setText("+");
     scrollUp->createClickFunction(
         [=]() {

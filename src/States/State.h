@@ -1,6 +1,10 @@
 #pragma once
 
 #include "../UI/UIElement.h"
+#include "../UI/UIButton.h"
+#include "../UI/UIDropdown.h"
+#include "../UI/UIImage.h"
+#include "../UI/UITextbox.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -30,6 +34,17 @@ extern void initMenuState();
 namespace SetViewer { // Individual Card View State
 extern State gSetViewerState;
 extern void initSetViewerState();
+
+extern int currentCardID;
+extern int currentExpansionIndex;
+extern void changeCardInfo();
+// UI Elements
+extern UIImage* mainCardDisplay;
+extern UITextbox* currentCardTextbox;
+extern UIDropdown* expansionDropdown;
+
+extern UIButton* incrementButton;
+extern UIButton* decrementButton;
 }
 
 namespace SetFullView { // Full Expansion View State
