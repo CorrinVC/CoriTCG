@@ -9,6 +9,8 @@ namespace Cori {
 class UIElement {
 protected:
 
+    // Original Positions, Used For Offsetting
+    float mOriginX {}, mOriginY {};
     float mWidth {}, mHeight {};
 
     // Bounding rectangle
@@ -24,6 +26,8 @@ protected:
 
     // Rework to include factors other than element height?
     unsigned int generateUICharSize(float height);
+
+    void updateOrigin(float x, float y);
  
     // Check if position in mRect bounds
     virtual bool inBounds(const sf::Vector2f& position);
@@ -56,6 +60,8 @@ public:
     void setPositionRelativeTo(const UIElement& element, float xOffset, float yOffset);
 
     virtual void move(float x, float y);
+    void resetToOrigin();
+    virtual void offsetFromOrigin(float xOffset, float yOffset);
 
     virtual void setSize(const sf::Vector2f& size);
 
@@ -76,6 +82,8 @@ public:
     // Getters
     float getX() const { return mRect.getPosition().x; }
     float getY() const { return mRect.getPosition().y; }
+    float getOriginX() const { return mOriginX; }
+    float getOriginY() const { return mOriginY; }
     float getWidth() const { return mWidth; }
     float getHeight() const { return mHeight; }
 

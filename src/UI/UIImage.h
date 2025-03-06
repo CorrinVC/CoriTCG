@@ -26,6 +26,7 @@ public:
     
     void setPosition(float x, float y);
     void move(float x, float y);
+    void offsetFromOrigin(float xOffset, float yOffset);
 
     // Scale Uniformly
     void setScale(float scaleFactor);

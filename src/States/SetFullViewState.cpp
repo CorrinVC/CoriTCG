@@ -13,7 +13,7 @@ State gSetFullViewState {};
 
 float currentScale { 2.0f }; // Card Image Scale Factor (Represented as 1/x)
 int currentImgCount { 102 }; // Temporary - Replace with Expansion var & Expansion Card Count var
-float regionBorder { 12.0f }; // CHANGE? Panel Inner Padding, in Pixels
+const float regionBorder { 12.0f }; // CHANGE? Panel Inner Padding, in Pixels
 float cardGap { regionBorder - currentScale }; // Padding Between Cards, in Pixels
 
 // Amount of Cards that fit in a row, given Scale, Gap, and Border
@@ -59,6 +59,7 @@ void initFullViewState() {
     // Main Panel on which to Display main Card UIImages
     UIScrollPanel* panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     panel->setBackgroundColor(sf::Color(255, 100, 100));
+    panel->setInnerBorder(regionBorder);
 
     // Initialize Amount of UIImages equal to Current Expansion Card Count
     // Rework? Needs Functionality for Changing Amount of Cards to Display
@@ -78,6 +79,7 @@ void initFullViewState() {
         [=]() {
             currentScale += 1.0f;
             updateImgTransformations(panel->getElements());
+            panel->calculateContentHeight();
         }
     );
 
@@ -89,6 +91,7 @@ void initFullViewState() {
             if(currentScale > 1.0f) {
                 currentScale -= 1.0f;
                 updateImgTransformations(panel->getElements());
+                panel->calculateContentHeight();
             }
         }
     );
@@ -111,11 +114,12 @@ void initFullViewState() {
         }
     );
 
+    panel->calculateContentHeight();
     gSetFullViewState.addUIElement(panel);
     gSetFullViewState.addUIElement(scaleDown);
     gSetFullViewState.addUIElement(scaleUp);
-    gSetFullViewState.addUIElement(scrollUp);
-    gSetFullViewState.addUIElement(scrollDown);
+    //gSetFullViewState.addUIElement(scrollUp);
+    //gSetFullViewState.addUIElement(scrollDown);
 }
 
 

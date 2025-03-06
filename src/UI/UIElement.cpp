@@ -25,7 +25,8 @@ UIElement::UIElement(float width, float height)
 
 // 'Default' constructor
 UIElement::UIElement(float x, float y, float width, float height)
-: mWidth { width }, mHeight { height }
+: mOriginX { x }, mOriginY { y }
+, mWidth { width }, mHeight { height }
 , mRect { { width, height } }
 {
     mRect.setPosition( {x, y} );
@@ -71,8 +72,14 @@ sf::Vector2f UIElement::getStartPosition(ScreenPosition position) {
     return {};
 }
 
+void UIElement::updateOrigin(float x, float y) {
+    mOriginX = x;
+    mOriginY = y;
+}
+
 void UIElement::setPosition(float x, float y) {
     mRect.setPosition({ x, y });
+    updateOrigin(x, y);
 }
 
 // Sets UIElement position relative to predetermined screen positions
@@ -92,22 +99,33 @@ void UIElement::setPositionRelativeTo(ScreenPosition position, float offset) {
         break;
     default: break;
     }
+    updateOrigin(mRect.getPosition().x, mRect.getPosition().y);
 }
 
 // Sets UIElement position relative to screen position with comprehensive offsetting
 void UIElement::setPositionRelativeTo(ScreenPosition position, float xOffset, float yOffset) {
     mRect.setPosition(getStartPosition(position));
     mRect.move({ xOffset, yOffset });
+    updateOrigin(mRect.getPosition().x, mRect.getPosition().y);
 }
 
 // Sets UIElement position relative to other UIElement position
 void UIElement::setPositionRelativeTo(const UIElement& element, float xOffset, float yOffset) {
     mRect.setPosition({ element.getX(), element.getY() });
     mRect.move({ xOffset, yOffset });
+    updateOrigin(element.getX() + xOffset, element.getY() + yOffset);
 }
 
 void UIElement::move(float x, float y) {
     mRect.move({ x, y });
+}
+
+void UIElement::resetToOrigin() {
+    mRect.setPosition({ mOriginX, mOriginY });
+}
+
+void UIElement::offsetFromOrigin(float xOffset, float yOffset) {
+    mRect.setPosition({ mOriginX + xOffset, mOriginY + yOffset });
 }
 
 void UIElement::setSize(const sf::Vector2f& size) {

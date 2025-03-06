@@ -54,8 +54,8 @@ void UIScrollBar::setScrollBarBkgdColor(sf::Color color) {
     mScrollBarBkgd.setFillColor(color);
 }
 
-int UIScrollBar::getScrollOffset() {
-    return mScrollOffset;
+void UIScrollBar::setBarHeight(float height) {
+    setSize({ getWidth(), height });
 }
 
 }

@@ -67,6 +67,11 @@ void UIImage::move(float x, float y) {
     mSprite.move({ x, y });
 }
 
+void UIImage::offsetFromOrigin(float xOffset, float yOffset) {
+    UIElement::offsetFromOrigin(xOffset, yOffset);
+    mSprite.setPosition({ mOriginX + xOffset, mOriginY + yOffset });
+}
+
 void UIImage::setScale(float scaleFactor) {
     setScale(scaleFactor, scaleFactor);
 }
