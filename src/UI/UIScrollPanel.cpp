@@ -17,17 +17,33 @@ void UIScrollPanel::offsetElements(float xOffset, float yOffset) {
         element->offsetFromOrigin(xOffset, yOffset);
 }
 
-void UIScrollPanel::update() {
-    gMouseManager.setInView(mPanelView);
-
-    mScrollBar.update();
+// Check if Mouse Clicked Outside of Panel
+void mouseCheck(bool clickedOut, bool onOff) {
+    if(clickedOut)
+        gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, onOff);
+}
+void UIScrollPanel::updateScrollOffset() {
     if(mScrollOffset != mScrollBar.getY()) {
         mScrollOffset = mScrollBar.getY();
         // Scale Scroll Offset by Content Height
         offsetElements(0.0f, -mScrollOffset / (mHeight / mContentHeight));
     }
+}
+
+void UIScrollPanel::update() {
+    gMouseManager.setInView(mPanelView);
+    bool mouseClickOutOfPanel {
+        gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left) &&
+        !inBounds(gMouseManager.getMousePosition())
+    };
+    mouseCheck(mouseClickOutOfPanel, false); // Turn Off Mouse Click
+
+    mScrollBar.update();
+    updateScrollOffset();
 
     updateElements();
+
+    mouseCheck(mouseClickOutOfPanel, true); // Turn Mouse Click Back On
     gMouseManager.setInView(false);
 }
 
@@ -41,11 +57,15 @@ void UIScrollPanel::draw(sf::RenderWindow& window) {
 }
 
 void UIScrollPanel::calculateContentHeight() {
+    double previousContentHeight = mContentHeight;
+
     mContentHeight = 
         mPanelElements.back()->getOriginY() +
         mPanelElements.back()->getHeight() +
         mInnerBorder;
 
+    if(mContentHeight > previousContentHeight)
+        mScrollBar.setPosition(mScrollBar.getX(), mScrollBar.getY() * (previousContentHeight / mContentHeight));
     mScrollBar.setBarHeight(mHeight * std::min(mHeight / mContentHeight, 1.0));
 
     if(mScrollBar.getY() + mScrollBar.getHeight() > mHeight)

@@ -22,6 +22,7 @@ public:
     void update();
     void draw(sf::RenderWindow& window);
 
+    void updateScrollOffset();
     void calculateContentHeight();
 
     void setInnerBorder(float border);

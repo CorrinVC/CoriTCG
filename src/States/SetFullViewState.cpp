@@ -11,6 +11,15 @@ namespace Cori { namespace SetFullView {
 
 State gSetFullViewState {};
 
+// UI Elements
+UIDropdown* expansionDropdown;
+UIScrollPanel* panel;
+
+UIButton* scaleDown;
+UIButton* scaleUp;
+UIButton* scrollDown;
+UIButton* scrollUp;
+
 float currentScale { 2.0f }; // Card Image Scale Factor (Represented as 1/x)
 int currentImgCount { 102 }; // Temporary - Replace with Expansion var & Expansion Card Count var
 const float regionBorder { 12.0f }; // CHANGE? Panel Inner Padding, in Pixels
@@ -18,6 +27,9 @@ float cardGap { regionBorder - currentScale }; // Padding Between Cards, in Pixe
 
 // Amount of Cards that fit in a row, given Scale, Gap, and Border
 int cardsPerLine { int((gWindowWidth - regionBorder * 2) / (gCardWidth / currentScale + cardGap)) };
+
+// Current Set Vars
+int currentExpansionIndex { 0 };
 
 // Returns Position of Card Relative to its Indexed Location in grid
 sf::Vector2f getIndexedPosition(int index) {
@@ -27,22 +39,42 @@ sf::Vector2f getIndexedPosition(int index) {
     };
 }
 
+void generateImage(int index) {
+    UIImage* image = new UIImage(getIndexedPosition(index).x, getIndexedPosition(index).y, 
+        Expansions::gExpansionList[currentExpansionIndex]->cards[index]->mTexture);
+
+    image->createClickFunction(
+        [=]() {
+            SetViewer::setSelectedCard(index + 1, currentExpansionIndex);
+            gSetState(SetViewer::gSetViewerState);
+            //std::cout << image->getX() << ',' << image->getY() << ',' << image->getWidth() << ',' << image->getHeight() << std::endl;
+        }
+    );
+
+    image->setScale(1.0f / currentScale);
+    panel->addElement(image);
+}
+
 void setImgPosition(int index, UIImage* image) {
     image->setPosition(getIndexedPosition(index).x, getIndexedPosition(index).y);
 }
 
 // Update Card Gap & Cards Per Line when Scaling
 // Cycle Through Card UIImages, Adjust Scale & Position
-void updateImgTransformations(std::vector<UIElement*>& elements) {
+void adjustScale() {
     cardGap = std::max(1.0f, 12.0f - currentScale);
     cardsPerLine = int((gWindowWidth - regionBorder * 2) / (gCardWidth / currentScale + cardGap));
+}
 
+void updateImgTransformation(int imgIndex, UIImage* img) {
+    img->setScale(1.0f / currentScale);
+    setImgPosition(imgIndex, img);
+}
+
+void updateImgTransformations(std::vector<UIElement*>& elements) {
     for(int i = 0; i < currentImgCount; ++i) {
-        UIImage* ptr { static_cast<UIImage*>(elements[i]) };
-        ptr->setScale(1.0f / currentScale);
-        setImgPosition(i, ptr);
-    }
-    
+        updateImgTransformation(i, static_cast<UIImage*>(elements[i]));
+    }   
 }
 
 float panelScaleFactor { 1.0f }; // Viewport size factor (Relative to Screen Size)
@@ -55,15 +87,53 @@ void updatePanelScale(UIPanel* panel) {
     });
 }
 
-// UI Elements
-UIScrollPanel* panel;
+void reduceElements(int elementsNeeded) {
+    for(int i = static_cast<int>(panel->getElements().size()) - 1; i >= elementsNeeded; --i) {
+        delete panel->getElements()[i];
+        panel->getElements().pop_back();
+    }
+}
 
-UIButton* scaleDown;
-UIButton* scaleUp;
-UIButton* scrollDown;
-UIButton* scrollUp;
+void updateExpansion() {
+    int i { 0 };
+
+    for(UIElement* img : panel->getElements()) {
+        if(dynamic_cast<UIImage*>(img)) {
+            UIImage* ptr = static_cast<UIImage*>(img);
+            if(i >= Expansions::gExpansionList[currentExpansionIndex]->cardCount())
+                break;
+            ptr->changeTexture(sf::Texture(Expansions::gExpansionList[currentExpansionIndex]->cards[i]->mTexture));
+            updateImgTransformation(i, ptr);
+            ++i;
+        }
+    }   
+    std::cout << i << std::endl;
+
+    // Reduce Elements
+    if(i < static_cast<int>(panel->getElements().size())) {
+        reduceElements(i);
+    } else if(Expansions::gExpansionList[currentExpansionIndex]->cardCount() > i) {
+        for(; i < Expansions::gExpansionList[currentExpansionIndex]->cardCount(); ++i) {
+            generateImage(i);
+        }
+    }
+
+    panel->calculateContentHeight();
+}
 
 void initFullViewState() {
+    expansionDropdown = new UIDropdown(gWindowWidth / 2.0f - 150.0f, 10.0f, 300.0f, 40.0f, "Select Expansion",
+        { "Base Set", "Jungle", "Fossil" });
+    expansionDropdown->createClickFunction(
+        []() {
+            if(expansionDropdown->getSelectedText() == gDefaultString)
+                currentExpansionIndex = 0;
+            else
+                currentExpansionIndex = expansionDropdown->getSelectedIndex();
+            updateExpansion();
+        }
+    );
+
     // Main Panel on which to Display main Card UIImages
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     panel->setBackgroundColor(sf::Color(255, 100, 100));
@@ -72,18 +142,7 @@ void initFullViewState() {
     // Initialize Amount of UIImages equal to Current Expansion Card Count
     // Rework? Needs Functionality for Changing Amount of Cards to Display
     for(int i = 0; i < currentImgCount; ++i) {
-        UIImage* image = new UIImage(getIndexedPosition(i).x, getIndexedPosition(i).y, Expansions::gExpansionList[0]->cards[i]->mTexture);
-        image->createClickFunction(
-            [=]() {
-                SetViewer::currentCardID = i + 1;
-                SetViewer::currentExpansionIndex = 0;
-                SetViewer::changeCardInfo();
-                SetViewer::expansionDropdown->setSelectedIndex(0);
-                gSetState(SetViewer::gSetViewerState);
-            }
-        );
-        image->setScale(1.0f / currentScale);
-        panel->addElement(image);
+        generateImage(i);
     }
 
     // Sets Panel Size to 95% of Screen Height, Aligned to Bottom of Screen
@@ -95,6 +154,7 @@ void initFullViewState() {
     scaleDown->createClickFunction(
         [=]() {
             currentScale += 1.0f;
+            adjustScale();
             updateImgTransformations(panel->getElements());
             panel->calculateContentHeight();
         }
@@ -107,6 +167,7 @@ void initFullViewState() {
         [=]() {
             if(currentScale > 1.0f) {
                 currentScale -= 1.0f;
+                adjustScale();
                 updateImgTransformations(panel->getElements());
                 panel->calculateContentHeight();
             }
@@ -133,6 +194,7 @@ void initFullViewState() {
 
     panel->calculateContentHeight();
     gSetFullViewState.addUIElement(panel);
+    gSetFullViewState.addUIElement(expansionDropdown);
     gSetFullViewState.addUIElement(scaleDown);
     gSetFullViewState.addUIElement(scaleUp);
     //gSetFullViewState.addUIElement(scrollUp);

@@ -28,8 +28,8 @@ public:
     void setInView(sf::View& view);
 
     // Input Setters
-    void setMouseButtonPressed(sf::Mouse::Button button);
-    void setMouseButtonReleased(sf::Mouse::Button button);
+    void setMouseButtonPressed(sf::Mouse::Button button, bool pressed = true);
+    void setMouseButtonReleased(sf::Mouse::Button button, bool released = true);
 
     // Input Getters
     sf::Vector2f getMousePosition();

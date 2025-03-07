@@ -23,6 +23,15 @@ constexpr sf::Vector2f centeredCardPosition() {
 int currentCardID { 0 }; // default to Card Back (0), otherwise card collector #
 int currentExpansionIndex { 0 }; // CHANGE - reference global expansion vars
 
+
+// UI Elements
+UIImage* mainCardDisplay;
+UITextbox* currentCardTextbox;
+UIDropdown* expansionDropdown;
+
+UIButton* incrementButton;
+UIButton* decrementButton;
+
 // Returns Local Texture Path of Current Card, or Card Back Texture Path
 // Currently Only Used to Initialize Current Card UIImage
 std::string getCurrentCardTexturePath() {
@@ -56,13 +65,13 @@ void changeCardInfo() {
     currentCardTextbox->centerText();
 }
 
-// UI Elements
-UIImage* mainCardDisplay;
-UITextbox* currentCardTextbox;
-UIDropdown* expansionDropdown;
-
-UIButton* incrementButton;
-UIButton* decrementButton;
+// External Function to Manipulate Current Card
+void setSelectedCard(int cardID, int expansionID) {
+    currentCardID = cardID;
+    currentExpansionIndex = expansionID;
+    changeCardInfo();
+    expansionDropdown->setSelectedIndex(expansionID);
+}
 
 void initSetViewerState() {
 

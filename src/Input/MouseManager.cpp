@@ -31,20 +31,20 @@ void MouseManager::setInView(sf::View& view) {
 }
 
 // Sets Mouse Pressed Flags
-void MouseManager::setMouseButtonPressed(sf::Mouse::Button button) {
+void MouseManager::setMouseButtonPressed(sf::Mouse::Button button, bool pressed) {
     switch(button) {
     case sf::Mouse::Button::Left:
-        mMouseLeftPressed = true;
+        mMouseLeftPressed = pressed;
         break;
     default: return;
     }
 }
 
 // Sets Mouse Release Flags
-void MouseManager::setMouseButtonReleased(sf::Mouse::Button button) {
+void MouseManager::setMouseButtonReleased(sf::Mouse::Button button, bool released) {
     switch(button) {
     case sf::Mouse::Button::Left: 
-        mMouseLeftReleased = true;
+        mMouseLeftReleased = released;
         break;
     default: return;
     }

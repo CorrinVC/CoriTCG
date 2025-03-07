@@ -35,16 +35,7 @@ namespace SetViewer { // Individual Card View State
 extern State gSetViewerState;
 extern void initSetViewerState();
 
-extern int currentCardID;
-extern int currentExpansionIndex;
-extern void changeCardInfo();
-// UI Elements
-extern UIImage* mainCardDisplay;
-extern UITextbox* currentCardTextbox;
-extern UIDropdown* expansionDropdown;
-
-extern UIButton* incrementButton;
-extern UIButton* decrementButton;
+extern void setSelectedCard(int cardID, int expansionID = 0);
 }
 
 namespace SetFullView { // Full Expansion View State
