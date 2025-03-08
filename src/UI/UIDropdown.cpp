@@ -78,14 +78,25 @@ void UIDropdown::initDropdownRectangles(const std::vector<std::string>& values) 
 }
 
 void UIDropdown::onClick() {
+    if(!gMouseManager.checkPressedSlot(this))
+        return;
     if(mDroppedDown)
         UIElement::onClick();
+    
     mDroppedDown = !mDroppedDown;
 }
 
 void UIDropdown::update() {
-    if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)
-        && inBounds(gMouseManager.getMousePosition())) {
+    if(inBounds(gMouseManager.getMousePosition())) {
+    if(!hovering) {
+        hovering = true;
+        onHover();
+    }
+    if(gMouseManager.getMouseButtonPressed(sf::Mouse::Button::Left)) {
+        pressed = true;
+        onPress();
+    }
+    else if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)) {
         if(mDroppedDown) {
             // Set Dropdown Index to Respective Entry Rectangle
             int dropdownIndex = (gMouseManager.getMousePosition().y - getY()) / mHeight;
@@ -102,6 +113,20 @@ void UIDropdown::update() {
             mBaseText.setString(mBaseString);
         }
         onClick();
+        gMouseManager.clearPressedSlot();
+    }
+    else {
+        if(hovering) {
+            hovering = false;
+            onHover();
+        }
+        if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left) 
+            && mDroppedDown) mDroppedDown = false;
+        if(pressed) {
+            pressed = false;
+            onPress();
+        }
+    }
     }
 }
 

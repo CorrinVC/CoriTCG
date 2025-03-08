@@ -30,6 +30,23 @@ void MouseManager::setInView(sf::View& view) {
     mView = &view;
 }
 
+void MouseManager::fillPressedSlot(UIElement* slot) {
+    mPressedSlot = slot;
+}
+
+void MouseManager::clearPressedSlot() {
+    if(mPressedSlot == nullptr) return;
+    mPressedSlot = nullptr;
+}
+
+bool MouseManager::pressSlotCleared() {
+    return mPressedSlot == nullptr;
+}
+
+bool MouseManager::checkPressedSlot(UIElement* checked) {
+    return mPressedSlot == checked || pressSlotCleared();
+}
+
 // Sets Mouse Pressed Flags
 void MouseManager::setMouseButtonPressed(sf::Mouse::Button button, bool pressed) {
     switch(button) {

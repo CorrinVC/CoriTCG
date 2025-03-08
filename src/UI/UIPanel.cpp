@@ -18,8 +18,9 @@ UIPanel::~UIPanel() {
 }
 
 void UIPanel::updateElements() {
-    for(auto* element : mPanelElements)
-        element->update();
+    for (std::vector<UIElement*>::reverse_iterator elements = mPanelElements.rbegin();
+            elements != mPanelElements.rend(); ++elements)
+        (*elements)->update();
 }
 
 void UIPanel::update() {

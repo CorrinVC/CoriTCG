@@ -166,7 +166,11 @@ void UIElement::createClickFunction(std::function<void(void)> func) {
 }
 
 void UIElement::onClick()  {
+    if(!gMouseManager.checkPressedSlot(this)) return;
     if(mClickFunc) mClickFunc();
+
+    gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
+    gMouseManager.clearPressedSlot();
 }
 
 // Change Background Color When Hovering
@@ -179,9 +183,9 @@ void UIElement::onHover() {
 
 // Change Background Color if Pressed
 void UIElement::onPress() {
-    if(pressed)
+    if(pressed) 
         mRect.setFillColor(mPressColor);
-    else
+    else 
         onHover();
 }
 
@@ -197,6 +201,7 @@ void UIElement::update() {
             onPress();
         } else if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)) {
             onClick();
+            gMouseManager.clearPressedSlot();
             // Update Pressed Behaviour
             pressed = false;
             onPress();

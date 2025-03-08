@@ -25,6 +25,8 @@ UIScrollBar::UIScrollBar(float x, float y, float width, float height, float scro
 }
 
 void UIScrollBar::onPress() {
+    if(gMouseManager.pressSlotCleared())
+        gMouseManager.fillPressedSlot(this);
     if(!pressed && gMouseManager.getMouseButtonPressed(sf::Mouse::Button::Left))
         pressed = true;
     UIElement::onPress();

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../UI/UIElement.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -11,6 +12,8 @@ private:
 
     bool mInView { false };
     sf::View* mView {};
+
+    UIElement* mPressedSlot { nullptr };
 
     // Mouse Input Flags
     bool mMouseLeftPressed { false };
@@ -26,6 +29,12 @@ public:
     // View Control
     void setInView(bool inView = true);
     void setInView(sf::View& view);
+
+    // Pressed Slot
+    void fillPressedSlot(UIElement* slot);
+    void clearPressedSlot();
+    bool pressSlotCleared();
+    bool checkPressedSlot(UIElement* checked);
 
     // Input Setters
     void setMouseButtonPressed(sf::Mouse::Button button, bool pressed = true);

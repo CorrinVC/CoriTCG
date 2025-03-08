@@ -17,8 +17,9 @@ State::~State() {
 
 void State::update() { 
     // Update UIElements
-    for (auto* e : mUIElements) {
-        e->update();
+    for (std::vector<UIElement*>::reverse_iterator elements = mUIElements.rbegin();
+            elements != mUIElements.rend(); ++elements) {
+        (*elements)->update();
     }
 }
 
