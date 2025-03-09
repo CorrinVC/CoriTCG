@@ -22,6 +22,9 @@ public:
 
     // Write Wrapper Functions
     UITextbox& getTextbox();
+
+    void setText(const sf::String& text);
+    void centerButtonText();
 };
 
 }

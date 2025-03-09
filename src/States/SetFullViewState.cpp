@@ -20,6 +20,8 @@ UIButton* scaleUp;
 UIButton* scrollDown;
 UIButton* scrollUp;
 
+// Layout Variables
+
 float currentScale { 2.0f }; // Card Image Scale Factor (Represented as 1/x)
 int currentImgCount { 102 }; // Temporary - Replace with Expansion var & Expansion Card Count var
 const float regionBorder { 12.0f }; // CHANGE? Panel Inner Padding, in Pixels
@@ -29,7 +31,7 @@ float cardGap { regionBorder - currentScale }; // Padding Between Cards, in Pixe
 int cardsPerLine { int((gWindowWidth - regionBorder * 2) / (gCardWidth / currentScale + cardGap)) };
 
 // Current Set Vars
-int currentExpansionIndex { 0 };
+Expansion* currentExpansion { Expansions::gExpansionList[ExpansionID::BaseSet] };
 
 // Returns Position of Card Relative to its Indexed Location in grid
 sf::Vector2f getIndexedPosition(int index) {
@@ -41,11 +43,11 @@ sf::Vector2f getIndexedPosition(int index) {
 
 void generateImage(int index) {
     UIImage* image = new UIImage(getIndexedPosition(index).x, getIndexedPosition(index).y, 
-        Expansions::gExpansionList[currentExpansionIndex]->cards[index]->mTexture);
+        currentExpansion->cards[index]->mTexture);
 
     image->createClickFunction(
         [=]() {
-            SetViewer::setSelectedCard(index + 1, currentExpansionIndex);
+            SetViewer::setSelectedCard(index + 1, currentExpansion->expansionID);
             gSetState(SetViewer::gSetViewerState);
             //std::cout << image->getX() << ',' << image->getY() << ',' << image->getWidth() << ',' << image->getHeight() << std::endl;
         }
@@ -100,9 +102,9 @@ void updateExpansion() {
     for(UIElement* img : panel->getElements()) {
         if(dynamic_cast<UIImage*>(img)) {
             UIImage* ptr = static_cast<UIImage*>(img);
-            if(i >= Expansions::gExpansionList[currentExpansionIndex]->cardCount())
+            if(i >= currentExpansion->cardCount())
                 break;
-            ptr->changeTexture(sf::Texture(Expansions::gExpansionList[currentExpansionIndex]->cards[i]->mTexture));
+            ptr->changeTexture(sf::Texture(currentExpansion->cards[i]->mTexture));
             updateImgTransformation(i, ptr);
             ++i;
         }
@@ -112,8 +114,8 @@ void updateExpansion() {
     // Reduce Elements
     if(i < static_cast<int>(panel->getElements().size())) {
         reduceElements(i);
-    } else if(Expansions::gExpansionList[currentExpansionIndex]->cardCount() > i) {
-        for(; i < Expansions::gExpansionList[currentExpansionIndex]->cardCount(); ++i) {
+    } else if(currentExpansion->cardCount() > i) {
+        for(; i < currentExpansion->cardCount(); ++i) {
             generateImage(i);
         }
     }
@@ -126,11 +128,10 @@ void initFullViewState() {
         { "Base Set", "Jungle", "Fossil" });
     expansionDropdown->createClickFunction(
         []() {
-            if(expansionDropdown->getSelectedText() == gDefaultString)
-                currentExpansionIndex = 0;
-            else
-                currentExpansionIndex = expansionDropdown->getSelectedIndex();
-            updateExpansion();
+            if(expansionDropdown->getSelectedText() != gDefaultString) {
+                currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()];
+                updateExpansion();
+            }
         }
     );
 
@@ -150,7 +151,7 @@ void initFullViewState() {
 
     // Temporary? Scales UIElements Down
     scaleDown = new UIButton(0.0f, 0.0f, 50.0f, 50.0f);
-    scaleDown->getTextbox().setText("Down");
+    scaleDown->setText("Down");
     scaleDown->createClickFunction(
         [=]() {
             currentScale += 1.0f;
@@ -162,7 +163,7 @@ void initFullViewState() {
 
     // Temporary? Scales UIElements Up
     scaleUp = new UIButton(gWindowWidth - 50.0f, 0.0f, 50.0f, 50.0f);
-    scaleUp->getTextbox().setText("Up");
+    scaleUp->setText("Up");
     scaleUp->createClickFunction(
         [=]() {
             if(currentScale > 1.0f) {
@@ -176,7 +177,7 @@ void initFullViewState() {
 
     // Temporary Button in Place of Scroll Functionality
     scrollDown = new UIButton(0.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
-    scrollDown->getTextbox().setText("-");
+    scrollDown->setText("-");
     scrollDown->createClickFunction(
         [=]() {
             panel->offsetElements(0.0f, 1.0f);
@@ -185,7 +186,7 @@ void initFullViewState() {
 
     // Temporary Button in Place of Scroll Functionality
     scrollUp = new UIButton(gWindowWidth - 50.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
-    scrollUp->getTextbox().setText("+");
+    scrollUp->setText("+");
     scrollUp->createClickFunction(
         [=]() {
             panel->offsetElements(0.0f, -1.0f);

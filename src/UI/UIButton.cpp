@@ -31,4 +31,12 @@ UITextbox& UIButton::getTextbox() {
     return mTextbox;
 }
 
+void UIButton::setText(const sf::String& text) {
+    mTextbox.setText(text);
+}
+
+void UIButton::centerButtonText() {
+    mTextbox.centerTextRelativeTo(*this);
+}
+
 }
