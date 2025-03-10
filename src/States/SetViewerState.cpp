@@ -12,14 +12,6 @@ namespace SetViewer {
 
 State gSetViewerState {};
 
-// Top Left Co-ordinate of a Centered Card Image
-constexpr sf::Vector2f centeredCardPosition() {
-    return { 
-        gWindowWidth / 2.0f - gCardWidth / 2.0f,
-        gWindowHeight / 2.0f - gCardHeight / 2.0f
-    };
-}
-
 int currentCardID { 0 }; // default to Card Back (0), otherwise card collector #
 Expansion* currentExpansion { Expansions::gExpansionList[ExpansionID::BaseSet] }; // CHANGE - reference global expansion vars
 
@@ -95,7 +87,7 @@ void initSetViewerState() {
 
     // Dropdown to Switch Between Expansions
     expansionDropdown = new UIDropdown(gWindowWidth / 2.0f - 150.0f, 10.0f, 300.0f, 40.0f, "Select Expansion", 
-        { "Base Set", "Jungle", "Fossil" });
+        Expansions::gExpansionNames());
     expansionDropdown->setPositionRelativeTo(UIElement::ScreenTop, 10.0f);
     expansionDropdown->createClickFunction(
         [=]() {

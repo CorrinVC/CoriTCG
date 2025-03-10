@@ -1,4 +1,6 @@
 #include "State.h"
+#include "../Window.h"
+#include "../Cards/Card.h"
 
 namespace Cori {
 
@@ -6,6 +8,14 @@ State* gCurrentState {};
 
 void gSetState(State& state) {
     gCurrentState = &state;
+}
+
+// Top Left Co-ordinate of a Centered Card Image
+sf::Vector2f centeredCardPosition() {
+    return { 
+        gWindowWidth / 2.0f - gCardWidth / 2.0f,
+        gWindowHeight / 2.0f - gCardHeight / 2.0f
+    };
 }
 
 State::~State() {

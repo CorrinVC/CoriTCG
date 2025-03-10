@@ -30,6 +30,7 @@ private:
     std::vector<std::string> mTextValues {};
     //List of sf::Text objects to draw text values
     std::vector<sf::Text> mSFTexts {};
+    bool mTextCentered { false };
 
     void initTextValues(const std::vector<std::string>& values);
     int mSelectedIndex {}; // Dropdown selected index
@@ -39,7 +40,12 @@ private:
     std::vector<sf::RectangleShape> mDropdownRectangles {};
     void initDropdownRectangles(const std::vector<std::string>& values);
 
+    void alignTextRects();
+    void alignDropdownRects();
+
 public:
+    UIDropdown(float width, float height, const std::string& baseText,
+        const std::vector<std::string>& values, const sf::Color& color = sf::Color::Red);
     UIDropdown(float x, float y, float width, float height, 
         const std::string& baseText, const std::vector<std::string>& values, 
         const sf::Color& color = sf::Color::Red);
@@ -52,6 +58,10 @@ public:
     std::string& getSelectedText();
 
     void setSelectedIndex(int index);
+
+    void alignText();
+    void centerBaseText();
+    void centerText();
 };
 
 }

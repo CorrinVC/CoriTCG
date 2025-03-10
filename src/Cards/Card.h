@@ -64,6 +64,10 @@ public:
             cardNumber) 
     }
     { }
+
+    std::string cardNameString() {
+        return mCardName.toAnsiString();
+    }
 };
 
 //constexpr DataCard card {"Penis", CardType::Energy, "Bob", Expansions::base, 0, Rarity::None};

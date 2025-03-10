@@ -15,4 +15,11 @@ namespace Cori { namespace Expansions {
         &base, &jungle, &fossil
     };
 
+    std::vector<std::string> gExpansionNames() {
+        std::vector<std::string> names;
+        for(Expansion* expansion : gExpansionList)
+            names.push_back(expansion->expansionName);
+        return names;
+    }
+
 }}

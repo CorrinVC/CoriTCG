@@ -6,6 +6,11 @@ namespace Cori {
 
 std::string gDefaultString {""};
 
+UIDropdown::UIDropdown(float width, float height, const std::string& baseText, 
+    const std::vector<std::string>& values, const sf::Color& color)
+: UIDropdown(0.0f, 0.0f, width, height, baseText, values, color)
+{}
+
 UIDropdown::UIDropdown(float x, float y, float width, float height, 
     const std::string& baseText, const std::vector<std::string>& values, const sf::Color& color)
 : UIElement(x, y, width, height)
@@ -54,6 +59,15 @@ void UIDropdown::initDownArrow() {
     });
 }
 
+void UIDropdown::alignTextRects() {
+    for(std::size_t i = 0; i < mTextValues.size(); ++i) {
+        mSFTexts[i].setPosition({
+            getX() + mBaseText.getCharacterSize() * 0.2f, 
+            getY() + (mBaseText.getCharacterSize() * 0.2f) + (mHeight * (i + 1))
+        });
+    }
+}
+
 void UIDropdown::initTextValues(const std::vector<std::string>& values) {
     for(std::size_t i = 0; i < values.size(); ++i) {
         mSFTexts.push_back(sf::Text(gUIFont));
@@ -62,19 +76,20 @@ void UIDropdown::initTextValues(const std::vector<std::string>& values) {
         mSFTexts[i].setFillColor(mTextColor);
 
         mSFTexts[i].setCharacterSize(generateUICharSize(mHeight));
-        mSFTexts[i].setPosition({
-            getX() + mBaseText.getCharacterSize() * 0.2f, 
-            getY() + (mBaseText.getCharacterSize() * 0.2f) + (mHeight * (i + 1))
-        });
     }
+    alignTextRects();
+}
+
+void UIDropdown::alignDropdownRects() {
+    for(std::size_t i = 0; i < mTextValues.size(); i++) 
+        mDropdownRectangles[i].setPosition({ getX(), getY() + (mHeight * (i + 1))});
 }
 
 void UIDropdown::initDropdownRectangles(const std::vector<std::string>& values) {
     for(std::size_t i = 0; i < values.size(); i++) {
         mDropdownRectangles.push_back(sf::RectangleShape({ mWidth, mHeight }));
-
-        mDropdownRectangles[i].setPosition({ getX(), getY() + (mHeight * (i + 1))});
     }
+    alignDropdownRects();
 }
 
 void UIDropdown::onClick() {
@@ -109,6 +124,7 @@ void UIDropdown::update() {
                 // Set to empty string for default comparison purposes
                 mSelectedText = gDefaultString; 
             }
+            if(mTextCentered) centerBaseText();
         } else { // To Change Base Text from Entry Text to Original
             mBaseText.setString(mBaseString);
         }
@@ -156,6 +172,48 @@ void UIDropdown::setSelectedIndex(int index) {
     mSelectedIndex = index;
     mSelectedText = mTextValues[mSelectedIndex];
     mBaseText.setString(mSelectedText);
+}
+
+void UIDropdown::alignText() {
+    initBaseText();
+    initDownArrow();
+    alignTextRects();
+    alignDropdownRects();
+}
+
+void UIDropdown::centerBaseText() {
+    mBaseText.setOrigin({
+        mBaseText.getGlobalBounds().size / 2.0f +
+        mBaseText.getLocalBounds().position
+    });
+    mBaseText.setPosition({
+        getX() + getWidth() / 2.0f,
+        getY() + getHeight() / 2.0f
+    });
+}
+
+void UIDropdown::centerText() {
+    float baseX { getX() + getWidth() / 2.0f };
+    float baseY { getY() + getHeight() / 2.0f };
+
+    centerBaseText();
+
+    initDownArrow();
+
+    for(std::size_t i = 0; i < mTextValues.size(); ++i) {
+        std::cout << i << std::endl;
+        mSFTexts[i].setOrigin({
+            mSFTexts[i].getGlobalBounds().size / 2.0f +
+            mSFTexts[i].getLocalBounds().position
+        });
+        mSFTexts[i].setPosition({ baseX, baseY + (mHeight * (i + 1)) });
+        
+        mDropdownRectangles[i].setPosition({
+            getX(), getY() + (mHeight * (i + 1)) 
+        });
+    }
+
+    mTextCentered = true;
 }
 
 }
