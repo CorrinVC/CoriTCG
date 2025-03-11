@@ -17,7 +17,7 @@ public:
     const EnergyType mEnergyType {};
 
     const Stage mStage {};
-    std::string mEvolvesFrom {};
+    sf::String mEvolvesFrom {};
 
     EnergyType mWeakness {};
     EnergyType mResistance {};
@@ -34,7 +34,7 @@ public:
     , mRetreatCost { retreatCost }
     {}
 
-    constexpr PokemonCard* evolvesFrom(const std::string_view evolvesFrom) {
+    constexpr PokemonCard* evolvesFrom(const sf::String evolvesFrom) {
         mEvolvesFrom = evolvesFrom;
         return this;
     }
