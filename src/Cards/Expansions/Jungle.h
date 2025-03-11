@@ -393,7 +393,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
 }
 
 using namespace Jungle;
-Expansion jungle { "Jungle", ExpansionID::Jungle,
+Expansion jungle { "Jungle", ExpansionID::Jungle, 11,
 	{
 	    _001Clefable, _002Electrode, _003Flareon, _004Jolteon, 
 	    _005Kangaskhan, _006MrMime, _007Nidoqueen, _008Pidgeot, 

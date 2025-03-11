@@ -377,7 +377,7 @@ namespace Cori { namespace Expansions { namespace Fossil {
 }
 
 using namespace Fossil;
-Expansion fossil { "Fossil", ExpansionID::Fossil,
+Expansion fossil { "Fossil", ExpansionID::Fossil, 11,
 	{
 	    _001Aerodactyl, _002Articuno, _003Ditto, _004Dragonite, 
 	    _005Gengar, _006Haunter, _007Hitmonlee, _008Hypno, 

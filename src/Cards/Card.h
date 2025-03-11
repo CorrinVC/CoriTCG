@@ -65,6 +65,7 @@ public:
     }
     { }
 
+    // For Logging?
     std::string cardNameString() {
         return mCardName.toAnsiString();
     }

@@ -23,6 +23,10 @@ namespace Random {
         return std::uniform_int_distribution { min, max }(mt);
     }
 
+    inline int get(int range) {
+        return get(0, range - 1);
+    }
+
 }
 
 }

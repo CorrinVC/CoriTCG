@@ -20,16 +20,29 @@ UIButton* collectionButton;
 
 Expansion* currentExpansion;
 
+// Temporary
+std::vector<Rarity> rarities {
+    Rarity::Rare, Rarity::Uncommon, Rarity::Uncommon, Rarity::Uncommon,
+    Rarity::Common, Rarity::Common, Rarity::Common, Rarity::Common, Rarity::Common,
+    Rarity::None, Rarity::None
+};
+
+void generatePulls() {
+    std::cout << "=== You Pulled ==="; 
+    for(int i { 0 }; i < currentExpansion->packQuantity; ++i) {
+        std::cout << '\n' << currentExpansion->getCardsByRarity(rarities[i])
+            [Random::get(currentExpansion->cardCountOfRarity(rarities[i]))]->cardNameString();
+    }
+    std::cout << std::endl;
+}
+
 void initPackSimState() {
     cardPack = new UIImage(centeredCardPosition().x, centeredCardPosition().y + 40.0f,
         gCardBackTexture);
     cardPack->createClickFunction(
         [=]() {
             if(currentExpansion == nullptr) return;
-            for(int i { 0 }; i < 10; ++i) {
-                int index { Random::get(0, currentExpansion->cardCount() - 1) };
-                std::cout << currentExpansion->cards[index]->cardNameString() << std::endl;
-            }
+            generatePulls();
         }
     );
 
