@@ -19,6 +19,9 @@ UIButton* backButton;
 UIButton* collectionButton;
 
 Expansion* currentExpansion;
+std::vector<DataCard*> currentPack {};
+int displayIndex { 0 };
+bool packGenerated { false };
 
 // Temporary
 std::vector<Rarity> rarities {
@@ -27,13 +30,44 @@ std::vector<Rarity> rarities {
     Rarity::None, Rarity::None
 };
 
-void generatePulls() {
+DataCard* generateCard(Rarity rarity) {
+    return { currentExpansion->getCardsByRarity(rarity)
+        [Random::get(currentExpansion->cardCountOfRarity(rarity))] };
+}
+
+std::vector<DataCard*> generatePulls() {
+    std::vector<DataCard*> cards {};
     std::cout << "=== You Pulled ==="; 
-    for(int i { 0 }; i < currentExpansion->packQuantity; ++i) {
-        std::cout << '\n' << currentExpansion->getCardsByRarity(rarities[i])
-            [Random::get(currentExpansion->cardCountOfRarity(rarities[i]))]->cardNameString();
+    for(Rarity rarity : currentExpansion->packRarities()) {
+        DataCard* card;
+        do card = generateCard(rarity);
+        while(std::find(cards.begin(), cards.end(), card) != cards.end());
+
+        cards.push_back(card);
+        std::cout << '\n' << card->cardNameString();
     }
     std::cout << std::endl;
+    return cards;
+}
+
+void setDefaults() {
+    displayIndex = 0;
+    cardPack->changeTexture(gCardBackTexture);
+    instructText->setText("Click to Open");
+}
+
+void updateDisplay() {
+    // Set Display to First Pulled Card
+    cardPack->changeTexture(currentPack[displayIndex]->mTexture);
+    instructText->setText(currentPack[displayIndex]->cardNameString());
+
+    // Cycle Through Pulled Cards
+    if(displayIndex < int(currentPack.size()))
+        ++displayIndex;
+    else { // Restore to Default T
+        packGenerated = false;
+        setDefaults();
+    }
 }
 
 void initPackSimState() {
@@ -42,7 +76,12 @@ void initPackSimState() {
     cardPack->createClickFunction(
         [=]() {
             if(currentExpansion == nullptr) return;
-            generatePulls();
+            if(!packGenerated) { // Display on Default Texture
+                instructText->setText("Click to Open!");
+                currentPack = generatePulls();
+                packGenerated = true;
+            }
+            updateDisplay();
         }
     );
 

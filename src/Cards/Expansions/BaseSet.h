@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../../Random.h"
 #include "../EnergyCard.h"
 #include "../Expansion.h"
 #include "../PokemonCard.h"

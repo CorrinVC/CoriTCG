@@ -2,6 +2,7 @@
 
 #include "Card.h"
 #include "ExpansionID.h"
+#include <functional>
 #include <map>
 #include <string>
 #include <vector>
@@ -13,6 +14,7 @@ struct Expansion {
     const ExpansionID expansionID;
     const int packQuantity;
     const std::vector<DataCard*> cards;
+    std::function<std::vector<Rarity>(void)> packRarities;
 
     std::map<Rarity, std::vector<DataCard*>> cardsByRarity;
 
@@ -23,6 +25,11 @@ struct Expansion {
     {
         for(DataCard* card : cardList)
             cardsByRarity[card->mRarity].push_back(card);
+    }
+
+    Expansion* setPackRarityGen(std::function<std::vector<Rarity>(void)> generator) {
+        packRarities = generator;
+        return this;
     }
 
     std::string expansionAbbreviation() const {
