@@ -1,10 +1,14 @@
 #include "State.h"
 #include "../Window.h"
 #include "../Cards/Expansions/Expansions.h"
+
+#include "../UI/UIElement.h"
 #include "../UI/UIButton.h"
+#include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIScrollBar.h"
 #include "../UI/UIScrollPanel.h"
+#include "../UI/UITextbox.h"
 #include <format>
 
 namespace Cori { namespace SetFullView {

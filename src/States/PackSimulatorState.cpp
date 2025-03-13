@@ -3,6 +3,11 @@
 #include "../Window.h"
 #include "../Cards/Expansion.h"
 #include "../Cards/Expansions/Expansions.h"
+#include "../UI/UIButton.h"
+#include "../UI/UIDropdown.h"
+#include "../UI/UIImage.h"
+#include "../UI/UIPanel.h"
+#include "../UI/UITextbox.h"
 
 namespace Cori {
 
@@ -12,6 +17,7 @@ State gPackSimulatorState;
 
 // UI Elements
 UIImage* cardPack;
+UIPanel* packPanel;
 UITextbox* instructText;
 UIDropdown* expansionDropdown;
 
@@ -35,6 +41,28 @@ DataCard* generateCard(Rarity rarity) {
         [Random::get(currentExpansion->cardCountOfRarity(rarity))] };
 }
 
+void generateCardImages(std::vector<DataCard*>& cards) {
+    for(int i = int(cards.size()) - 1; i >= 0; --i) {
+        UIImage* image = new UIImage(cardPack->getX() + (i * 100), cardPack->getY(), cards[i]->mTexture);
+        image->createClickFunction(
+            [=]() {
+                for(UIElement* element : packPanel->getElements())
+                    element->move(-100.0f, 0.0f);
+                    
+                packPanel->getElements().pop_back();
+                //packPanel->getElements().insert(0, image);
+            }
+        );
+        
+        packPanel->addElement(image);
+    }
+}
+
+void clearCardImages(int quantity) {
+    for(int i = 0; i < quantity; i++)
+        gPackSimulatorState.popUIElement();
+}
+
 std::vector<DataCard*> generatePulls() {
     std::vector<DataCard*> cards {};
     std::cout << "=== You Pulled ==="; 
@@ -46,19 +74,20 @@ std::vector<DataCard*> generatePulls() {
         cards.push_back(card);
         std::cout << '\n' << card->cardNameString();
     }
+    generateCardImages(cards);
     std::cout << std::endl;
     return cards;
 }
 
 void setDefaults() {
     displayIndex = 0;
-    cardPack->changeTexture(gCardBackTexture);
+    //cardPack->changeTexture(gCardBackTexture);
     instructText->setText("Click to Open");
 }
 
 void updateDisplay() {
     // Set Display to First Pulled Card
-    cardPack->changeTexture(currentPack[displayIndex]->mTexture);
+    //cardPack->changeTexture(currentPack[displayIndex]->mTexture);
     instructText->setText(currentPack[displayIndex]->cardNameString());
 
     // Cycle Through Pulled Cards
@@ -79,11 +108,15 @@ void initPackSimState() {
             if(!packGenerated) { // Display on Default Texture
                 instructText->setText("Click to Open!");
                 currentPack = generatePulls();
+                std::cout << "Pack Generated" << std::endl;
                 packGenerated = true;
             }
             updateDisplay();
         }
     );
+
+    packPanel = new UIPanel(gWindowWidth, gWindowHeight);
+    packPanel->setBackgroundColor(sf::Color::Transparent);
 
     instructText = new UITextbox(400.0f, 50.0f, "Select an Expansion", true);
     instructText->setPositionRelativeTo(UIElement::ScreenTop, 70.0f);
@@ -100,6 +133,7 @@ void initPackSimState() {
     expansionDropdown->alignText();
 
     gPackSimulatorState.addUIElement(cardPack);
+    gPackSimulatorState.addUIElement(packPanel);
     gPackSimulatorState.addUIElement(instructText);
     gPackSimulatorState.addUIElement(expansionDropdown);
 }

@@ -11,7 +11,9 @@ namespace Cori { namespace Expansions {
 
     using namespace Expansions;
     std::vector<Expansion*> gExpansionList {
-        base.setPackRarityGen(baseEraPackRarities), &jungle, &fossil
+        base.setPackRarityGen(baseEraPackRarities), 
+        jungle.setPackRarityGen(baseEraRaritiesNoEnergy), 
+        fossil.setPackRarityGen(baseEraRaritiesNoEnergy)
     };
 
     std::vector<std::string> gExpansionNames() {

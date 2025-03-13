@@ -10,11 +10,20 @@ namespace Cori { namespace Expansions {
         []() -> std::vector<Rarity> {
             Rarity rare { Random::get(3) == 0 ? HoloRare : Rare };
             return {
-                rare, Uncommon, Uncommon, Uncommon,
+                Uncommon, Uncommon, Uncommon,
                 Common, Common, Common, Common, Common,
-                None, None
+                None, None, rare
             };
         }
     }; 
+
+    auto baseEraRaritiesNoEnergy {
+        []() -> std::vector<Rarity> {
+            auto rarities { baseEraPackRarities() };
+            rarities[8] = Common;
+            rarities[9] = Common;
+            return rarities;
+        }
+    };
 
 }}

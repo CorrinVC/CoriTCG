@@ -44,4 +44,12 @@ void State::addUIElement(UIElement* e) {
     mUIElements.push_back(e);
 }
 
+void State::popUIElement() {
+    mUIElements.pop_back();
+}
+
+std::vector<UIElement*> State::getElements() {
+    return mUIElements;
+}
+
 }

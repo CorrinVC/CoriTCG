@@ -1,10 +1,6 @@
 #pragma once
 
 #include "../UI/UIElement.h"
-#include "../UI/UIButton.h"
-#include "../UI/UIDropdown.h"
-#include "../UI/UIImage.h"
-#include "../UI/UITextbox.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
@@ -20,6 +16,9 @@ public:
     void draw(sf::RenderWindow& window);
 
     void addUIElement(UIElement* e);
+    void popUIElement();
+
+    std::vector<UIElement*> getElements();
 };
 
 // Global Current State Ptr
