@@ -3,6 +3,7 @@
 
 namespace Cori {
 
+sf::Texture gBlankTexture {};
 sf::Texture gCardBackTexture { "res/card-back.png" };
 
 constexpr std::string filePathPrefix { "res/" };

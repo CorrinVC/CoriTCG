@@ -44,6 +44,7 @@ void UIScrollPanel::update() {
     updateElements();
 
     mouseCheck(mouseClickOutOfPanel, true); // Turn Mouse Click Back On
+    
     gMouseManager.setInView(false);
 }
 

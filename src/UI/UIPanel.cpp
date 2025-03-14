@@ -27,6 +27,7 @@ void UIPanel::update() {
     gMouseManager.setInView(mPanelView);
 
     updateElements();
+    UIElement::update();
 
     gMouseManager.setInView(false);
 }

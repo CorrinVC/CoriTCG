@@ -6,6 +6,7 @@
 
 namespace Cori {
 
+extern sf::Texture gBlankTexture;
 // Global Card Back Texture, Defined in UIImage.cpp
 extern sf::Texture gCardBackTexture;
 

@@ -23,6 +23,7 @@ protected:
 
     //Unique click function
     std::function<void(void)> mClickFunc {};
+    bool mClickFuncCreated { false };
 
     // Rework to include factors other than element height?
     unsigned int generateUICharSize(float height);
@@ -72,6 +73,7 @@ public:
 
     // Mouse Input Related Behaviour
     void createClickFunction(std::function<void(void)> func);
+    void destroyClickFunction();
     virtual void onClick();
     virtual void onHover();
     virtual void onPress();

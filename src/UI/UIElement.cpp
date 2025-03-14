@@ -163,14 +163,23 @@ void UIElement::setPressedColor(const sf::Color color) {
 
 void UIElement::createClickFunction(std::function<void(void)> func) {
     mClickFunc = func;
+    mClickFuncCreated = true;
+}
+
+void UIElement::destroyClickFunction() {
+    mClickFunc = {};
+    mClickFuncCreated = false;
+    gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
 }
 
 void UIElement::onClick()  {
     if(!gMouseManager.checkPressedSlot(this)) return;
     if(mClickFunc) mClickFunc();
 
-    gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
     gMouseManager.clearPressedSlot();
+
+    if(!mClickFuncCreated) return;
+    gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
 }
 
 // Change Background Color When Hovering
