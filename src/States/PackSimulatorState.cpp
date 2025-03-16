@@ -32,10 +32,11 @@ bool packGenerated { false };
 //std::vector<int> cardIndexes { 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
 
 void setDefaults() {
-    displayIndex = 0;
+    displayIndex = -1;
     //cardPack->changeTexture(gCardBackTexture);
     instructText->setText("Click to Open");
     packPanel->destroyClickFunction();
+    packGenerated = false;
 }
 
 void updateDisplay() {
@@ -44,11 +45,10 @@ void updateDisplay() {
     // Cycle Through Pulled Cards
     if(displayIndex < int(currentPack.size())) {
         static_cast<UIImage*>(packPanel->getElements().back())->changeTexture(
-            currentPack[displayIndex]->mTexture);
+           currentPack[displayIndex]->mTexture);
         instructText->setText(currentPack[displayIndex]->cardNameString());
     }
     else { // Restore to Default T
-        packGenerated = false;
         setDefaults();
     }
 }
@@ -61,7 +61,8 @@ void rotateCards(int cardIndex) {
 }
 
 void clearCardImages(int quantity) {
-    for(int i = 0; i < quantity; i++) {
+    for(int i = quantity - 1; i >= 0; --i) {
+        delete packPanel->getElements()[i];
         packPanel->getElements().pop_back();
     }
 }
@@ -69,25 +70,6 @@ void clearCardImages(int quantity) {
 void generateCardImages(std::vector<DataCard*>& cards) {
     for(int i = int(cards.size()) - 1; i >= 0; --i) {
         UIImage* image = new UIImage(cardPack->getX() + (i * 100), cardPack->getY(), gCardBackTexture);
-        /*if(i == int(cards.size()) - 1) { // Last Card Image
-            image->createClickFunction(
-                [=]() { 
-                    updateDisplay();
-                    clearCardImages(i + 1); 
-                }
-            );
-        } else {
-            image->createClickFunction(
-                [=]() {
-                    // Shift Card Imgs
-                    for(UIElement* element : packPanel->getElements())
-                        element->move(-100.0f, 0.0f);
-
-                    rotateCards(i);
-                    updateDisplay();
-                }
-            );
-        }*/
         packPanel->addElement(image);
     }
     packPanel->createClickFunction(
@@ -95,8 +77,9 @@ void generateCardImages(std::vector<DataCard*>& cards) {
             if(displayIndex == int(cards.size()) - 1) 
                 clearCardImages(int(cards.size()));
             else {
-                for(UIElement* element : packPanel->getElements())
+                for(UIElement* element : packPanel->getElements()) {
                     element->move(-100.0f, 0.0f);
+                }
                 rotateCards(displayIndex);
             }
             updateDisplay();
@@ -104,22 +87,26 @@ void generateCardImages(std::vector<DataCard*>& cards) {
     );
 }
 
-DataCard* generateCard(Rarity rarity) {
-    return { currentExpansion->getCardsByRarity(rarity)
-        [Random::get(currentExpansion->cardCountOfRarity(rarity))] };
+DataCard* generateNewCard(Rarity rarity, std::vector<DataCard*>& cards) {
+    DataCard* card;
+    do {
+        card = currentExpansion->getCardsByRarity(rarity)[
+            Random::get(currentExpansion->cardCountOfRarity(rarity))
+        ];
+    } while (std::find(cards.begin(), cards.end(), card) != cards.end());
+
+    std::cout << '\n' << card->cardNameString();
+
+    return card;
 }
+
 
 std::vector<DataCard*> generatePulls() {
     std::vector<DataCard*> cards {};
 
     std::cout << "=== You Pulled ==="; 
     for(Rarity rarity : currentExpansion->packRarities()) {
-        DataCard* card;
-        do card = generateCard(rarity);
-        while(std::find(cards.begin(), cards.end(), card) != cards.end());
-
-        cards.push_back(card);
-        std::cout << '\n' << card->cardNameString();
+        cards.push_back(generateNewCard(rarity, cards));
     }
 
     generateCardImages(cards);
@@ -160,15 +147,19 @@ void initPackSimState() {
     );
     expansionDropdown->alignText();
 
-    UIElement* rect = new UIElement(centeredCardPosition().x, centeredCardPosition().y+30, 50, 50);
+    //UIElement* rect = new UIElement(50, centeredCardPosition().y + 40, 50, 825);
 
     gPackSimulatorState.addUIElement(cardPack);
     //gPackSimulatorState.addUIElement(rect);
+
+    //UIElement* rect2 = new UIElement(100, centeredCardPosition().y + 40, 50, 825);
+    //rect2->setBackgroundColor(sf::Color::Red);
+    //packPanel->addElement(rect2);
+
     gPackSimulatorState.addUIElement(packPanel);
     gPackSimulatorState.addUIElement(instructText);
     gPackSimulatorState.addUIElement(expansionDropdown);
-}
 
 }
 
-}
+}}

@@ -88,4 +88,12 @@ void UIImage::setSize() {
     mRect.setSize({ mWidth, mHeight });
 }
 
+sf::Texture UIImage::getImage() {
+    return mImage;
+}
+
+sf::Sprite UIImage::getSprite() {
+    return mSprite;
+}
+
 }

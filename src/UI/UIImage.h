@@ -34,6 +34,9 @@ public:
     // Scale Non-Uniformly
     void setScale(float scaleX, float scaleY);
     void setSize();
+
+    sf::Texture getImage();
+    sf::Sprite getSprite();
 };
 
 }
