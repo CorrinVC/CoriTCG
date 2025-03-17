@@ -43,9 +43,14 @@ extern State gSetFullViewState;
 extern void initFullViewState();
 }
 
-namespace PackSimulator {
+namespace PackSimulator { // Pack Opening Simulator State
 extern State gPackSimulatorState;
 extern void initPackSimState();
+}
+
+namespace CollectionView {
+extern State gCollectionViewState;
+extern void initCollectionViewState();
 }
 
 }

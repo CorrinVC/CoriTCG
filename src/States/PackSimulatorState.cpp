@@ -3,6 +3,7 @@
 #include "../Window.h"
 #include "../Cards/Expansion.h"
 #include "../Cards/Expansions/Expansions.h"
+#include "../Profile/Profile.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
@@ -106,7 +107,9 @@ std::vector<DataCard*> generatePulls() {
 
     std::cout << "=== You Pulled ==="; 
     for(Rarity rarity : currentExpansion->packRarities()) {
-        cards.push_back(generateNewCard(rarity, cards));
+        DataCard* card { generateNewCard(rarity, cards) };
+        cards.push_back(card);
+        gCurrentProfile.addToCollection({ card->mExpansion, card->mCardNumber });
     }
 
     generateCardImages(cards);
@@ -147,6 +150,16 @@ void initPackSimState() {
     );
     expansionDropdown->alignText();
 
+    collectionButton = new UIButton(100.0f, 50.0f);
+    collectionButton->setPositionRelativeTo(UIElement::ScreenTopRight, -40.0f, -40.0f);
+    collectionButton->setText("Collection");
+    collectionButton->centerButtonText();
+    collectionButton->createClickFunction(
+        [&]() {
+            gCurrentProfile.collection.printCollection();
+        }
+    );
+
     //UIElement* rect = new UIElement(50, centeredCardPosition().y + 40, 50, 825);
 
     gPackSimulatorState.addUIElement(cardPack);
@@ -159,6 +172,8 @@ void initPackSimState() {
     gPackSimulatorState.addUIElement(packPanel);
     gPackSimulatorState.addUIElement(instructText);
     gPackSimulatorState.addUIElement(expansionDropdown);
+
+    gPackSimulatorState.addUIElement(collectionButton);
 
 }
 

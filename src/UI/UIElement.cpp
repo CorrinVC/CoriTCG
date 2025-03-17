@@ -128,6 +128,14 @@ void UIElement::offsetFromOrigin(float xOffset, float yOffset) {
     mRect.setPosition({ mOriginX + xOffset, mOriginY + yOffset });
 }
 
+void UIElement::setScale(float scaleFactor) {
+    setScale(scaleFactor, scaleFactor);
+}
+
+void UIElement::setScale(float scaleX, float scaleY) {
+    setSize({ mWidth * scaleX, mHeight * scaleY});
+}
+
 void UIElement::setSize(const sf::Vector2f& size) {
     mWidth = size.x;
     mHeight = size.y;

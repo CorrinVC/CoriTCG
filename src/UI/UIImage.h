@@ -29,9 +29,8 @@ public:
     void move(float x, float y);
     void offsetFromOrigin(float xOffset, float yOffset);
 
-    // Scale Uniformly
+    // Override Functions
     void setScale(float scaleFactor);
-    // Scale Non-Uniformly
     void setScale(float scaleX, float scaleY);
     void setSize();
 

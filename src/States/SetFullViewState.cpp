@@ -40,7 +40,8 @@ Expansion* currentExpansion { Expansions::gExpansionList[ExpansionID::BaseSet] }
 // Returns Position of Card Relative to its Indexed Location in grid
 sf::Vector2f getIndexedPosition(int index) {
     return {
-        ((gWindowWidth - (gCardWidth / currentScale + cardGap) * cardsPerLine + cardGap) / 2) + (index % cardsPerLine) * (gCardWidth / currentScale + cardGap),
+        ((gWindowWidth - (gCardWidth / currentScale + cardGap) * cardsPerLine + cardGap) / 2) 
+        + (index % cardsPerLine) * (gCardWidth / currentScale + cardGap),
         regionBorder + (index / cardsPerLine) * (gCardHeight / currentScale + cardGap) 
     };
 }

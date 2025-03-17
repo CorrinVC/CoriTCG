@@ -64,6 +64,10 @@ public:
     void resetToOrigin();
     virtual void offsetFromOrigin(float xOffset, float yOffset);
 
+    // Scale Uniformly
+    virtual void setScale(float scaleFactor);
+    // Scale Non-Uniformly
+    virtual void setScale(float scaleX, float scaleY);
     virtual void setSize(const sf::Vector2f& size);
 
     void setTransparent();
