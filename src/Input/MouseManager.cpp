@@ -31,11 +31,13 @@ void MouseManager::setInView(sf::View& view) {
 }
 
 void MouseManager::fillPressedSlot(UIElement* slot) {
+    std::cout << slot << " filled" << std::endl;
     mPressedSlot = slot;
 }
 
 void MouseManager::clearPressedSlot() {
     if(mPressedSlot == nullptr) return;
+    std::cout << mPressedSlot << " cleared " << std::endl;
     mPressedSlot = nullptr;
 }
 

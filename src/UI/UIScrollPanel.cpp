@@ -10,17 +10,13 @@ UIScrollPanel::UIScrollPanel(float width, float height, float scrollerWidth, flo
 UIScrollPanel::UIScrollPanel(float x, float y, float width, float height, float scrollerWidth, float scrollerHeight)
 : UIPanel(x, y, width, height)
 , mScrollBar { scrollerWidth, scrollerHeight, height }
-{}
+{
+    //mScrollBar.createClickFunction([](){});
+}
 
 void UIScrollPanel::offsetElements(float xOffset, float yOffset) {
     for(auto* element : mPanelElements)
         element->offsetFromOrigin(xOffset, yOffset);
-}
-
-// Check if Mouse Clicked Outside of Panel
-void mouseCheck(bool clickedOut, bool onOff) {
-    if(clickedOut)
-        gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, onOff);
 }
 void UIScrollPanel::updateScrollOffset() {
     if(mScrollOffset != mScrollBar.getY()) {
@@ -28,6 +24,12 @@ void UIScrollPanel::updateScrollOffset() {
         // Scale Scroll Offset by Content Height
         offsetElements(0.0f, -mScrollOffset / (mHeight / mContentHeight));
     }
+}
+
+// Check if Mouse Clicked Outside of Panel
+void mouseCheck(bool clickedOut, bool onOff) {
+    if(clickedOut)
+        gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, onOff);
 }
 
 void UIScrollPanel::update() {
@@ -62,7 +64,7 @@ void UIScrollPanel::calculateContentHeight() {
 
     float lowestElementPos {};
     for(UIElement* element : mPanelElements) {
-        float elementBottom { element->getY() + element->getHeight() };
+        float elementBottom { element->getOriginY() + element->getHeight() };
         if(elementBottom > lowestElementPos)
             lowestElementPos = elementBottom;
     }

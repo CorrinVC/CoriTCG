@@ -123,10 +123,10 @@ void UIDropdown::update() {
             } else { // Base Rect Clicked
                 // Set to empty string for default comparison purposes
                 mSelectedText = gDefaultString; 
+                // To Change Base Text from Entry Text to Original
+                mBaseText.setString(mBaseString);
             }
             if(mTextCentered) centerBaseText();
-        } else { // To Change Base Text from Entry Text to Original
-            mBaseText.setString(mBaseString);
         }
         onClick();
         gMouseManager.clearPressedSlot();

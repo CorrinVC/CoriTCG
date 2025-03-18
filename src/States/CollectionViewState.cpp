@@ -20,12 +20,10 @@ void initCollectionViewState() {
 
     for(int i = 0; i < 102; ++i) {
         UIImage* image = new UIImage(0.0f, 0.0f, Expansions::gExpansionList[0]->cards[i]->mTexture);
-        //std::cout << image->getWidth() << ',' << image->getHeight() << std::endl;
         layout->addElement(image);
     }
     std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
-    //std::cout << layout->getElements().back()->getX() << ',' << layout->getElements().back()->getX() << std::endl;
-
+    
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight, 20.0f, 50.0f);
 
     panel->addElement(layout);

@@ -9,7 +9,7 @@ int main() {
     Cori::PackSimulator::initPackSimState();
     Cori::CollectionView::initCollectionViewState();
 
-    Cori::gSetState(Cori::CollectionView::gCollectionViewState);
+    Cori::gSetState(Cori::SetFullView::gSetFullViewState);
     
     // Initialize Window
     Cori::Window window("CoriTCG", Cori::gWindowWidth, Cori::gWindowHeight);

@@ -5,6 +5,7 @@
 #include "../UI/UIElement.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
+#include "../UI/UIGridLayout.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIScrollBar.h"
 #include "../UI/UIScrollPanel.h"
@@ -17,6 +18,7 @@ State gSetFullViewState {};
 
 // UI Elements
 UIDropdown* expansionDropdown;
+UIGridLayout* gridLayout;
 UIScrollPanel* panel;
 
 UIButton* scaleDown;
@@ -47,7 +49,7 @@ sf::Vector2f getIndexedPosition(int index) {
 }
 
 void generateImage(int index) {
-    UIImage* image = new UIImage(getIndexedPosition(index).x, getIndexedPosition(index).y, 
+    UIImage* image = new UIImage(0.0f, 0.0f, 
         currentExpansion->cards[index]->mTexture);
 
     image->createClickFunction(
@@ -58,8 +60,7 @@ void generateImage(int index) {
         }
     );
 
-    image->setScale(1.0f / currentScale);
-    panel->addElement(image);
+    gridLayout->addElement(image);
 }
 
 void setImgPosition(int index, UIImage* image) {
@@ -102,31 +103,12 @@ void reduceElements(int elementsNeeded) {
 }
 
 void updateExpansion() {
-    int i { 0 };
-
-    for(UIElement* img : panel->getElements()) {
-        if(dynamic_cast<UIImage*>(img)) {
-            UIImage* ptr = static_cast<UIImage*>(img);
-            if(i >= currentExpansion->cardCount())
-                break;
-            ptr->changeTexture(sf::Texture(currentExpansion->cards[i]->mTexture));
-            updateImgTransformation(i, ptr);
-            ++i;
-        }
-    }   
-    std::cout << i << std::endl;
-
-    // Reduce Elements
-    if(i < static_cast<int>(panel->getElements().size())) {
-        reduceElements(i);
-    } else if(currentExpansion->cardCount() > i) {
-        for(; i < currentExpansion->cardCount(); ++i) {
-            generateImage(i);
-        }
-    }
-
+    gridLayout->clearElements();
+    for(int i { 0 }; i < currentExpansion->cardCount(); ++i)
+        generateImage(i);
     panel->calculateContentHeight();
 }
+
 
 void initFullViewState() {
     expansionDropdown = new UIDropdown(gWindowWidth / 2.0f - 150.0f, 10.0f, 300.0f, 40.0f, "Select Expansion",
@@ -145,14 +127,20 @@ void initFullViewState() {
     panel->setBackgroundColor(sf::Color(255, 100, 100));
     panel->setInnerBorder(regionBorder);
 
+    // Sets Panel Size to 95% of Screen Height, Aligned to Bottom of Screen
+    panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
+
+    // Grid Layout to Organize Cards
+    gridLayout = new UIGridLayout(12.0f, 10.0f, panel->getWidth(), panel->getHeight());
+    gridLayout->setScale(currentScale);
+    gridLayout->setBackgroundColor(sf::Color(200, 200, 255));
+
     // Initialize Amount of UIImages equal to Current Expansion Card Count
     // Rework? Needs Functionality for Changing Amount of Cards to Display
     for(int i = 0; i < currentImgCount; ++i) {
         generateImage(i);
     }
-
-    // Sets Panel Size to 95% of Screen Height, Aligned to Bottom of Screen
-    panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
+    panel->addElement(gridLayout);
 
     // Temporary? Scales UIElements Down
     scaleDown = new UIButton(0.0f, 0.0f, 50.0f, 50.0f);
@@ -160,8 +148,7 @@ void initFullViewState() {
     scaleDown->createClickFunction(
         [=]() {
             currentScale += 1.0f;
-            adjustScale();
-            updateImgTransformations(panel->getElements());
+            gridLayout->setScale(currentScale);
             panel->calculateContentHeight();
         }
     );
@@ -173,8 +160,7 @@ void initFullViewState() {
         [=]() {
             if(currentScale > 1.0f) {
                 currentScale -= 1.0f;
-                adjustScale();
-                updateImgTransformations(panel->getElements());
+                gridLayout->setScale(currentScale);
                 panel->calculateContentHeight();
             }
         }
@@ -185,7 +171,8 @@ void initFullViewState() {
     scrollDown->setText("-");
     scrollDown->createClickFunction(
         [=]() {
-            panel->offsetElements(0.0f, 1.0f);
+            gridLayout->clearElements();
+            panel->calculateContentHeight();
         }
     );
 
@@ -194,17 +181,19 @@ void initFullViewState() {
     scrollUp->setText("+");
     scrollUp->createClickFunction(
         [=]() {
-            panel->offsetElements(0.0f, -1.0f);
+            std::cout << "Click" << std::endl;
+            gridLayout->clearElements(1);
+            panel->calculateContentHeight();
+            //gSetState(CollectionView::gCollectionViewState);
         }
     );
 
-    
     gSetFullViewState.addUIElement(panel);
     gSetFullViewState.addUIElement(expansionDropdown);
     gSetFullViewState.addUIElement(scaleDown);
     gSetFullViewState.addUIElement(scaleUp);
-    //gSetFullViewState.addUIElement(scrollUp);
-    //gSetFullViewState.addUIElement(scrollDown);
+    gSetFullViewState.addUIElement(scrollUp);
+    gSetFullViewState.addUIElement(scrollDown);
 }
 
 

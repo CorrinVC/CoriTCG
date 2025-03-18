@@ -181,10 +181,11 @@ void UIElement::destroyClickFunction() {
 }
 
 void UIElement::onClick()  {
+    //std::cout << this << ':' << gMouseManager.checkPressedSlot(this) << std::endl;
     if(!gMouseManager.checkPressedSlot(this)) return;
     if(mClickFunc) mClickFunc();
-
-    gMouseManager.clearPressedSlot();
+    //std::cout << "onClick Clearing" << std::endl;
+    //gMouseManager.clearPressedSlot();
 
     if(!mClickFuncCreated) return;
     gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
@@ -202,8 +203,9 @@ void UIElement::onHover() {
 void UIElement::onPress() {
     if(pressed) 
         mRect.setFillColor(mPressColor);
-    else 
+    else {
         onHover();
+    }
 }
 
 void UIElement::update() {
@@ -218,10 +220,11 @@ void UIElement::update() {
             onPress();
         } else if(gMouseManager.getMouseButtonReleased(sf::Mouse::Button::Left)) {
             onClick();
-            gMouseManager.clearPressedSlot();
             // Update Pressed Behaviour
             pressed = false;
             onPress();
+            std::cout << "Update Clearing" << std::endl;
+            gMouseManager.clearPressedSlot();
         }
     } else {
         if(hovering) { // Clear Hovering
@@ -232,6 +235,8 @@ void UIElement::update() {
             pressed = false;
             onPress();
         }
+        if(gMouseManager.checkPressedSlot(this) && !gMouseManager.getMouseButtonPressed(sf::Mouse::Button::Left))
+            gMouseManager.clearPressedSlot();
     }
 }
 

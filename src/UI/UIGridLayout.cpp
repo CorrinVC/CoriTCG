@@ -103,15 +103,20 @@ void UIGridLayout::updateScale() {
         element->setScale(1.0f / mScaleFactor);
         
     updateElementsPerLine();
+    updateLayoutHeight();
 }
 
 void UIGridLayout::updateLayoutHeight() {
-    mHeight = mGridElements.back()->getY() + mGridElements.back()->getHeight() + mBorderPadding;
+    if(mGridElements.empty())
+        mHeight = mRect.getSize().y;
+    else
+        mHeight = mGridElements.back()->getOriginY() + mGridElements.back()->getHeight() + mBorderPadding;
 }
 
 void UIGridLayout::addElement(UIElement* element) {
+    element->setScale(1.0f / mScaleFactor);
     mGridElements.push_back(element);
-    updateScale();
+    updateElementsPerLine();
     updateLayoutHeight();
 }
 
@@ -121,11 +126,11 @@ void UIGridLayout::clearElements() {
 
 void UIGridLayout::clearElements(int quantity) {
     assert(quantity <= int(mGridElements.size()) && "Clearing Too Many Elements from Grid Layout!");
-    for(std::vector<UIElement*>::reverse_iterator elements = mGridElements.rbegin();
-        elements != mGridElements.rbegin() + quantity ; elements++) {
-        delete *(elements);
+    for(int i { 0 }; i < quantity; ++i) {
+        delete mGridElements.back();
         mGridElements.pop_back();
     }
+    updateLayoutHeight();
 }
 
 void UIGridLayout::setScale(float scaleFactor) {
