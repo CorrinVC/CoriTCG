@@ -25,6 +25,8 @@ public:
     void updateScrollOffset();
     void calculateContentHeight();
 
+    void addElement(UIElement* element) override;
+
     void setInnerBorder(float border);
 };
 

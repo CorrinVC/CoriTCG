@@ -4,13 +4,28 @@ namespace Cori {
 
 UIGridLayout::UIGridLayout(float borderPadding, float innerPadding, float width, float height)
 : UIElement(width, height)
+//, mViewHeight { height }
 , mBorderPadding { borderPadding }
 , mMaxInnerPadding { innerPadding }
-{}
+{
+    setBackgroundColor(sf::Color::Transparent);
+}
 
 UIGridLayout::~UIGridLayout() {
     for(UIElement* element : mGridElements)
         delete element;
+}
+
+bool UIGridLayout::inBounds(const sf::Vector2f& position) {
+    return {
+        (position.x >= mOriginX && position.x <= getX() + mWidth)
+        && (position.y >= getY() && position.y <= getY() + mRect.getSize().y)
+    };
+}
+
+void UIGridLayout::offsetFromOrigin(float xOffset, float yOffset) {
+    for(UIElement* element : mGridElements)
+        element->offsetFromOrigin(xOffset, yOffset);
 }
 
 void UIGridLayout::update() {
@@ -19,6 +34,8 @@ void UIGridLayout::update() {
 }
 
 void UIGridLayout::draw(sf::RenderWindow& window) {
+    window.draw(mRect);
+
     for(UIElement* element : mGridElements) {
         if(inBounds({ element->getX(), element->getY() }) // Checks if Element Top Left is inBounds
             // Checks if Element Bottom Right is inBounds
@@ -35,6 +52,7 @@ UIElement* UIGridLayout::widestElement() {
         if(element->getWidth() > widest->getWidth())
             widest = element;
     }
+    //std::cout << widest->getWidth() << std::endl;
     return widest;
 }
 
@@ -44,48 +62,57 @@ UIElement* UIGridLayout::tallestElement() {
         if(element->getHeight() > tallest->getHeight())
             tallest = element;
     }
+    //std::cout << tallest->getHeight() << std::endl;
     return tallest;
 }
 
 float UIGridLayout::elementSpacing(bool vertical) {
-    if(!mHasElements) return 0.0f;
-    float elementSize { tallestElement()->getHeight() ? vertical : widestElement()->getWidth() };
-    return (elementSize / mScaleFactor + mInnerPadding);
+    float elementSize { vertical ? tallestElement()->getHeight() : widestElement()->getWidth() };
+    //std::cout << elementSize << std::endl;
+    return (elementSize + mInnerPadding);
 }
 
-sf::Vector2f UIGridLayout::getIndexedPosition() {
-    int index { int(mGridElements.size()) };
+sf::Vector2f UIGridLayout::getIndexedPosition(int index) {
+    //int index { int(mGridElements.size()) };
     
     float xPosition { ((gWindowWidth - elementSpacing() * mElementsPerLine + mInnerPadding) / 2)
         + (index % mElementsPerLine) * elementSpacing() };
     float yPosition { mBorderPadding + (index / mElementsPerLine) 
         * elementSpacing(true) };
-    
+    if(mGridElements.size() == 102) {
+        //std::cout << "((" << gWindowWidth << '-' << elementSpacing() << '*' << mElementsPerLine << '+' << mInnerPadding << ")/2)+(" << index << '%' << mElementsPerLine << ")*" << elementSpacing() << " = " << xPosition << std::endl;
+        //std::cout << mBorderPadding << "+(" << index << '/' << mElementsPerLine << ")*" << elementSpacing(true) << " = " << yPosition << '\n' << std::endl;
+    }
     return { xPosition, yPosition };
 }
 
 void UIGridLayout::updateElementsPerLine() {
     mElementsPerLine = int((gWindowWidth - mBorderPadding * 2) / elementSpacing());
+    
     updateElementPositions();
 }
 
 void UIGridLayout::updateElementPositions() {
-    for(UIElement* element : mGridElements)
-        element->setPosition(getIndexedPosition().x, getIndexedPosition().y);
+    for(int i { 0 }; i < int(mGridElements.size()); ++i)
+        mGridElements[i]->setPosition(getIndexedPosition(i).x, getIndexedPosition(i).y);
 }
 
 void UIGridLayout::updateScale() {
     mInnerPadding = std::max(1.0f, mMaxInnerPadding - mScaleFactor);
+    for(UIElement* element: mGridElements)
+        element->setScale(1.0f / mScaleFactor);
+        
     updateElementsPerLine();
 }
 
+void UIGridLayout::updateLayoutHeight() {
+    mHeight = mGridElements.back()->getY() + mGridElements.back()->getHeight() + mBorderPadding;
+}
+
 void UIGridLayout::addElement(UIElement* element) {
-    if(mHasElements) {
-        updateElementsPerLine();
-        element->setPosition(getIndexedPosition().x, getIndexedPosition().y);
-        element->setScale(1.0f / mScaleFactor);
-    } else mHasElements = true;
     mGridElements.push_back(element);
+    updateScale();
+    updateLayoutHeight();
 }
 
 void UIGridLayout::clearElements() {
@@ -103,7 +130,12 @@ void UIGridLayout::clearElements(int quantity) {
 
 void UIGridLayout::setScale(float scaleFactor) {
     mScaleFactor = scaleFactor;
-    if(mHasElements) updateScale();
+    if(mGridElements.size() > 0)
+        updateScale();
+}
+
+std::vector<UIElement*>& UIGridLayout::getElements() {
+    return mGridElements;
 }
 
 }

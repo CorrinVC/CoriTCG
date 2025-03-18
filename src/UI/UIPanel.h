@@ -22,7 +22,7 @@ public:
     virtual void update();
     virtual void draw(sf::RenderWindow& window);
 
-    void addElement(UIElement* element);
+    virtual void addElement(UIElement* element);
 
     sf::View& getView();
     std::vector<UIElement*>& getElements();

@@ -198,7 +198,7 @@ void initFullViewState() {
         }
     );
 
-    panel->calculateContentHeight();
+    
     gSetFullViewState.addUIElement(panel);
     gSetFullViewState.addUIElement(expansionDropdown);
     gSetFullViewState.addUIElement(scaleDown);

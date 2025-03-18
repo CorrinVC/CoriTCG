@@ -60,10 +60,13 @@ void UIScrollPanel::draw(sf::RenderWindow& window) {
 void UIScrollPanel::calculateContentHeight() {
     double previousContentHeight = mContentHeight;
 
-    mContentHeight = 
-        mPanelElements.back()->getOriginY() +
-        mPanelElements.back()->getHeight() +
-        mInnerBorder;
+    float lowestElementPos {};
+    for(UIElement* element : mPanelElements) {
+        float elementBottom { element->getY() + element->getHeight() };
+        if(elementBottom > lowestElementPos)
+            lowestElementPos = elementBottom;
+    }
+    mContentHeight = lowestElementPos + mInnerBorder;
 
     if(mContentHeight > previousContentHeight)
         mScrollBar.setPosition(mScrollBar.getX(), mScrollBar.getY() * (previousContentHeight / mContentHeight));
@@ -71,6 +74,11 @@ void UIScrollPanel::calculateContentHeight() {
 
     if(mScrollBar.getY() + mScrollBar.getHeight() > mHeight)
         mScrollBar.setPosition(mScrollBar.getX(), mHeight - mScrollBar.getHeight());
+}
+
+void UIScrollPanel::addElement(UIElement* element) {
+    UIPanel::addElement(element);
+    calculateContentHeight();
 }
 
 void UIScrollPanel::setInnerBorder(float border) {
