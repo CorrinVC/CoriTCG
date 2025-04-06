@@ -133,7 +133,7 @@ void UIElement::setScale(float scaleFactor) {
 }
 
 void UIElement::setScale(float scaleX, float scaleY) {
-    setSize({ mWidth * scaleX, mHeight * scaleY});
+    mRect.setSize({ mWidth * scaleX, mHeight * scaleY });
 }
 
 void UIElement::setSize(const sf::Vector2f& size) {
@@ -223,7 +223,7 @@ void UIElement::update() {
             // Update Pressed Behaviour
             pressed = false;
             onPress();
-            std::cout << "Update Clearing" << std::endl;
+            //std::cout << "Update Clearing" << std::endl;
             gMouseManager.clearPressedSlot();
         }
     } else {

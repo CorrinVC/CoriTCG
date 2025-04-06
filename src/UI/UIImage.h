@@ -1,6 +1,7 @@
 #pragma once
 
 #include "UIElement.h"
+#include "UITextbox.h"
 #include <SFML/Graphics.hpp>
 #include <string_view>
 
@@ -14,6 +15,12 @@ class UIImage: public UIElement {
 private:
     sf::Texture mImage;
     sf::Sprite mSprite;
+
+    UITextbox mCaption;
+    float mCaptionXOffset { 0.0f };
+    float mCaptionYOffset { 0.0f };
+
+    bool mHasCaption { false };
 public:
     // Do not include 'res/' in texturepath
     UIImage(float x, float y, const std::string_view texturePath);
@@ -34,8 +41,11 @@ public:
     void setScale(float scaleX, float scaleY);
     void setSize();
 
+    void addCaption(UITextbox caption, float xOffset = 0.0f, float yOffset = 0.0f);
+
     sf::Texture getImage();
     sf::Sprite getSprite();
+    UITextbox& getCaption();
 };
 
 }

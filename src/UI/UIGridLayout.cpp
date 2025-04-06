@@ -18,8 +18,8 @@ UIGridLayout::~UIGridLayout() {
 
 bool UIGridLayout::inBounds(const sf::Vector2f& position) {
     return {
-        (position.x >= mOriginX && position.x <= getX() + mWidth)
-        && (position.y >= getY() && position.y <= getY() + mRect.getSize().y)
+        (position.x >= getX() && position.x <= getX() + mWidth)
+        && (position.y >= mOriginY && position.y <= mOriginY + mRect.getSize().y)
     };
 }
 
@@ -39,8 +39,8 @@ void UIGridLayout::draw(sf::RenderWindow& window) {
     for(UIElement* element : mGridElements) {
         if(inBounds({ element->getX(), element->getY() }) // Checks if Element Top Left is inBounds
             // Checks if Element Bottom Right is inBounds
-            || inBounds({ element->getX() + element->getWidth() - 1, 
-                          element->getY() + element->getHeight() - 1 })) {
+            || inBounds({ element->getX() + (element->getWidth() / mScaleFactor) - 1, 
+                          element->getY() + (element->getHeight() / mScaleFactor) - 1 })) {
             element->draw(window);
         }
     }
@@ -69,7 +69,7 @@ UIElement* UIGridLayout::tallestElement() {
 float UIGridLayout::elementSpacing(bool vertical) {
     float elementSize { vertical ? tallestElement()->getHeight() : widestElement()->getWidth() };
     //std::cout << elementSize << std::endl;
-    return (elementSize + mInnerPadding);
+    return ((elementSize / mScaleFactor) + mInnerPadding);
 }
 
 sf::Vector2f UIGridLayout::getIndexedPosition(int index) {
@@ -86,15 +86,22 @@ sf::Vector2f UIGridLayout::getIndexedPosition(int index) {
     return { xPosition, yPosition };
 }
 
+void UIGridLayout::updateElementPositions() {
+    for(int i { 0 }; i < int(mGridElements.size()); ++i)
+        mGridElements[i]->setPosition(getIndexedPosition(i).x, getIndexedPosition(i).y);
+}
+
 void UIGridLayout::updateElementsPerLine() {
     mElementsPerLine = int((gWindowWidth - mBorderPadding * 2) / elementSpacing());
     
     updateElementPositions();
 }
 
-void UIGridLayout::updateElementPositions() {
-    for(int i { 0 }; i < int(mGridElements.size()); ++i)
-        mGridElements[i]->setPosition(getIndexedPosition(i).x, getIndexedPosition(i).y);
+void UIGridLayout::updateLayoutHeight() {
+    if(mGridElements.empty())
+        mHeight = mRect.getSize().y;
+    else
+        mHeight = mGridElements.back()->getOriginY() + (mGridElements.back()->getHeight() / mScaleFactor) + mBorderPadding;
 }
 
 void UIGridLayout::updateScale() {
@@ -106,18 +113,9 @@ void UIGridLayout::updateScale() {
     updateLayoutHeight();
 }
 
-void UIGridLayout::updateLayoutHeight() {
-    if(mGridElements.empty())
-        mHeight = mRect.getSize().y;
-    else
-        mHeight = mGridElements.back()->getOriginY() + mGridElements.back()->getHeight() + mBorderPadding;
-}
-
 void UIGridLayout::addElement(UIElement* element) {
-    element->setScale(1.0f / mScaleFactor);
     mGridElements.push_back(element);
-    updateElementsPerLine();
-    updateLayoutHeight();
+    updateScale();
 }
 
 void UIGridLayout::clearElements() {

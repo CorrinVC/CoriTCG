@@ -40,10 +40,10 @@ void UIScrollPanel::update() {
     };
     mouseCheck(mouseClickOutOfPanel, false); // Turn Off Mouse Click
 
+    updateElements();
+
     mScrollBar.update();
     updateScrollOffset();
-
-    updateElements();
 
     mouseCheck(mouseClickOutOfPanel, true); // Turn Mouse Click Back On
     

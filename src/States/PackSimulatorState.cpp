@@ -151,12 +151,14 @@ void initPackSimState() {
     expansionDropdown->alignText();
 
     collectionButton = new UIButton(100.0f, 50.0f);
-    collectionButton->setPositionRelativeTo(UIElement::ScreenTopRight, -40.0f, -40.0f);
+    collectionButton->setPositionRelativeTo(UIElement::ScreenTopRight, -40.0f, 40.0f);
     collectionButton->setText("Collection");
     collectionButton->centerButtonText();
     collectionButton->createClickFunction(
         [&]() {
             gCurrentProfile.collection.printCollection();
+            CollectionView::updateCollection();
+            gSetState(CollectionView::gCollectionViewState);
         }
     );
 

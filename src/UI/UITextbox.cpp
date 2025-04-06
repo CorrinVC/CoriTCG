@@ -2,12 +2,16 @@
 
 namespace Cori {
 
-UITextbox::UITextbox(float width, float height, const std::string& text, bool transparent)
+UITextbox::UITextbox()
+: UITextbox(0.0f, 0.0f, "")
+{}
+
+UITextbox::UITextbox(float width, float height, const std::string text, bool transparent)
 : UITextbox(0.0f, 0.0f, width, height, text, transparent)
 {}
 
 UITextbox::UITextbox(float x, float y, float width, float height,
-            const std::string& text, bool transparent)
+            const std::string text, bool transparent)
 : UIElement(x, y, width, height)
 {
     // Initialize mText
@@ -53,7 +57,7 @@ sf::Text& UITextbox::getRenderText() {
     return mText;
 }
 
-void UITextbox::setText(const sf::String& text) {
+void UITextbox::setText(const sf::String text) {
     mText.setString(text);
 }
 
@@ -77,6 +81,24 @@ void UITextbox::setTextPressedColor(const sf::Color color) {
     mTextPressedColor = color;
 }
 
+void UITextbox::setPosition(float x, float y) {
+    UIElement::setPosition(x, y);
+    mText.setPosition({ x, y });
+    if(centered) centerText();
+}
+
+void UITextbox::offsetFromOrigin(float xOffset, float yOffset) {
+    UIElement::offsetFromOrigin(xOffset, yOffset);
+    mText.setPosition({ getX(), getY() });
+    if(centered) centerText();
+}
+
+void UITextbox::setScale(float scaleX, float scaleY) {
+    UIElement::setScale(scaleX, scaleY);
+    mText.setScale({scaleX, scaleY});
+    if(centered) centerText();
+}   
+
 void UITextbox::centerMove(bool initial) {
     // Gets Center Position of Text Bounds
     sf::Vector2f center { mText.getGlobalBounds().size / 2.0f };
@@ -91,7 +113,8 @@ void UITextbox::centerMove(bool initial) {
 
 void UITextbox::centerText() {
     centerMove();
-    mText.setPosition({ getX() + getWidth() / 2.0f, getY() + getHeight() / 2.0f });
+    //std::cout << "Centering" << std::endl;
+    mText.setPosition({ getX() + getWidth() / 2.0f * mText.getScale().x, getY() + getHeight() / 2.0f * mText.getScale().y });
     centered = true;
 }
 

@@ -22,9 +22,10 @@ protected:
     void centerMove(bool initial = false);
 
 public:
-    UITextbox(float width, float height, const std::string& text, bool transparent = false);
+    UITextbox();
+    UITextbox(float width, float height, const std::string text, bool transparent = false);
     UITextbox(float x, float y, float width, float height, 
-        const std::string& text, bool transparent = false);
+        const std::string text, bool transparent = false);
 
     // Mouse Behaviour Functionality
     void onHover();
@@ -35,11 +36,15 @@ public:
     const std::string getText();
     sf::Text& getRenderText(); // Remove? Currently Unused
 
-    void setText(const sf::String& text);
+    void setText(const sf::String text);
 
     void setTextColor(const sf::Color color);
     void setTextHoverColor(const sf::Color color);
     void setTextPressedColor(const sf::Color color);
+
+    void setPosition(float x, float y) override;
+    void offsetFromOrigin(float xOffset, float yOffset) override;
+    void setScale(float scaleX, float scaleY) override;
 
     // Text Centering Functions
     void centerText();

@@ -51,6 +51,7 @@ extern void initPackSimState();
 namespace CollectionView {
 extern State gCollectionViewState;
 extern void initCollectionViewState();
+extern void updateCollection();
 }
 
 }

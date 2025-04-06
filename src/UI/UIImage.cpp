@@ -41,6 +41,9 @@ UIImage::UIImage(float x, float y, sf::Texture texture)
 
 void UIImage::draw(sf::RenderWindow& window) {
     window.draw(mSprite);
+    if(mHasCaption) {
+        mCaption.draw(window);
+    }
 }
 
 void UIImage::changeTexture(const std::string_view texturePath) {
@@ -61,15 +64,24 @@ void UIImage::changeTexture(sf::Texture texture) {
 void UIImage::setPosition(float x, float y) {
     UIElement::setPosition(x, y);
     mSprite.setPosition({ x, y });
+    if(mHasCaption) mCaption.setPosition(x, y);
 }
 
 void UIImage::move(float x, float y) {
     UIElement::move(x, y);
     mSprite.move({ x, y });
+    if(mHasCaption) {
+        mCaption.move(x, y);
+        //mCaption.centerText();
+    }
 }
 
 void UIImage::offsetFromOrigin(float xOffset, float yOffset) {
     UIElement::offsetFromOrigin(xOffset, yOffset);
+    if(mHasCaption) {
+        mCaption.offsetFromOrigin(xOffset, yOffset);
+        //mCaption.centerText();
+    }
     mSprite.setPosition({ mOriginX + xOffset, mOriginY + yOffset });
 }
 
@@ -79,7 +91,8 @@ void UIImage::setScale(float scaleFactor) {
 
 void UIImage::setScale(float scaleX, float scaleY) {
     mSprite.setScale({ scaleX, scaleY });
-    UIElement::setSize({ mImage.getSize().x * scaleX, mImage.getSize().y * scaleY});
+    UIElement::setScale(scaleX, scaleY);
+    if(mHasCaption) mCaption.setScale(scaleX, scaleY);
 }
 
 void UIImage::setSize() {
@@ -88,12 +101,28 @@ void UIImage::setSize() {
     mRect.setSize({ mWidth, mHeight });
 }
 
+void UIImage::addCaption(UITextbox caption, float xOffset, float yOffset) {
+    mCaption = caption;
+    mCaptionXOffset = xOffset;
+    mCaptionYOffset = yOffset;
+    mCaption.centerText();
+
+    //mCaption.setPosition(getX(), getY());
+    //mCaption.setBackgroundColor(sf::Color(255,0,255));
+    mHasCaption = true;
+};
+
 sf::Texture UIImage::getImage() {
     return mImage;
 }
 
 sf::Sprite UIImage::getSprite() {
     return mSprite;
+}
+
+UITextbox& UIImage::getCaption() {
+    assert(mHasCaption && "Image Has No Caption");
+    return mCaption;
 }
 
 }
