@@ -12,10 +12,13 @@ namespace Cori { namespace CollectionView {
 
 State gCollectionViewState {};
 
+// UI Elements
 UIGridLayout* layout;
 UIScrollPanel* panel;
 
 UIButton* backButton;
+
+Collection::SortMethod currentSortMethod { Collection::CollectorNumber };
 
 /*void printImageDetails() {
     int i {0};
@@ -28,38 +31,56 @@ UIButton* backButton;
     std::cout << "ENDING PRINT" << std::endl;
 }*/
 
+void generateImage(Collection::CollectionEntry& entry) {
+    UIImage* image = new UIImage(0.0f, 0.0f, entry.getCard()->mTexture);
+
+    // Switch to Card Viewer on Img Click
+    image->createClickFunction(
+        [=]() {
+            SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
+            gSetState(SetViewer::gSetViewerState);
+        }
+    );
+
+    // Set Image Caption to Quantity of Cards in Collection
+    image->addCaption({ 100.0f, 50.0f, std::format("{}", entry.quantity) });
+    image->getCaption().setBackgroundColor(sf::Color::Black);
+
+    layout->addElement(image);
+}
+
+void changeImage(Collection::CollectionEntry& entry, int entryIndex) {
+    UIImage* image { static_cast<UIImage*>( layout->getElements()[entryIndex] ) };
+
+    image->changeTexture(entry.getCard()->mTexture);
+    image->getCaption().setText(std::format("{}", entry.quantity));
+}
+
+void updateEntry(Collection::CollectionEntry& entry, int entryIndex, int imagesInLayout) {
+    if(entryIndex >= imagesInLayout)
+        generateImage(entry);
+    else
+        changeImage(entry, entryIndex);
+}
+
 void updateCollection() {
-    int index { 0 };
+    int entryIndex { 0 };
     int imagesInLayout { int(layout->getElements().size()) };
 
-    for(Collection::CollectionEntry entry : gCurrentProfile.collection.entries()) {
-        sf::Texture texture { entry.getCard()->mTexture };
-        if(index >= imagesInLayout) {
-            UIImage* image = new UIImage(0.0f, 0.0f, texture);
-            image->createClickFunction(
-                [=]() {
-                    SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
-                    gSetState(SetViewer::gSetViewerState);
-                }
-            );
-            image->addCaption({ 100.0f, 50.0f, std::format("{}", entry.quantity) });
-            image->getCaption().setBackgroundColor(sf::Color::Black);
+    for(Collection::CollectionEntry entry : gCurrentProfile.collection.getSorted(currentSortMethod)) {
+        updateEntry(entry, entryIndex, imagesInLayout);
+        ++entryIndex;
+    }
 
-            layout->addElement(image);
-        } else {
-            UIImage* ptr  { static_cast<UIImage*>(layout->getElements()[index]) };
-            ptr->changeTexture(texture);
-            ptr->getCaption().setText(std::format("{}", entry.quantity));
-        }
-        ++index;
-    }
-    if(index < imagesInLayout) {
-        layout->clearElements(imagesInLayout - index - 1);
-    }
+    // Check if Elements Need Removed
+    if(entryIndex < imagesInLayout)
+        layout->clearElements(imagesInLayout - entryIndex - 1);
+
     panel->calculateContentHeight();
 }
 
 void initCollectionViewState() {
+    // Init Grid Layout
     layout = new UIGridLayout(12.0f, 10.0f);
     layout->setScale(2.0f);
     layout->setBackgroundColor(sf::Color::Blue);
@@ -69,14 +90,13 @@ void initCollectionViewState() {
         layout->addElement(image);
     }*/
     //std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
+
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight, 20.0f, 50.0f);
 
-    updateCollection();
-    
+    updateCollection();  
     panel->addElement(layout);
-    
-    gCollectionViewState.addUIElement(panel);
 
+    // Init Back Button
     backButton = new UIButton(50.0f, 50.0f, 50.0f, 50.0f);
     backButton->setText("Back");
     backButton->createClickFunction(
@@ -85,6 +105,7 @@ void initCollectionViewState() {
         }
     );
 
+    gCollectionViewState.addUIElement(panel);
     gCollectionViewState.addUIElement(backButton);
     /*Collection collection {};
 

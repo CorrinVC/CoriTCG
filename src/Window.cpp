@@ -15,26 +15,26 @@ Window::Window(std::string_view title, int width, int height)
     gMouseManager.setWindow(mWindow);
 }
 
+void pollEvent(const std::optional<sf::Event> event, sf::RenderWindow& window) {
+    // Window Close Event
+    if(event->is<sf::Event::Closed>())
+        window.close();
+    
+    // Mouse Pressed Event
+    else if(const auto* buttonPressed = event->getIf<sf::Event::MouseButtonPressed>())
+        gMouseManager.setMouseButtonPressed(buttonPressed->button);
+    
+    // Mouse Released Event
+    else if(const auto* buttonReleased = event->getIf<sf::Event::MouseButtonReleased>())
+        gMouseManager.setMouseButtonReleased(buttonReleased->button);
+}
+
 void Window::update() {
     gMouseManager.update(); // Reset Mouse Input Flags
 
     // Poll Events
     while(const std::optional event = mWindow.pollEvent()) {
-        // Window Closed Event
-        if(event->is<sf::Event::Closed>())
-            mWindow.close(); //Close Window
-        // Mouse Pressed Event
-        else if(const auto* buttonPressed = event->getIf<sf::Event::MouseButtonPressed>())
-        {
-            // Set Mouse Pressed Flag
-            gMouseManager.setMouseButtonPressed(buttonPressed->button);
-        }
-        // Mouse Released Event
-        else if(const auto* buttonReleased = event->getIf<sf::Event::MouseButtonReleased>())
-        {
-            // Set Mouse Left Released Flag
-            gMouseManager.setMouseButtonReleased(buttonReleased->button);
-        }
+        pollEvent(event, mWindow);
     }
 
     if(gCurrentState)

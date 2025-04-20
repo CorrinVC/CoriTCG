@@ -20,9 +20,10 @@ public:
     void update();
     void draw(sf::RenderWindow& window) override;
 
-    // Write Wrapper Functions
+    // Prefer Wrapper Functions
     UITextbox& getTextbox();
 
+    // Wrapper Functions
     void setText(const sf::String& text);
     void centerButtonText();
 };

@@ -25,7 +25,10 @@ UIDropdown* expansionDropdown;
 UIButton* backButton;
 UIButton* collectionButton;
 
+// Current Expansion to Pull From
 Expansion* currentExpansion;
+
+// Pulled Pack Variables
 std::vector<DataCard*> currentPack {};
 int displayIndex { -1 };
 bool packGenerated { false };
@@ -45,19 +48,21 @@ void updateDisplay() {
 
     // Cycle Through Pulled Cards
     if(displayIndex < int(currentPack.size())) {
+        // Reveal Card Image
         static_cast<UIImage*>(packPanel->getElements().back())->changeTexture(
            currentPack[displayIndex]->mTexture);
+        
         instructText->setText(currentPack[displayIndex]->cardNameString());
     }
-    else { // Restore to Default T
+    else { // Restore to Default Texture
         setDefaults();
     }
 }
 
 // Pulls next card to front, pushes previous cards backward
-void rotateCards(int cardIndex) {
-    std::rotate(packPanel->getElements().end() - 2 - cardIndex,
-        packPanel->getElements().end() - 1 - cardIndex,
+void rotateCards() {
+    std::rotate(packPanel->getElements().end() - 2 - displayIndex,
+        packPanel->getElements().end() - 1 - displayIndex,
         packPanel->getElements().end());
 }
 
@@ -68,28 +73,42 @@ void clearCardImages(int quantity) {
     }
 }
 
-void generateCardImages(std::vector<DataCard*>& cards) {
+// Shift Card Images to Left
+void moveCardImages() {
+    for(UIElement* element : packPanel->getElements())
+        element->move(-100.0f, 0.0f);
+
+    rotateCards();
+}
+
+// Cycle Through Click Functionalities
+void cyclePulls(const std::vector<DataCard*>& pulls) {
+    if(displayIndex == int(pulls.size()) - 1) // Clicking on Last Card
+        clearCardImages(int(pulls.size()));
+    else
+        moveCardImages();
+    
+    updateDisplay();
+}
+
+// Generate Cards' Images to Display in Opening Sim
+void generateCardImages(const std::vector<DataCard*>& cards) {
     for(int i = int(cards.size()) - 1; i >= 0; --i) {
         UIImage* image = new UIImage(cardPack->getX() + (i * 100), cardPack->getY(), gCardBackTexture);
         packPanel->addElement(image);
     }
+
     packPanel->createClickFunction(
         [=]() {
-            if(displayIndex == int(cards.size()) - 1) 
-                clearCardImages(int(cards.size()));
-            else {
-                for(UIElement* element : packPanel->getElements()) {
-                    element->move(-100.0f, 0.0f);
-                }
-                rotateCards(displayIndex);
-            }
-            updateDisplay();
+            cyclePulls(cards);
         }
     );
 }
 
-DataCard* generateNewCard(Rarity rarity, std::vector<DataCard*>& cards) {
+DataCard* generateNewCard(Rarity rarity, const std::vector<DataCard*>& cards) {
     DataCard* card;
+
+    // Generate Card, Check if not already in pulls
     do {
         card = currentExpansion->getCardsByRarity(rarity)[
             Random::get(currentExpansion->cardCountOfRarity(rarity))
@@ -101,45 +120,59 @@ DataCard* generateNewCard(Rarity rarity, std::vector<DataCard*>& cards) {
     return card;
 }
 
-
+// Generate Cards Pulled from Pack
 std::vector<DataCard*> generatePulls() {
     std::vector<DataCard*> cards {};
 
     std::cout << "=== You Pulled ==="; 
+
+    // Generate Cards by Pack Rarity Pull Rates
     for(Rarity rarity : currentExpansion->packRarities()) {
         DataCard* card { generateNewCard(rarity, cards) };
         cards.push_back(card);
+
+        // Add Card to Collection
         gCurrentProfile.addToCollection({ card->mExpansion, card->mCardNumber });
     }
 
     generateCardImages(cards);
     std::cout << std::endl;
+
     return cards;
 }
 
+void openPack() {
+    if(!packGenerated) { // Generate Pack on first Click
+        instructText->setText("Click to Open!");
+
+        currentPack = generatePulls();
+        packGenerated = true;
+        updateDisplay();
+    }
+}
+
 void initPackSimState() {
+
+    // Init Pack Button
     cardPack = new UIImage(centeredCardPosition().x, centeredCardPosition().y + 40.0f,
         gCardBackTexture);
     cardPack->createClickFunction(
         [=]() {
             if(currentExpansion == nullptr) return;
-            if(!packGenerated) { // Display on Default Texture
-                instructText->setText("Click to Open!");
-                currentPack = generatePulls();
-                
-                packGenerated = true;
-                updateDisplay();
-            }
+            openPack();
         }
     );
 
+    // Init Pack Panel
     packPanel = new UIPanel(gWindowWidth, gWindowHeight);
     packPanel->setBackgroundColor(sf::Color::Transparent);
 
+    // Init Instruction Text
     instructText = new UITextbox(400.0f, 50.0f, "Select an Expansion", true);
     instructText->setPositionRelativeTo(UIElement::ScreenTop, 70.0f);
     instructText->centerText();
 
+    // Init Expansion Dropdown
     expansionDropdown = new UIDropdown(300.0f, 40.0f, "Select Expansion",
         Expansions::gExpansionNames());
     expansionDropdown->setPositionRelativeTo(UIElement::ScreenTop, 20.0f);
@@ -150,13 +183,14 @@ void initPackSimState() {
     );
     expansionDropdown->alignText();
 
+    // Init Collection State Button
     collectionButton = new UIButton(100.0f, 50.0f);
     collectionButton->setPositionRelativeTo(UIElement::ScreenTopRight, -40.0f, 40.0f);
     collectionButton->setText("Collection");
     collectionButton->centerButtonText();
     collectionButton->createClickFunction(
         [&]() {
-            gCurrentProfile.collection.printCollection();
+            gCurrentProfile.collection.printCollection(Collection::SortMethod::CollectorNumber);
             CollectionView::updateCollection();
             gSetState(CollectionView::gCollectionViewState);
         }

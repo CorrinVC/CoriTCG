@@ -24,13 +24,22 @@ public:
         }
     };
 
+    enum SortMethod {
+        NoSort,
+        CollectorNumber,
+        CardName,
+        CardType,
+        Evolutions,
+    };
+
 private:
     std::vector<CollectionEntry> mCollection {};
 public:
     const std::vector<CollectionEntry>& entries();
+    const std::vector<CollectionEntry> getSorted(SortMethod method); // TODO
+
     void addToCollection(CollectionEntry entry);
-    void printCollection(); // Temporary?
-    void sort(int method);
+    void printCollection(SortMethod method = NoSort); // Temporary?
 };
 
 extern bool operator==(Collection::CollectionEntry left, Collection::CollectionEntry right);

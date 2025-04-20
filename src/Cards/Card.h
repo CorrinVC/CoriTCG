@@ -34,9 +34,8 @@ enum EnergyType {
 };
 
 class DataCard {
-protected:
-
 public:
+    // sf::String to display non-ASCII chars
     const sf::String mCardName {};
     const CardType mCardType {};
 

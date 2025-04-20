@@ -244,7 +244,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
     DataCard* _040Nidorina { (new PokemonCard(
         "Nidorina", 70, EnergyType::Grass, Stage::Stage1, 1,
         "Ken Sugimori", ExpansionID::Jungle, 40, Rarity::Uncommon))
-        ->evolvesFrom("Nidoran♀")->weakTo(EnergyType::Psychic)
+        ->evolvesFrom(L"Nidoran ♀")->weakTo(EnergyType::Psychic)
     };
 
     DataCard* _041Parasect { (new PokemonCard(
@@ -344,7 +344,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
     };
 
     DataCard* _057NidoranF { (new PokemonCard(
-        "Nidoran ♀", 60, EnergyType::Grass, Stage::Basic, 1,
+        L"Nidoran ♀", 60, EnergyType::Grass, Stage::Basic, 1,
         "Ken Sugimori", ExpansionID::Jungle, 57, Rarity::Common))
         ->weakTo(EnergyType::Psychic)
     };
@@ -386,7 +386,7 @@ namespace Cori { namespace Expansions { namespace Jungle {
     };
 
     DataCard* _064PokéBall { new TrainerCard(
-        "Poké Ball", TrainerType::Item, "Keiji Kinebuchi",
+        L"Poké Ball", TrainerType::Item, "Keiji Kinebuchi",
         ExpansionID::Jungle, 64, Rarity::Common
     )};
 

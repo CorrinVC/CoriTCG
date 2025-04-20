@@ -34,6 +34,7 @@ void initMenuState() {
     cardViewButton->getTextbox().setTextHoverColor(sf::Color::Magenta);
     cardViewButton->getTextbox().setTextColor(sf::Color::Red);
 
+    // Init Set Viewer Button
     setViewButton = new UIButton(100.0f, 60.0f);
     setViewButton->setText("Set View");
     setViewButton->centerButtonText();
@@ -43,6 +44,7 @@ void initMenuState() {
         }
     );
 
+    // Init Pack Simulator Button
     packSimButton = new UIButton(100.0f, 60.0f);
     packSimButton->setText("Pack Sim");
     packSimButton->setPositionRelativeTo(*setViewButton, 110.0f, 0.0f);
@@ -53,6 +55,7 @@ void initMenuState() {
         }
     );
 
+    // Init Collection Showcase Button
     collectionButton = new UIButton(100.0f, 60.0f);
     collectionButton->setText("Collection");
     collectionButton->setPositionRelativeTo(*packSimButton, 110.0f, 0.0f);

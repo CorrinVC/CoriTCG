@@ -15,7 +15,6 @@ State gSetViewerState {};
 int currentCardID { 0 }; // default to Card Back (0), otherwise card collector #
 Expansion* currentExpansion { Expansions::gExpansionList[ExpansionID::BaseSet] }; // CHANGE - reference global expansion vars
 
-
 // UI Elements
 UIImage* mainCardDisplay;
 UITextbox* currentCardTextbox;
@@ -25,7 +24,7 @@ UIButton* backButton;
 UIButton* incrementButton;
 UIButton* decrementButton;
 
-// Returns Local Texture Path of Current Card, or Card Back Texture Path
+/* Returns Local Texture Path of Current Card, or Card Back Texture Path
 // Currently Only Used to Initialize Current Card UIImage
 std::string getCurrentCardTexturePath() {
     return currentCardID > 0 
@@ -34,7 +33,7 @@ std::string getCurrentCardTexturePath() {
             currentExpansion->expansionLowerAbbreviation(),
             currentCardID) 
         : "card-back.png";
-}
+}*/
 
 // Returns Current Card's Texture Object, or Card Back Texture
 sf::Texture getCurrentCardTexture() {
@@ -70,20 +69,29 @@ void setSelectedCard(int cardID, int expansionID) {
     setSelectedCard(cardID, Expansions::gExpansionList[expansionID]);
 }
 
+void updateExpansion(UIDropdown* dropdown) {
+    if(dropdown->getSelectedText() == gDefaultString)
+        currentCardID = 0;
+    // Do Not Reset if Same Expansion Selected
+    else if(currentExpansion->expansionID != expansionDropdown->getSelectedIndex()) {
+        currentCardID = 1;
+        currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()];
+    }
+
+    changeCardInfo();
+}
+
 void initSetViewerState() {
 
     // Central UIImage to Display Current Card
     mainCardDisplay = new UIImage(
-        centeredCardPosition().x, centeredCardPosition().y + 50.0f, getCurrentCardTexturePath());
-
-    gSetViewerState.addUIElement(mainCardDisplay);
+        centeredCardPosition().x, centeredCardPosition().y + 50.0f, getCurrentCardTexture());
 
     // 'Header'-Like Textbox Above Main Card Display
     // Used to Display Card Name & Other Info (in the future)
     currentCardTextbox = new UITextbox(300.0f, 60.0f, "", true); // Set Transparent
     currentCardTextbox->setPositionRelativeTo(UIElement::ScreenTop, 55.0f);
     currentCardTextbox->centerText();
-    gSetViewerState.addUIElement(currentCardTextbox);
 
     // Dropdown to Switch Between Expansions
     expansionDropdown = new UIDropdown(gWindowWidth / 2.0f - 150.0f, 10.0f, 300.0f, 40.0f, "Select Expansion", 
@@ -91,17 +99,11 @@ void initSetViewerState() {
     expansionDropdown->setPositionRelativeTo(UIElement::ScreenTop, 10.0f);
     expansionDropdown->createClickFunction(
         [=]() {
-            if(expansionDropdown->getSelectedText() == gDefaultString)
-                currentCardID = 0; // Set to Default (Card Back Image)
-            else if(currentExpansion->expansionID != expansionDropdown->getSelectedIndex()) { // Do Not Reset to Beginning if Same Expansion Selected
-                currentCardID = 1; // Reset Card # to Beginning of Expansion
-                currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()]; // CHANGE? To reference expansion vars?
-            }
-            changeCardInfo(); // Update Related UIElements
+            updateExpansion(expansionDropdown);
         }
     );
-    gSetViewerState.addUIElement(expansionDropdown);
 
+    // Back Button - TODO Set to Variable Previous State
     backButton = new UIButton(20.0f, 20.0f, 75.0f, 40.0f);
     backButton->setText("Back");
     backButton->createClickFunction(
@@ -114,7 +116,7 @@ void initSetViewerState() {
     incrementButton = new UIButton(gWindowWidth - 100.0f, mainCardDisplay->getY(), 50.0f, 50.0f);
     incrementButton->createClickFunction(
         [=]() {
-            // Ensure Card ID is Cyclable
+            // Ensure Card ID is Right Cyclable
             if(currentCardID > 0 && // Do Not Increment if Card Back is Shown 
                 currentCardID < currentExpansion->cardCount()) {
                 ++currentCardID;
@@ -124,7 +126,6 @@ void initSetViewerState() {
     );
     incrementButton->setText(">");
     incrementButton->centerButtonText();
-    gSetViewerState.addUIElement(incrementButton);
 
     // Button to Cycle (Down/Left) Through Expansion
     decrementButton = new UIButton(100.0f, mainCardDisplay->getY(), 50.0f, 50.0f);
@@ -138,6 +139,13 @@ void initSetViewerState() {
     );
     decrementButton->setText("<");
     decrementButton->centerButtonText();
+
+    gSetViewerState.addUIElement(mainCardDisplay);
+    gSetViewerState.addUIElement(currentCardTextbox);
+    gSetViewerState.addUIElement(expansionDropdown);
+
+    gSetViewerState.addUIElement(backButton);
+    gSetViewerState.addUIElement(incrementButton);
     gSetViewerState.addUIElement(decrementButton);
 }
 

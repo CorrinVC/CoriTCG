@@ -26,19 +26,21 @@ UIButton* scaleUp;
 UIButton* scrollDown;
 UIButton* scrollUp;
 
+/*
 // Layout Variables
-
-float currentScale { 2.0f }; // Card Image Scale Factor (Represented as 1/x)
 int currentImgCount { 102 }; // Temporary - Replace with Expansion var & Expansion Card Count var
 const float regionBorder { 12.0f }; // CHANGE? Panel Inner Padding, in Pixels
 float cardGap { regionBorder - currentScale }; // Padding Between Cards, in Pixels
 
 // Amount of Cards that fit in a row, given Scale, Gap, and Border
 int cardsPerLine { int((gWindowWidth - regionBorder * 2) / (gCardWidth / currentScale + cardGap)) };
+*/
 
-// Current Set Vars
+float currentScale { 2.0f }; // Card Image Scale Factor (Represented as 1/x)
+// Current Set Var(s)
 Expansion* currentExpansion { Expansions::gExpansionList[ExpansionID::BaseSet] };
 
+/*
 // Returns Position of Card Relative to its Indexed Location in grid
 sf::Vector2f getIndexedPosition(int index) {
     return {
@@ -46,21 +48,6 @@ sf::Vector2f getIndexedPosition(int index) {
         + (index % cardsPerLine) * (gCardWidth / currentScale + cardGap),
         regionBorder + (index / cardsPerLine) * (gCardHeight / currentScale + cardGap) 
     };
-}
-
-void generateImage(int index) {
-    UIImage* image = new UIImage(0.0f, 0.0f, 
-        currentExpansion->cards[index]->mTexture);
-
-    image->createClickFunction(
-        [=]() {
-            SetViewer::setSelectedCard(index + 1, currentExpansion->expansionID);
-            gSetState(SetViewer::gSetViewerState);
-            //std::cout << image->getX() << ',' << image->getY() << ',' << image->getWidth() << ',' << image->getHeight() << std::endl;
-        }
-    );
-
-    gridLayout->addElement(image);
 }
 
 void setImgPosition(int index, UIImage* image) {
@@ -100,17 +87,37 @@ void reduceElements(int elementsNeeded) {
         delete panel->getElements()[i];
         panel->getElements().pop_back();
     }
+}*/
+
+// Create and Add Card Image to Layout
+void generateImage(int index) {
+    UIImage* image = new UIImage(0.0f, 0.0f, 
+        currentExpansion->cards[index]->mTexture);
+
+    image->createClickFunction(
+        [=]() {
+            SetViewer::setSelectedCard(index + 1, currentExpansion->expansionID);
+            gSetState(SetViewer::gSetViewerState);
+            //std::cout << image->getX() << ',' << image->getY() << ',' << image->getWidth() << ',' << image->getHeight() << std::endl;
+        }
+    );
+
+    gridLayout->addElement(image);
 }
 
 void updateExpansion() {
-    gridLayout->clearElements();
+    gridLayout->clearElements(); // Reset Imgs
+
     for(int i { 0 }; i < currentExpansion->cardCount(); ++i)
         generateImage(i);
+    
     panel->calculateContentHeight();
 }
 
 
 void initFullViewState() {
+
+    // Init Expansion Dropdown
     expansionDropdown = new UIDropdown(gWindowWidth / 2.0f - 150.0f, 10.0f, 300.0f, 40.0f, "Select Expansion",
         Expansions::gExpansionNames());
     expansionDropdown->createClickFunction(
@@ -125,19 +132,18 @@ void initFullViewState() {
     // Main Panel on which to Display main Card UIImages
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     panel->setBackgroundColor(sf::Color(255, 100, 100));
-    panel->setInnerBorder(regionBorder);
+    panel->setInnerBorder(12.0f);
 
-    // Sets Panel Size to 95% of Screen Height, Aligned to Bottom of Screen
+    // Set Panel Size to 95% of Screen Height, Aligned to Bottom of Screen
     panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
 
     // Grid Layout to Organize Cards
     gridLayout = new UIGridLayout(12.0f, 10.0f, panel->getWidth(), panel->getHeight());
-    gridLayout->setScale(currentScale);
+    gridLayout->setScale(currentScale); // Set Card Grid to 1/2 Scale
     gridLayout->setBackgroundColor(sf::Color(200, 200, 255));
 
     // Initialize Amount of UIImages equal to Current Expansion Card Count
-    // Rework? Needs Functionality for Changing Amount of Cards to Display
-    for(int i = 0; i < currentImgCount; ++i) {
+    for(int i = 0; i < currentExpansion->cardCount(); ++i) {
         generateImage(i);
     }
     panel->addElement(gridLayout);

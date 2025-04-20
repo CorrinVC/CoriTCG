@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Profile/Collection.h"
 #include "../UI/UIElement.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -48,7 +49,7 @@ extern State gPackSimulatorState;
 extern void initPackSimState();
 }
 
-namespace CollectionView {
+namespace CollectionView { // Collection Showcase State
 extern State gCollectionViewState;
 extern void initCollectionViewState();
 extern void updateCollection();

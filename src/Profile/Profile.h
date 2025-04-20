@@ -18,6 +18,7 @@ struct Profile {
     }
 };
 
+// Defined in Profile.cpp
 extern Profile gCurrentProfile;
 extern void loadProfile(Profile profile);
 

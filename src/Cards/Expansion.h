@@ -10,12 +10,16 @@
 namespace Cori {
 
 struct Expansion {
+
     const std::string expansionName;
     const ExpansionID expansionID;
+
     const int packQuantity;
+
     const std::vector<DataCard*> cards;
     std::function<std::vector<Rarity>(void)> packRarities;
 
+    // Lists of Cards Split By Rarity
     std::map<Rarity, std::vector<DataCard*>> cardsByRarity;
 
 

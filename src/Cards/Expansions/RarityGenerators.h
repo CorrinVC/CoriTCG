@@ -5,7 +5,10 @@
 
 namespace Cori { namespace Expansions {
 
-    using Cori::Rarity;    
+    using Cori::Rarity;
+    
+    // Used For Base Set
+    // 2 Energy | 5 Common | 3 Uncommon | 1 Rare (1/3 chance of Holo Rare)
     auto baseEraPackRarities {
         []() -> std::vector<Rarity> {
             Rarity rare { Random::get(3) == 0 ? HoloRare : Rare };
@@ -17,6 +20,8 @@ namespace Cori { namespace Expansions {
         }
     }; 
 
+    // Used For Jungle, Fossil
+    // 7 Common | 3 Uncommon | 1 Rare (1/3 chance of Holo Rare)
     auto baseEraRaritiesNoEnergy {
         []() -> std::vector<Rarity> {
             auto rarities { baseEraPackRarities() };
