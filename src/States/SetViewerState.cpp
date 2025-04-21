@@ -108,7 +108,7 @@ void initSetViewerState() {
     backButton->setText("Back");
     backButton->createClickFunction(
         [=]() {
-            gSetState(SetFullView::gSetFullViewState);
+            gSetState(CollectionView::gCollectionViewState);
         }
     );
 

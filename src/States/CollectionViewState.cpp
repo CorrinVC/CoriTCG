@@ -3,6 +3,7 @@
 #include "../Profile/Collection.h"
 #include "../Profile/Profile.h"
 #include "../UI/UIButton.h"
+#include "../UI/UIDropdown.h"
 #include "../UI/UIGridLayout.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIScrollPanel.h"
@@ -17,8 +18,9 @@ UIGridLayout* layout;
 UIScrollPanel* panel;
 
 UIButton* backButton;
+UIDropdown* sortDropdown;
 
-Collection::SortMethod currentSortMethod { Collection::CollectorNumber };
+SortMethod currentSortMethod {};
 
 /*void printImageDetails() {
     int i {0};
@@ -92,12 +94,14 @@ void initCollectionViewState() {
     //std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
 
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight, 20.0f, 50.0f);
+    // Offset Panel to y=5%, Shrink Height to 95%
+    panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
 
     updateCollection();  
     panel->addElement(layout);
 
     // Init Back Button
-    backButton = new UIButton(50.0f, 50.0f, 50.0f, 50.0f);
+    backButton = new UIButton(10.0f, 10.0f, 50.0f, 50.0f);
     backButton->setText("Back");
     backButton->createClickFunction(
         []() {
@@ -105,8 +109,21 @@ void initCollectionViewState() {
         }
     );
 
+    // Init Sort Dropdown
+    sortDropdown = new UIDropdown(gWindowWidth - 110.0f, 10.0f, 100.0f, 50.0f, "Sort",
+        { "Recent", "Card #", "Name", "Type" });
+    sortDropdown->createClickFunction(
+        [=]() {
+            if(sortDropdown->getSelectedText() != gDefaultString) {
+                currentSortMethod = SortMethod(sortDropdown->getSelectedIndex());
+                updateCollection();
+            }
+        }
+    );
+
     gCollectionViewState.addUIElement(panel);
     gCollectionViewState.addUIElement(backButton);
+    gCollectionViewState.addUIElement(sortDropdown);
     /*Collection collection {};
 
     collection.addToCollection({ ExpansionID::BaseSet, 1 });

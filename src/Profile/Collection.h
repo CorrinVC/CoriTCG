@@ -7,6 +7,14 @@
 
 namespace Cori {
 
+enum SortMethod {
+    NoSort,
+    NumberSort,
+    NameSort,
+    TypeSort,
+    EvolutionSort,
+};
+
 class Collection {
 public:
     struct CollectionEntry {
@@ -22,14 +30,6 @@ public:
         void addToEntry() {
             ++quantity;
         }
-    };
-
-    enum SortMethod {
-        NoSort,
-        CollectorNumber,
-        CardName,
-        CardType,
-        Evolutions,
     };
 
 private:

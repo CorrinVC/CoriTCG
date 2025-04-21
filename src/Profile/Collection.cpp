@@ -1,4 +1,5 @@
 #include "Collection.h"
+#include "../Cards/PokemonCard.h"
 #include <algorithm>
 #include <iostream>
 
@@ -20,16 +21,44 @@ const std::vector<Collection::CollectionEntry> sortByNumber(std::vector<Collecti
     return sorted;
 }
 
-const std::vector<Collection::CollectionEntry> Collection::getSorted(Collection::SortMethod method) {
+//const std::vector<Collection::CollectionEntry
+
+const std::vector<Collection::CollectionEntry> Collection::getSorted(SortMethod method) {
+    std::vector<CollectionEntry> sorted { mCollection };
     switch(method) {
 
-    case CollectorNumber:
-        return sortByNumber(mCollection);
+    case NumberSort:
+        std::sort(sorted.begin(), sorted.end(),
+        [](CollectionEntry a, CollectionEntry b) {
+            return (a.expansion < b.expansion) || // Earlier Expansion 
+                ((a.expansion == b.expansion) && (a.cardNumber < b.cardNumber)); // Same Expansion, Lower Number
+        });
+        break;
+    case NameSort:
+        sorted = getSorted(NumberSort);
+        // Sort by Collector No. Then By Name
+        std::sort(sorted.begin(), sorted.end(),
+        [](CollectionEntry a, CollectionEntry b) {
+            return a.getCard()->cardNameString() < b.getCard()->cardNameString();
+        });
+        break;
+
+    case TypeSort:
+        sorted = getSorted(NumberSort);
+        // Sort by Collector No. Then By Type
+        std::sort(sorted.begin(), sorted.end(),
+        [](CollectionEntry a, CollectionEntry b) {
+            return (a.getCard()->mCardType < b.getCard()->mCardType) ||
+                ((a.getCard()->mCardType == Pokemon && b.getCard()->mCardType == Pokemon) && 
+                static_cast<PokemonCard*>(a.getCard())->mEnergyType < 
+                static_cast<PokemonCard*>(b.getCard())->mEnergyType);
+        });
+        break;
     default:
-        return entries();
+        break;
     
     }
-
+    return sorted;
 }
 
 // Add Entry to Collection

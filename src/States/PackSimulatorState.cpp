@@ -190,7 +190,7 @@ void initPackSimState() {
     collectionButton->centerButtonText();
     collectionButton->createClickFunction(
         [&]() {
-            gCurrentProfile.collection.printCollection(Collection::SortMethod::CollectorNumber);
+            //gCurrentProfile.collection.printCollection(SortMethod::NumberSort);
             CollectionView::updateCollection();
             gSetState(CollectionView::gCollectionViewState);
         }
