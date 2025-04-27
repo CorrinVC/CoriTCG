@@ -175,7 +175,7 @@ void UIElement::createClickFunction(std::function<void(void)> func) {
 }
 
 void UIElement::destroyClickFunction() {
-    mClickFunc = {};
+    mClickFunc = nullptr;
     mClickFuncCreated = false;
     gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
 }

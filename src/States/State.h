@@ -10,14 +10,18 @@ namespace Cori {
 class State {
 protected:
     std::vector<UIElement*> mUIElements {};
+    std::function<void()> mOnSwitch { nullptr };
 public:    
     ~State();
 
+    void onSwitch();
     void update();
     void draw(sf::RenderWindow& window);
 
     void addUIElement(UIElement* e);
     void popUIElement();
+
+    void setOnSwitch(std::function<void()> func);
 
     std::vector<UIElement*> getElements();
 };
@@ -52,7 +56,17 @@ extern void initPackSimState();
 namespace CollectionView { // Collection Showcase State
 extern State gCollectionViewState;
 extern void initCollectionViewState();
-extern void updateCollection();
+//extern void updateCollection();
+}
+
+namespace SavedDecksView { // TODO - Saved Decks, to have "New Deck" Button
+extern State gSavedDecksState;
+extern void initSavedDecksState();
+}
+
+namespace DeckBuilder { // Deck Builder State
+extern State gDeckBuilderState;
+extern void initDeckBuilderState();    
 }
 
 }

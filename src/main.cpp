@@ -8,6 +8,7 @@ int main() {
     Cori::SetFullView::initFullViewState();
     Cori::PackSimulator::initPackSimState();
     Cori::CollectionView::initCollectionViewState();
+    Cori::DeckBuilder::initDeckBuilderState();
 
     Cori::gSetState(Cori::MainMenu::gMenuState);
     

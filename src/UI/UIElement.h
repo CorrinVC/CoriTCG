@@ -22,7 +22,7 @@ protected:
     sf::Color mPressColor { mHoverColor };
 
     //Unique click function
-    std::function<void(void)> mClickFunc {};
+    std::function<void(void)> mClickFunc { nullptr };
     bool mClickFuncCreated { false };
 
     // Rework to include factors other than element height?

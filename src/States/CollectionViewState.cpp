@@ -2,9 +2,9 @@
 #include "../Cards/Expansions/Expansions.h"
 #include "../Profile/Collection.h"
 #include "../Profile/Profile.h"
+#include "../UI/CollectionLayout.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
-#include "../UI/UIGridLayout.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIScrollPanel.h"
 #include <algorithm>
@@ -14,7 +14,7 @@ namespace Cori { namespace CollectionView {
 State gCollectionViewState {};
 
 // UI Elements
-UIGridLayout* layout;
+CollectionLayout* layout;
 UIScrollPanel* panel;
 
 UIButton* backButton;
@@ -33,7 +33,7 @@ SortMethod currentSortMethod {};
     std::cout << "ENDING PRINT" << std::endl;
 }*/
 
-void generateImage(Collection::CollectionEntry& entry) {
+/*void generateImage(Collection::CollectionEntry& entry) {
     UIImage* image = new UIImage(0.0f, 0.0f, entry.getCard()->mTexture);
 
     // Switch to Card Viewer on Img Click
@@ -79,11 +79,28 @@ void updateCollection() {
         layout->clearElements(imagesInLayout - entryIndex - 1);
 
     panel->calculateContentHeight();
+}*/
+
+void updateCollection() {
+    layout->updateCollection();
+    panel->calculateContentHeight();
 }
 
 void initCollectionViewState() {
+    gCollectionViewState.setOnSwitch(
+        [=]() {
+            layout->setImageClickFunction(
+                [=](Collection::CollectionEntry entry) {
+                    SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
+                    gSetState(SetViewer::gSetViewerState);
+                }
+            );
+            updateCollection();
+        }
+    );
+
     // Init Grid Layout
-    layout = new UIGridLayout(12.0f, 10.0f);
+    layout = new CollectionLayout();
     layout->setScale(2.0f);
     layout->setBackgroundColor(sf::Color::Blue);
 
@@ -115,7 +132,7 @@ void initCollectionViewState() {
     sortDropdown->createClickFunction(
         [=]() {
             if(sortDropdown->getSelectedText() != gDefaultString) {
-                currentSortMethod = SortMethod(sortDropdown->getSelectedIndex());
+                layout->changeSortMethod(SortMethod(sortDropdown->getSelectedIndex()));
                 updateCollection();
             }
         }

@@ -12,6 +12,7 @@ UIButton* cardViewButton;
 UIButton* setViewButton;
 UIButton* packSimButton;
 UIButton* collectionButton;
+UIButton* deckBuilderButton;
 
 void initMenuState() {
 
@@ -66,10 +67,22 @@ void initMenuState() {
         }
     );
 
+    // Init Deck Builder Button
+    deckBuilderButton = new UIButton(100.0f, 60.0f);
+    deckBuilderButton->setText("Deck Builder");
+    deckBuilderButton->setPositionRelativeTo(*collectionButton, 110.0f, 0.0f);
+    deckBuilderButton->centerButtonText();
+    deckBuilderButton->createClickFunction(
+        []() {
+            gSetState(DeckBuilder::gDeckBuilderState);
+        }
+    );
+
     gMenuState.addUIElement(cardViewButton);
     gMenuState.addUIElement(setViewButton);
     gMenuState.addUIElement(packSimButton);
     gMenuState.addUIElement(collectionButton);
+    gMenuState.addUIElement(deckBuilderButton);
 }
 
 }

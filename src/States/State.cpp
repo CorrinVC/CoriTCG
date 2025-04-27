@@ -8,6 +8,7 @@ State* gCurrentState {};
 
 void gSetState(State& state) {
     gCurrentState = &state;
+    gCurrentState->onSwitch();
 }
 
 // Top Left Co-ordinate of a Centered Card Image
@@ -23,6 +24,11 @@ State::~State() {
     for(auto* e : mUIElements) {
         delete e;
     }
+}
+
+void State::onSwitch() {
+    if(mOnSwitch != nullptr)
+        mOnSwitch();
 }
 
 void State::update() { 
@@ -46,6 +52,10 @@ void State::addUIElement(UIElement* e) {
 
 void State::popUIElement() {
     mUIElements.pop_back();
+}
+
+void State::setOnSwitch(std::function<void()> func) {
+    mOnSwitch = func;
 }
 
 std::vector<UIElement*> State::getElements() {

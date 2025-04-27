@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Collection.h"
+#include "../Cards/Deck.h"
 #include <SFML/Graphics.hpp>
 
 namespace Cori {
@@ -11,6 +12,7 @@ struct Profile {
     sf::Texture profilePicture {};
 
     Collection collection {};
+    std::vector<Deck> decks {};
 
     // Wrapper Function;
     void addToCollection(Collection::CollectionEntry entry) {

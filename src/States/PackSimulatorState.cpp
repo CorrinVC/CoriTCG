@@ -178,7 +178,10 @@ void initPackSimState() {
     expansionDropdown->setPositionRelativeTo(UIElement::ScreenTop, 20.0f);
     expansionDropdown->createClickFunction(
         [=]() {
-            currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()];
+            if(expansionDropdown->getSelectedIndex() > 0)
+                currentExpansion = nullptr;
+            else
+                currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()];
         }
     );
     expansionDropdown->alignText();
@@ -189,9 +192,8 @@ void initPackSimState() {
     collectionButton->setText("Collection");
     collectionButton->centerButtonText();
     collectionButton->createClickFunction(
-        [&]() {
+        [=]() {
             //gCurrentProfile.collection.printCollection(SortMethod::NumberSort);
-            CollectionView::updateCollection();
             gSetState(CollectionView::gCollectionViewState);
         }
     );
