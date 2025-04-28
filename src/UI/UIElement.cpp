@@ -12,11 +12,13 @@ unsigned int UIElement::generateUICharSize(float height) {
     return static_cast<unsigned int>(height * 0.6f);
 }
 
+// TODO - Give UIElements Scale Factor Member Var
+
 //Generic Func to check if vector x,y is within bounds
 //Used primarily for mouse position
 bool UIElement::inBounds(const sf::Vector2f& position) {
-    return (position.x >= getX() && position.x <= getX() + mWidth)
-        && (position.y >= getY() && position.y <= getY() + mHeight);
+    return (position.x >= getX() && position.x <= getX() + mRect.getSize().x
+        && (position.y >= getY() && position.y <= getY() + mRect.getSize().y));
 }
 
 // Constructor used for elements intended to be given relative position

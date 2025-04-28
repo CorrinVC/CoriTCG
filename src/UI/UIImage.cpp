@@ -58,7 +58,7 @@ void UIImage::changeTexture(sf::Texture texture) {
     mImage.swap(texture);
 
     mSprite.setTexture(mImage, true);
-    setSize();
+    setSize(); // TODO - Give UIElements Scale Factor Member Var
 }
 
 void UIImage::setPosition(float x, float y) {

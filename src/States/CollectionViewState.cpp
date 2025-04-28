@@ -110,9 +110,10 @@ void initCollectionViewState() {
     }*/
     //std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
 
-    panel = new UIScrollPanel(gWindowWidth, gWindowHeight, 20.0f, 50.0f);
+    panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     // Offset Panel to y=5%, Shrink Height to 95%
     panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
+    panel->setInnerBorder(12.0f);
 
     updateCollection();  
     panel->addElement(layout);

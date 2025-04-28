@@ -17,8 +17,9 @@ void CollectionLayout::generateImage(Collection::CollectionEntry& entry) {
     UIImage* image = new UIImage(0.0f, 0.0f, entry.getCard()->mTexture);
 
     image->createClickFunction(
-        [=,this]() {
-            mImageClickFunc(entry);
+        [=]() {
+            SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
+            gSetState(SetViewer::gSetViewerState);
         }
     );
 
@@ -33,6 +34,9 @@ void CollectionLayout::changeImage(Collection::CollectionEntry& entry, int entry
 
     image->changeTexture(entry.getCard()->mTexture);
     image->getCaption().setText(std::format("{}", entry.quantity));
+
+    // TODO - Give UIElements Scale Factor Member Var
+    updateScale();
 }
 
 void CollectionLayout::updateEntry(Collection::CollectionEntry& entry, int entryIndex) {

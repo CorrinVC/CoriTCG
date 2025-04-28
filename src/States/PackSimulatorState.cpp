@@ -178,13 +178,22 @@ void initPackSimState() {
     expansionDropdown->setPositionRelativeTo(UIElement::ScreenTop, 20.0f);
     expansionDropdown->createClickFunction(
         [=]() {
-            if(expansionDropdown->getSelectedIndex() > 0)
+            if(expansionDropdown->getSelectedIndex() < 0)
                 currentExpansion = nullptr;
             else
                 currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()];
         }
     );
     expansionDropdown->alignText();
+
+    // Init Back Button
+    backButton = new UIButton(10.0f, 10.0f, 50.0f, 50.0f);
+    backButton->setText("Back");
+    backButton->createClickFunction(
+        []() {
+            gSetState(MainMenu::gMenuState);
+        }
+    );
 
     // Init Collection State Button
     collectionButton = new UIButton(100.0f, 50.0f);
@@ -211,6 +220,7 @@ void initPackSimState() {
     gPackSimulatorState.addUIElement(instructText);
     gPackSimulatorState.addUIElement(expansionDropdown);
 
+    gPackSimulatorState.addUIElement(backButton);
     gPackSimulatorState.addUIElement(collectionButton);
 
 }

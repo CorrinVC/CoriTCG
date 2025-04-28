@@ -7,7 +7,7 @@
 namespace Cori {
 
 class UIGridLayout: public UIElement {
-private:
+protected:
     std::vector<UIElement*> mGridElements {};
     //float mViewHeight;
 
