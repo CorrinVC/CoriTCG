@@ -5,6 +5,13 @@
 
 namespace Cori {
 
+CollectionLayout* gCollectionLayout = new CollectionLayout();
+
+void initCollectionLayout() {
+    gCollectionLayout->setScale(2.0f);
+    gCollectionLayout->setBackgroundColor(sf::Color(120, 100, 120));
+}
+
 CollectionLayout::CollectionLayout(float width, float height)
 : UIGridLayout(12.0f, 10.0f, width, height)
 {}
@@ -13,13 +20,25 @@ int CollectionLayout::imagesInLayout() {
     return int(getElements().size());
 }
 
+void collectionImageClicked(Collection::CollectionEntry entry) {
+    // Change to Card View State if in Collection View State
+    if(gCurrentState == &CollectionView::gCollectionViewState) {
+        SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
+        gSetState(SetViewer::gSetViewerState);
+    } // Add Card to Current Deck if in Deck Builder State
+    else if(gCurrentState == &DeckBuilder::gDeckBuilderState) {
+        DeckBuilder::addToDeck(entry.getCard(), entry.quantity);
+    } else {
+        return;
+    }
+}
+
 void CollectionLayout::generateImage(Collection::CollectionEntry& entry) {
     UIImage* image = new UIImage(0.0f, 0.0f, entry.getCard()->mTexture);
 
     image->createClickFunction(
         [=]() {
-            SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
-            gSetState(SetViewer::gSetViewerState);
+            collectionImageClicked(entry);
         }
     );
 
@@ -65,8 +84,8 @@ void CollectionLayout::changeSortMethod(SortMethod method) {
     //updateCollection();
 }
 
-void CollectionLayout::setImageClickFunction(std::function<void(Collection::CollectionEntry)> function) {
+/*void CollectionLayout::setImageClickFunction(std::function<void(Collection::CollectionEntry)> function) {
     mImageClickFunc = function;
-}
+}*/
 
 }

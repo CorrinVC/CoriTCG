@@ -14,13 +14,13 @@ namespace Cori { namespace CollectionView {
 State gCollectionViewState {};
 
 // UI Elements
-CollectionLayout* layout;
+//CollectionLayout* layout;
 UIScrollPanel* panel;
 
 UIButton* backButton;
 UIDropdown* sortDropdown;
 
-SortMethod currentSortMethod {};
+SortMethod currentSortMethod { SortMethod::NoSort };
 
 /*void printImageDetails() {
     int i {0};
@@ -81,34 +81,18 @@ void updateCollection() {
     panel->calculateContentHeight();
 }*/
 
+void adjustCollectionView() {
+    gCollectionLayout->changeSortMethod(currentSortMethod);
+    gCollectionLayout->setSize({ panel->getWidthMinusScrollbar(), panel->getHeight() });
+}
+
 void updateCollection() {
-    layout->updateCollection();
+    gCollectionLayout->updateCollection();
     panel->calculateContentHeight();
 }
 
 void initCollectionViewState() {
-    gCollectionViewState.setOnSwitch(
-        [=]() {
-            layout->setImageClickFunction(
-                [=](Collection::CollectionEntry entry) {
-                    SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
-                    gSetState(SetViewer::gSetViewerState);
-                }
-            );
-            updateCollection();
-        }
-    );
-
-    // Init Grid Layout
-    layout = new CollectionLayout();
-    layout->setScale(2.0f);
-    layout->setBackgroundColor(sf::Color::Blue);
-
-    /*for(int i = 0; i < 102; ++i) {
-        UIImage* image = new UIImage(0.0f, 0.0f, Expansions::gExpansionList[0]->cards[i]->mTexture);
-        layout->addElement(image);
-    }*/
-    //std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
+    initCollectionLayout();
 
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     // Offset Panel to y=5%, Shrink Height to 95%
@@ -116,7 +100,20 @@ void initCollectionViewState() {
     panel->setInnerBorder(12.0f);
 
     updateCollection();  
-    panel->addElement(layout);
+    panel->addElement(gCollectionLayout);
+
+    gCollectionViewState.setOnSwitch(
+        [=]() {
+            adjustCollectionView();
+            updateCollection();
+        }
+    );
+
+    /*for(int i = 0; i < 102; ++i) {
+        UIImage* image = new UIImage(0.0f, 0.0f, Expansions::gExpansionList[0]->cards[i]->mTexture);
+        layout->addElement(image);
+    }*/
+    //std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
 
     // Init Back Button
     backButton = new UIButton(10.0f, 10.0f, 50.0f, 50.0f);
@@ -133,7 +130,8 @@ void initCollectionViewState() {
     sortDropdown->createClickFunction(
         [=]() {
             if(sortDropdown->getSelectedText() != gDefaultString) {
-                layout->changeSortMethod(SortMethod(sortDropdown->getSelectedIndex()));
+                currentSortMethod = SortMethod(sortDropdown->getSelectedIndex());
+                gCollectionLayout->changeSortMethod(currentSortMethod);
                 updateCollection();
             }
         }

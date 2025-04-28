@@ -9,7 +9,7 @@ UIScrollPanel::UIScrollPanel(float width, float height, float scrollerWidth, flo
 
 UIScrollPanel::UIScrollPanel(float x, float y, float width, float height, float scrollerWidth, float scrollerHeight)
 : UIPanel(x, y, width, height)
-, mScrollBar { scrollerWidth, scrollerHeight, height }
+, mScrollBar { x + width - scrollerWidth, y, scrollerWidth, scrollerHeight, height }
 {
     //mScrollBar.createClickFunction([](){});
 }
@@ -85,6 +85,10 @@ void UIScrollPanel::addElement(UIElement* element) {
 
 void UIScrollPanel::setInnerBorder(float border) {
     mInnerBorder = border;
+}
+
+float UIScrollPanel::getWidthMinusScrollbar() {
+    return mWidth - mScrollBar.getWidth();
 }
 
 }

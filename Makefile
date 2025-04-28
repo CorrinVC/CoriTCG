@@ -5,12 +5,13 @@ BIN		:= bin
 
 SRC		:= src
 CARDS   := src/Cards
+EXP     := $(CARDS)/Expansions
 INPUT   := src/Input
 PROFILE := src/Profile
 STATES  := src/States
 UI      := src/UI
 
-FILES   := $(SRC)/*.cpp $(CARDS)/ExpansionID.cpp $(CARDS)/Expansions/Expansions.cpp $(INPUT)/*.cpp $(PROFILE)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp
+FILES   := $(SRC)/*.cpp $(CARDS)/*.cpp $(EXP)/*.cpp $(INPUT)/*.cpp $(PROFILE)/*.cpp $(STATES)/*.cpp $(UI)/*.cpp
 
 INCLUDE	:= include
 LIB		:= lib

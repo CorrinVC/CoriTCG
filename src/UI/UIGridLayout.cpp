@@ -75,7 +75,7 @@ float UIGridLayout::elementSpacing(bool vertical) {
 sf::Vector2f UIGridLayout::getIndexedPosition(int index) {
     //int index { int(mGridElements.size()) };
     
-    float xPosition { ((gWindowWidth - elementSpacing() * mElementsPerLine + mInnerPadding) / 2)
+    float xPosition { ((mWidth - elementSpacing() * mElementsPerLine + mInnerPadding) / 2)
         + (index % mElementsPerLine) * elementSpacing() };
     float yPosition { mBorderPadding + (index / mElementsPerLine) 
         * elementSpacing(true) };
@@ -92,7 +92,7 @@ void UIGridLayout::updateElementPositions() {
 }
 
 void UIGridLayout::updateElementsPerLine() {
-    mElementsPerLine = int((gWindowWidth - mBorderPadding * 2) / elementSpacing());
+    mElementsPerLine = int((mWidth - mBorderPadding * 2) / elementSpacing());
     
     updateElementPositions();
 }
@@ -135,6 +135,14 @@ void UIGridLayout::setScale(float scaleFactor) {
     mScaleFactor = scaleFactor;
     if(mGridElements.size() > 0)
         updateScale();
+}
+
+void UIGridLayout::setSize(const sf::Vector2f& size) {
+    UIElement::setSize(size);
+    if(mGridElements.size() > 0) {
+        updateElementsPerLine();
+        updateLayoutHeight();
+    }
 }
 
 std::vector<UIElement*>& UIGridLayout::getElements() {

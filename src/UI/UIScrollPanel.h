@@ -28,6 +28,8 @@ public:
     void addElement(UIElement* element) override;
 
     void setInnerBorder(float border);
+
+    float getWidthMinusScrollbar();
 };
 
 }

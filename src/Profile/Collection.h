@@ -3,6 +3,7 @@
 #include "../Cards/Card.h"
 #include "../Cards/ExpansionID.h"
 #include "../Cards/Expansions/Expansions.h"
+#include <iostream>
 #include <vector>
 
 namespace Cori {
@@ -29,6 +30,13 @@ public:
 
         void addToEntry() {
             ++quantity;
+        }
+
+        void print() {
+            std::cout << "Entry (" << this << "): "
+                << Expansions::gExpansionNames()[expansion] << ' '
+                << getCard()->cardNameString() << " #" << cardNumber 
+                << " x" << quantity << std::endl;
         }
     };
 

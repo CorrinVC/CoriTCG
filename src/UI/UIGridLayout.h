@@ -43,6 +43,7 @@ public:
     void clearElements(int quantity);
 
     void setScale(float scaleFactor);
+    void setSize(const sf::Vector2f& size) override;
 
     std::vector<UIElement*>& getElements();
 

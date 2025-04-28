@@ -9,7 +9,7 @@ private:
     SortMethod mSortMethod;
     //float mScaleFactor { 2.0f };
 
-    std::function<void(Collection::CollectionEntry)> mImageClickFunc {};
+    //std::function<void(Collection::CollectionEntry)> mImageClickFunc {};
 
     int imagesInLayout();
 
@@ -21,8 +21,12 @@ public:
 
     void updateCollection();
     void changeSortMethod(SortMethod method);
-    void setImageClickFunction(std::function<void(const Collection::CollectionEntry)> function);
+    //void setImageClickFunction(std::function<void(const Collection::CollectionEntry)> function);
 
 };
+
+extern CollectionLayout* gCollectionLayout;
+
+void initCollectionLayout();
 
 }

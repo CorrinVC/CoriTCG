@@ -2,6 +2,7 @@
 
 #include "ExpansionID.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <string>
 #include <string_view>
 
@@ -32,6 +33,10 @@ enum EnergyType {
     Fighting,
     Colorless
 };
+
+namespace Expansions {
+    extern std::vector<std::string> gExpansionNames();
+}
 
 class DataCard {
 public:
@@ -67,6 +72,11 @@ public:
     // For Logging?
     std::string cardNameString() {
         return mCardName.toAnsiString();
+    }
+
+    void print() {
+        std::cout << Expansions::gExpansionNames()[mExpansion] << ' ' << cardNameString() 
+            << " #" << mCardNumber << " (" << this << ')' << std::endl;
     }
 };
 

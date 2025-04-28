@@ -67,6 +67,7 @@ extern void initSavedDecksState();
 namespace DeckBuilder { // Deck Builder State
 extern State gDeckBuilderState;
 extern void initDeckBuilderState();    
+extern void addToDeck(DataCard* card, int collectionQuantity);
 }
 
 }

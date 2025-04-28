@@ -3,9 +3,19 @@
 namespace Cori {
 
 class Deck {
+public:
+    struct DeckEntry {
+        DataCard* card {};
+        int quantity { 1 }; 
+
+        void addCard() { ++quantity; }
+    };
+
 private:
 
-    std::vector<DataCard*> mCards;
+    std::vector<DeckEntry> mCards {};
+    int cardCount {};
+
     bool mEnoughCards { false };
     bool mHasBasic { false };
 
@@ -14,10 +24,13 @@ private:
 
 public:
 
-    void addCard(DataCard* card);
+    bool addCard(DataCard* card);
 
-    std::vector<DataCard*> getCards();
+    std::vector<DeckEntry> getCards();
     bool isValid();
+
+    int findCardIndex(DataCard* card);
+    int getCountOfCard(DataCard* card);
 
 };
 
