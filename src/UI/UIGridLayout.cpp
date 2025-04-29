@@ -12,8 +12,10 @@ UIGridLayout::UIGridLayout(float borderPadding, float innerPadding, float width,
 }
 
 UIGridLayout::~UIGridLayout() {
-    for(UIElement* element : mGridElements)
+    for(UIElement* element : mGridElements) {
         delete element;
+        element = NULL;
+    }
 }
 
 bool UIGridLayout::inBounds(const sf::Vector2f& position) {

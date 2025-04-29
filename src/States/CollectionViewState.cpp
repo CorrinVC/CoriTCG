@@ -152,4 +152,8 @@ void initCollectionViewState() {
     }*/
 }
 
+void destroyCollectionState() {
+    delete gCollectionLayout;
+}
+
 }}

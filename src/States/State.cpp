@@ -23,6 +23,7 @@ State::~State() {
     // Free UIElement Ptrs
     for(auto* e : mUIElements) {
         delete e;
+        e = NULL;
     }
 }
 

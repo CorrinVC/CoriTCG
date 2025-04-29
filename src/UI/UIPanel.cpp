@@ -1,4 +1,5 @@
 #include "UIPanel.h"
+#include "CollectionLayout.h"
 #include "../Input/MouseManager.h"
 
 namespace Cori {
@@ -13,8 +14,11 @@ UIPanel::UIPanel(float x, float y, float width, float height)
 { }
 
 UIPanel::~UIPanel() {
-    for(auto* element : mPanelElements)
+    for(auto* element : mPanelElements) {
+        if(element == gCollectionLayout) continue;
         delete element;
+        element = NULL;
+    }
 }
 
 void UIPanel::updateElements() {

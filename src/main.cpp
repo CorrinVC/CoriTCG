@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "States/State.h"
+#include "UI/CollectionLayout.h"
 
 int main() {
     // Initialize States
@@ -22,5 +23,7 @@ int main() {
         window.draw();
 
     }
+
+    Cori::CollectionView::destroyCollectionState();
 
 } 
