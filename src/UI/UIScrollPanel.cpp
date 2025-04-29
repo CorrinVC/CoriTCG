@@ -91,4 +91,8 @@ float UIScrollPanel::getWidthMinusScrollbar() {
     return mWidth - mScrollBar.getWidth();
 }
 
+UIScrollBar& UIScrollPanel::getScrollbar() {
+    return mScrollBar;
+}
+
 }

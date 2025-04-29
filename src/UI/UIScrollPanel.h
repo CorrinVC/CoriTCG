@@ -30,6 +30,7 @@ public:
     void setInnerBorder(float border);
 
     float getWidthMinusScrollbar();
+    UIScrollBar& getScrollbar();
 };
 
 }

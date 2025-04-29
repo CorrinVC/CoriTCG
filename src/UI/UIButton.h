@@ -8,7 +8,6 @@
 namespace Cori {
 
 class UIButton : public UIElement {
-//TODO give text & image members
 private:
     // change to uitextbox
     UITextbox mTextbox;

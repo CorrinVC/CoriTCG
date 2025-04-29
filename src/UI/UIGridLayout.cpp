@@ -2,13 +2,28 @@
 
 namespace Cori {
 
+void UIGridLayout::setupPadding(float borderPadding, float innerPadding) {
+    //mInnerPadding = innerPadding;
+    mTopPadding = borderPadding;
+    mBottomPadding = borderPadding;
+    mLeftPadding = borderPadding;
+    mRightPadding = borderPadding;
+
+    mMaxVertPadding = innerPadding;
+    mMaxHorizPadding = innerPadding;
+
+    mVerticalInnerPadding = mMaxVertPadding;
+    mHorizontalInnerPadding = mMaxHorizPadding;
+}
+
 UIGridLayout::UIGridLayout(float borderPadding, float innerPadding, float width, float height)
 : UIElement(width, height)
 //, mViewHeight { height }
-, mBorderPadding { borderPadding }
-, mMaxInnerPadding { innerPadding }
+//, mBorderPadding { borderPadding }
+//, mMaxInnerPadding { innerPadding }
 {
     setBackgroundColor(sf::Color::Transparent);
+    setupPadding(borderPadding, innerPadding);
 }
 
 UIGridLayout::~UIGridLayout() {
@@ -71,15 +86,16 @@ UIElement* UIGridLayout::tallestElement() {
 float UIGridLayout::elementSpacing(bool vertical) {
     float elementSize { vertical ? tallestElement()->getHeight() : widestElement()->getWidth() };
     //std::cout << elementSize << std::endl;
-    return ((elementSize / mScaleFactor) + mInnerPadding);
+    float padding { vertical ? mVerticalInnerPadding : mHorizontalInnerPadding };
+    return ((elementSize / mScaleFactor) + padding);
 }
 
 sf::Vector2f UIGridLayout::getIndexedPosition(int index) {
     //int index { int(mGridElements.size()) };
     
-    float xPosition { ((mWidth - elementSpacing() * mElementsPerLine + mInnerPadding) / 2)
+    float xPosition { ((mWidth - elementSpacing() * mElementsPerLine + mVerticalInnerPadding) / 2)
         + (index % mElementsPerLine) * elementSpacing() };
-    float yPosition { mBorderPadding + (index / mElementsPerLine) 
+    float yPosition { mTopPadding + (index / mElementsPerLine) 
         * elementSpacing(true) };
     if(mGridElements.size() == 102) {
         //std::cout << "((" << gWindowWidth << '-' << elementSpacing() << '*' << mElementsPerLine << '+' << mInnerPadding << ")/2)+(" << index << '%' << mElementsPerLine << ")*" << elementSpacing() << " = " << xPosition << std::endl;
@@ -94,7 +110,7 @@ void UIGridLayout::updateElementPositions() {
 }
 
 void UIGridLayout::updateElementsPerLine() {
-    mElementsPerLine = int((mWidth - mBorderPadding * 2) / elementSpacing());
+    mElementsPerLine = int((mWidth - mLeftPadding - mRightPadding) / elementSpacing());
     
     updateElementPositions();
 }
@@ -103,11 +119,13 @@ void UIGridLayout::updateLayoutHeight() {
     if(mGridElements.empty())
         mHeight = mRect.getSize().y;
     else
-        mHeight = mGridElements.back()->getOriginY() + (mGridElements.back()->getHeight() / mScaleFactor) + mBorderPadding;
+        mHeight = mGridElements.back()->getOriginY() + (mGridElements.back()->getHeight() / mScaleFactor) + mBottomPadding;
 }
 
 void UIGridLayout::updateScale() {
-    mInnerPadding = std::max(1.0f, mMaxInnerPadding - mScaleFactor);
+    mVerticalInnerPadding = std::max(1.0f, mMaxVertPadding - mScaleFactor);
+    mHorizontalInnerPadding = std::max(1.0f, mMaxHorizPadding - mScaleFactor);
+
     for(UIElement* element: mGridElements)
         element->setScale(1.0f / mScaleFactor);
         
@@ -147,8 +165,53 @@ void UIGridLayout::setSize(const sf::Vector2f& size) {
     }
 }
 
+void UIGridLayout::setBorderPadding(Direction direction, float value) {
+    switch(direction) {
+    case Top:
+        mTopPadding = value;
+        break;
+    case Bottom:
+        mBottomPadding = value;
+        break;
+    case Left:
+        mLeftPadding = value;
+        break;
+    case Right:
+        mRightPadding = value;
+        break;
+    default: break;
+    }
+}
+
+void UIGridLayout::setInnerPadding(float value, bool vertical) {
+    if(vertical) mMaxVertPadding = value;
+    else mMaxHorizPadding = value;
+}
+
 std::vector<UIElement*>& UIGridLayout::getElements() {
     return mGridElements;
+}
+
+float UIGridLayout::getScaleFactor() {
+    return mScaleFactor;
+}
+
+float UIGridLayout::getBorderPadding(Direction direction) {
+    switch(direction) {
+    case Top: return mTopPadding;
+    case Bottom: return mBottomPadding;
+    case Left: return mLeftPadding;
+    case Right: return mRightPadding;
+    default:break;
+    }
+    return 0.0f;
+}
+
+float UIGridLayout::getInnerPadding(bool vertical) {
+    if(vertical)
+        return mMaxVertPadding;
+    else
+        return mMaxHorizPadding;
 }
 
 }

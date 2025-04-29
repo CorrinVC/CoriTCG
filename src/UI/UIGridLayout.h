@@ -6,17 +6,35 @@
 
 namespace Cori {
 
+enum Direction {
+    Top,
+    Bottom,
+    Left,
+    Right,
+};
+
 class UIGridLayout: public UIElement {
 protected:
     std::vector<UIElement*> mGridElements {};
     //float mViewHeight;
 
-    float mBorderPadding;
-    float mMaxInnerPadding;
-    float mInnerPadding { mMaxInnerPadding };
+    //float mBorderPadding;
+    float mTopPadding {};
+    float mBottomPadding {};
+    float mLeftPadding {};
+    float mRightPadding {};
+
+    float mMaxVertPadding {};
+    float mMaxHorizPadding {};
+
+    float mVerticalInnerPadding {};
+    float mHorizontalInnerPadding {};
+    //float mInnerPadding;
 
     float mScaleFactor { 1.0f };
     int mElementsPerLine { 1 };
+
+    void setupPadding(float borderPadding, float innerPadding);
 
     UIElement* widestElement();
     UIElement* tallestElement();
@@ -45,7 +63,15 @@ public:
     void setScale(float scaleFactor);
     void setSize(const sf::Vector2f& size) override;
 
+    void setBorderPadding(Direction direction, float value);
+    // Bool Vertical Automatically True
+    void setInnerPadding(float value, bool vertical = true);
+
     std::vector<UIElement*>& getElements();
+    float getScaleFactor();
+
+    float getBorderPadding(Direction direction);
+    float getInnerPadding(bool vertical);
 
 };
 

@@ -9,11 +9,11 @@ CollectionLayout* gCollectionLayout = new CollectionLayout();
 
 void initCollectionLayout() {
     gCollectionLayout->setScale(2.0f);
-    gCollectionLayout->setBackgroundColor(sf::Color(120, 100, 120));
+    gCollectionLayout->setBackgroundColor(sf::Color(200, 180, 200));
 }
 
 CollectionLayout::CollectionLayout(float width, float height)
-: UIGridLayout(12.0f, 10.0f, width, height)
+: UIGridLayout(10.0f, 8.0f, width, height)
 {}
 
 int CollectionLayout::imagesInLayout() {
@@ -56,6 +56,12 @@ void CollectionLayout::changeImage(Collection::CollectionEntry& entry, int entry
 
     // TODO - Give UIElements Scale Factor Member Var
     updateScale();
+
+    image->createClickFunction(
+        [=]() {
+            collectionImageClicked(entry);
+        }
+    );
 }
 
 void CollectionLayout::updateEntry(Collection::CollectionEntry& entry, int entryIndex) {

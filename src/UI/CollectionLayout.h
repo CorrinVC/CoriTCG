@@ -7,7 +7,6 @@ namespace Cori {
 class CollectionLayout : public UIGridLayout {
 private:
     SortMethod mSortMethod;
-    //float mScaleFactor { 2.0f };
 
     //std::function<void(Collection::CollectionEntry)> mImageClickFunc {};
 
@@ -22,7 +21,6 @@ public:
     void updateCollection();
     void changeSortMethod(SortMethod method);
     //void setImageClickFunction(std::function<void(const Collection::CollectionEntry)> function);
-
 };
 
 extern CollectionLayout* gCollectionLayout;
