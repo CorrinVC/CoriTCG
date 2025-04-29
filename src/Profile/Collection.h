@@ -1,5 +1,7 @@
 #pragma once
 
+#include "QuantityCard.h"
+#include "SortMethod.h"
 #include "../Cards/Card.h"
 #include "../Cards/ExpansionID.h"
 #include "../Cards/Expansions/Expansions.h"
@@ -8,17 +10,9 @@
 
 namespace Cori {
 
-enum SortMethod {
-    NoSort,
-    NumberSort,
-    NameSort,
-    TypeSort,
-    EvolutionSort,
-};
-
 class Collection {
 public:
-    struct CollectionEntry {
+    /*struct CollectionEntry {
         ExpansionID expansion {};
         int cardNumber {};
 
@@ -38,18 +32,16 @@ public:
                 << getCard()->cardNameString() << " #" << cardNumber 
                 << " x" << quantity << std::endl;
         }
-    };
+    };*/
 
 private:
-    std::vector<CollectionEntry> mCollection {};
+    std::vector<QuantityCard> mCollection {};
 public:
-    const std::vector<CollectionEntry>& entries();
-    const std::vector<CollectionEntry> getSorted(SortMethod method); // TODO
+    const std::vector<QuantityCard>& entries();
+    const std::vector<QuantityCard> getSorted(SortMethod method); // TODO
 
-    void addToCollection(CollectionEntry entry);
+    void addToCollection(QuantityCard entry);
     void printCollection(SortMethod method = NoSort); // Temporary?
 };
-
-extern bool operator==(Collection::CollectionEntry left, Collection::CollectionEntry right);
 
 }

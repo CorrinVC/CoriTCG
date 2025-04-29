@@ -1,6 +1,6 @@
 #include "State.h"
 #include "../Window.h"
-#include "../Cards/Deck.h"
+#include "../Cards/DeckList.h"
 #include "../UI/CollectionLayout.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
@@ -37,7 +37,7 @@ UIButton* collectionZoomIn;
 UIButton* collectionZoomOut;
 UIDropdown* collectionSortDropdown;
 
-Deck currentDeck {};
+DeckList currentDeck {};
 
 // Reference Variables
 float buttonPanelHeight { 20.0f };
@@ -70,20 +70,20 @@ void incrementImage(int imgPosition) {
 }
 
 void printDeck() {
-    for(Deck::DeckEntry entry : currentDeck.getCards()) {
+    for(DeckList::DeckEntry entry : currentDeck.getCards()) {
         std::cout << entry.quantity << "x ";
         entry.card->print();
     }  
 }
 
-void addToDeck(DataCard* card, int collectionQuantity) {
-    if(currentDeck.getCountOfCard(card) >= collectionQuantity) return;
+void addToDeck(QuantityCard& card) {
+    if(currentDeck.getCountOfCard(card.card) >= card.quantity) return;
 
-    if(currentDeck.addCard(card)) {
-        if(currentDeck.getCountOfCard(card) > 1)
-            incrementImage(currentDeck.findCardIndex(card));
+    if(currentDeck.addCard(card.card)) {
+        if(currentDeck.getCountOfCard(card.card) > 1)
+            incrementImage(currentDeck.findCardIndex(card.card));
         else
-            addImage(card->mTexture);
+            addImage(card.card->mTexture);
     }
     sortDeckList();
 

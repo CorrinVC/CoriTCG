@@ -20,69 +20,69 @@ int CollectionLayout::imagesInLayout() {
     return int(getElements().size());
 }
 
-void collectionImageClicked(Collection::CollectionEntry entry) {
+void collectionImageClicked(QuantityCard& card) {
     // Change to Card View State if in Collection View State
     if(gCurrentState == &CollectionView::gCollectionViewState) {
-        SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
+        SetViewer::setSelectedCard(card.cardNumber(), card.expansion());
         gSetState(SetViewer::gSetViewerState);
     } // Add Card to Current Deck if in Deck Builder State
     else if(gCurrentState == &DeckBuilder::gDeckBuilderState) {
-        DeckBuilder::addToDeck(entry.getCard(), entry.quantity);
+        DeckBuilder::addToDeck(card);
     } else {
         return;
     }
 }
 
-void CollectionLayout::generateImage(Collection::CollectionEntry& entry) {
-    UIImage* image = new UIImage(0.0f, 0.0f, entry.getCard()->mTexture);
+void CollectionLayout::generateImage(QuantityCard& card) {
+    UIImage* image = new UIImage(0.0f, 0.0f, card.card->mTexture);
 
     image->createClickFunction(
-        [=]() {
-            collectionImageClicked(entry);
+        [=]() mutable {
+            collectionImageClicked(card);
         }
     );
 
-    image->addCaption({ 100.0f, 50.0f, std::format("{}", entry.quantity) });
+    image->addCaption({ 100.0f, 50.0f, std::format("{}", card.quantity) });
     image->getCaption().setBackgroundColor(sf::Color::Black);
 
     addElement(image);
 }
 
-void CollectionLayout::changeImage(Collection::CollectionEntry& entry, int entryIndex) {
-    UIImage* image { static_cast<UIImage*>(getElements()[entryIndex]) };
+void CollectionLayout::changeImage(QuantityCard& card, int cardIndex) {
+    UIImage* image { static_cast<UIImage*>(getElements()[cardIndex]) };
 
-    image->changeTexture(entry.getCard()->mTexture);
-    image->getCaption().setText(std::format("{}", entry.quantity));
+    image->changeTexture(card.card->mTexture);
+    image->getCaption().setText(std::format("{}", card.quantity));
 
     // TODO - Give UIElements Scale Factor Member Var
     updateScale();
 
     image->createClickFunction(
-        [=]() {
-            collectionImageClicked(entry);
+        [=]() mutable {
+            collectionImageClicked(card);
         }
     );
 }
 
-void CollectionLayout::updateEntry(Collection::CollectionEntry& entry, int entryIndex) {
-    if(entryIndex >= imagesInLayout())
-        generateImage(entry);
+void CollectionLayout::updateEntry(QuantityCard& card, int cardIndex) {
+    if(cardIndex >= imagesInLayout())
+        generateImage(card);
     else
-        changeImage(entry, entryIndex);
+        changeImage(card, cardIndex);
 }
 
 void CollectionLayout::updateCollection() {
-    int entryIndex { 0 };
+    int cardIndex { 0 };
 
-    for(Collection::CollectionEntry entry : 
+    for(QuantityCard card : 
         gCurrentProfile.collection.getSorted(mSortMethod)) {
-        updateEntry(entry, entryIndex);
-        ++entryIndex;
+        updateEntry(card, cardIndex);
+        ++cardIndex;
     }
 
     // Check if Elements Need Removed
-    if(entryIndex < imagesInLayout())
-        clearElements(imagesInLayout() - entryIndex - 1);
+    if(cardIndex < imagesInLayout())
+        clearElements(imagesInLayout() - cardIndex - 1);
 }
 
 void CollectionLayout::changeSortMethod(SortMethod method) {

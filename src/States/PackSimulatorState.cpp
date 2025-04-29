@@ -132,7 +132,7 @@ std::vector<DataCard*> generatePulls() {
         cards.push_back(card);
 
         // Add Card to Collection
-        gCurrentProfile.addToCollection({ card->mExpansion, card->mCardNumber });
+        gCurrentProfile.addToCollection({ card });
     }
 
     generateCardImages(cards);

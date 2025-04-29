@@ -5,41 +5,42 @@
 
 namespace Cori {
 
-const std::vector<Collection::CollectionEntry>& Collection::entries() {
+const std::vector<QuantityCard>& Collection::entries() {
     return mCollection;
 }
 
-const std::vector<Collection::CollectionEntry> sortByNumber(std::vector<Collection::CollectionEntry>& entries) {
-    std::vector<Collection::CollectionEntry> sorted { entries };
+const std::vector<QuantityCard> sortByNumber(std::vector<QuantityCard>& cards) {
+    std::vector<QuantityCard> sorted { cards };
 
     std::sort(sorted.begin(), sorted.end(), 
-        [](Collection::CollectionEntry& a, Collection::CollectionEntry& b) {
-            return (a.expansion < b.expansion) || 
-                ((a.expansion == b.expansion) && (a.cardNumber < b.cardNumber));
+        [](QuantityCard& a, QuantityCard& b) {
+            return (a.expansion() < b.expansion()) || 
+                ((a.expansion() == b.expansion()) && (a.cardNumber() < b.cardNumber()));
     });
 
     return sorted;
 }
 
-//const std::vector<Collection::CollectionEntry
+//const std::vector<QuantityCard
 
-const std::vector<Collection::CollectionEntry> Collection::getSorted(SortMethod method) {
-    std::vector<CollectionEntry> sorted { mCollection };
+const std::vector<QuantityCard> Collection::getSorted(SortMethod method) {
+    return mCollection;
+    /*std::vector<QuantityCard> sorted { mCollection };
     switch(method) {
 
     case NumberSort:
         std::sort(sorted.begin(), sorted.end(),
-        [](CollectionEntry a, CollectionEntry b) {
-            return (a.expansion < b.expansion) || // Earlier Expansion 
-                ((a.expansion == b.expansion) && (a.cardNumber < b.cardNumber)); // Same Expansion, Lower Number
+        [](QuantityCard a, QuantityCard b) {
+            return (a.expansion() < b.expansion()) || // Earlier Expansion 
+                ((a.expansion() == b.expansion()) && (a.cardNumber() < b.cardNumber())); // Same Expansion, Lower Number
         });
         break;
     case NameSort:
         sorted = getSorted(NumberSort);
         // Sort by Collector No. Then By Name
         std::sort(sorted.begin(), sorted.end(),
-        [](CollectionEntry a, CollectionEntry b) {
-            return a.getCard()->cardNameString() < b.getCard()->cardNameString();
+        [](QuantityCard a, QuantityCard b) {
+            return a.card->cardNameString() < b.card->cardNameString();
         });
         break;
 
@@ -47,48 +48,38 @@ const std::vector<Collection::CollectionEntry> Collection::getSorted(SortMethod 
         sorted = getSorted(NumberSort);
         // Sort by Collector No. Then By Type
         std::sort(sorted.begin(), sorted.end(),
-        [](CollectionEntry a, CollectionEntry b) {
-            return (a.getCard()->mCardType < b.getCard()->mCardType) ||
-                ((a.getCard()->mCardType == Pokemon && b.getCard()->mCardType == Pokemon) && 
-                static_cast<PokemonCard*>(a.getCard())->mEnergyType < 
-                static_cast<PokemonCard*>(b.getCard())->mEnergyType);
+        [](QuantityCard a, QuantityCard b) {
+            return (a.card->mCardType < b.card->mCardType) ||
+                ((a.card->mCardType == Pokemon && b.card->mCardType == Pokemon) && 
+                static_cast<PokemonCard*>(a.card)->mEnergyType < 
+                static_cast<PokemonCard*>(b.card)->mEnergyType);
         });
         break;
     default:
         break;
     
     }
-    return sorted;
+    return sorted;*/
 }
 
 // Add Entry to Collection
-void Collection::addToCollection(const CollectionEntry entry) {
-    const auto foundIndex { std::find(mCollection.begin(), mCollection.end(), entry) };
+void Collection::addToCollection(const QuantityCard card) {
+    const auto foundIndex { std::find(mCollection.begin(), mCollection.end(), card) };
     
     // Check if Card Not Already In Collection
     if(foundIndex == mCollection.end())
-        mCollection.push_back(entry);
+        mCollection.push_back(card);
     else {
-        (*foundIndex).addToEntry();
+        (*foundIndex).addToCard();
         std::rotate(foundIndex, foundIndex + 1, mCollection.end());
     }
 }
 
 // Output Collection as text to console - Temporary
 void Collection::printCollection(SortMethod method) {
-    for(CollectionEntry entry : getSorted(method)) {
-        Expansion* expansion { Expansions::gExpansionList[entry.expansion] };
-        std::cout << expansion->expansionName << ' ' << expansion->cards[entry.cardNumber - 1]->cardNameString()
-            << " x" << entry.quantity << '\n';
+    for(QuantityCard card : getSorted(method)) {
+        card.print();
     }
-    std::cout << std::flush;
-}
-
-bool operator==(Collection::CollectionEntry left, Collection::CollectionEntry right) {
-    return {
-        left.expansion == right.expansion
-        && left.cardNumber == right.cardNumber
-    };
 }
 
 }

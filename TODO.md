@@ -1,6 +1,5 @@
 TODO
 
-- Fix Sorted Grid Layout Click Functions
 - Deck Sorting
 - Set Full View State Back Button
 - Store Previous State for Back Buttons

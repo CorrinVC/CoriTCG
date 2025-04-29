@@ -1,5 +1,8 @@
+#pragma once
+
 #include "UIGridLayout.h"
 #include "../Profile/Collection.h"
+#include "../Profile/QuantityCard.h"
 #include <functional>
 
 namespace Cori {
@@ -12,9 +15,9 @@ private:
 
     int imagesInLayout();
 
-    void generateImage(Collection::CollectionEntry& entry);
-    void changeImage(Collection::CollectionEntry& entry, int entryIndex);
-    void updateEntry(Collection::CollectionEntry& entry, int entryIndex);
+    void generateImage(QuantityCard& card);
+    void changeImage(QuantityCard& card, int entryIndex);
+    void updateEntry(QuantityCard& card, int entryIndex);
 public:
     CollectionLayout(float width = gWindowWidth, float height = gWindowHeight);
 

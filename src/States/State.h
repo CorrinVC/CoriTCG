@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Profile/Collection.h"
+#include "../Profile/QuantityCard.h"
 #include "../UI/UIElement.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -68,7 +68,7 @@ extern void initSavedDecksState();
 namespace DeckBuilder { // Deck Builder State
 extern State gDeckBuilderState;
 extern void initDeckBuilderState();    
-extern void addToDeck(DataCard* card, int collectionQuantity);
+extern void addToDeck(QuantityCard& card);
 }
 
 }
