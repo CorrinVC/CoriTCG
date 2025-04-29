@@ -46,11 +46,8 @@ sf::Color menuButtonColor { sf::Color(220, 220, 220) };
 float deckScaleFactor { 3.0f };
 // SortMethod currentDeckSort { SortMethod::NoSort };
 
+SortMethod currentDeckSort { SortMethod::TypeSort };
 SortMethod currentCollectionSort { SortMethod::NoSort };
-
-void sortDeckList() {
-
-}
 
 void addImage(sf::Texture cardImage) {
     std::cout << "Adding Image" << std::endl;
@@ -69,25 +66,46 @@ void incrementImage(int imgPosition) {
     card->getCaption().setText(std::format("{}", currentDeck.getCards()[imgPosition].quantity));
 }
 
+void changeImage(QuantityCard card, int imgPosition) {
+    UIImage* img { static_cast<UIImage*>(deckGrid->getElements()[imgPosition]) };
+
+    img->changeTexture(card.card->mTexture);
+    img->setScale(1.0f / deckScaleFactor);
+    img->getCaption().setText(std::format("{}", card.quantity));
+}
+
 void printDeck() {
-    for(DeckList::DeckEntry entry : currentDeck.getCards()) {
-        std::cout << entry.quantity << "x ";
-        entry.card->print();
+    for(QuantityCard card : currentDeck.getCards()) {
+        std::cout << card.quantity << "x ";
+        card.print();
     }  
+}
+
+void sortDeckList() {
+    std::cout << "Sorting Deck" << std::endl;
+    int cardIndex { 0 };
+    for(QuantityCard card : currentDeck.getSortedList(currentDeckSort)) {
+        changeImage(card, cardIndex);
+        ++cardIndex;
+    }
+    std::cout << "Deck Sorted" << std::endl;
 }
 
 void addToDeck(QuantityCard& card) {
     if(currentDeck.getCountOfCard(card.card) >= card.quantity) return;
-
+    std::cout << "Quantity of\n\t";
+    card.print();
+    std::cout << "Is Not Exceeded By Count in Deck." << std::endl;
     if(currentDeck.addCard(card.card)) {
         if(currentDeck.getCountOfCard(card.card) > 1)
             incrementImage(currentDeck.findCardIndex(card.card));
         else
             addImage(card.card->mTexture);
     }
+    
     sortDeckList();
-
-    printDeck();
+    std::cout << "--------------" << std::endl;
+    //printDeck();
     deckPanel->calculateContentHeight();
 }
 
@@ -158,6 +176,7 @@ void initDeckBuilderState() {
     deckSortDropdown->createClickFunction(
         [=]() {
             if(deckSortDropdown->getSelectedIndex() >= 0) {
+                currentDeckSort = SortMethod(deckSortDropdown->getSelectedIndex());
                 sortDeckList();
             }
         }

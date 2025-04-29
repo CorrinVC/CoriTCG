@@ -11,9 +11,9 @@ bool DeckList::checkCardCount(DataCard* card) {
         return true;
 
     int sameNameCards { 0 };
-    for(DeckEntry entry: mCards) {
-        if(card->mCardName == entry.card->mCardName) 
-            sameNameCards += entry.quantity;
+    for(QuantityCard qCard: mCards) {
+        if(qCard.card->mCardName == card->mCardName) 
+            sameNameCards += qCard.quantity;
     }
 
     return sameNameCards < 4;
@@ -44,27 +44,23 @@ int DeckList::findCardIndex(DataCard* card) {
     return foundIndex;
 }
 
-void DeckList::insertBySort(DataCard* card) {
-
-}
-
 bool DeckList::addCard(DataCard* card) {
     if(checkCardCount(card)) {
         if(findCardIndex(card) >= 0)
-            mCards[findCardIndex(card)].addCard();
+            mCards[findCardIndex(card)].addToCard();
         else
-            insertBySort(card);
+            mCards.push_back({ card });
         ++mCardCount;
         updateValidity(card);
         return true;
     } else return false;
 }
 
-void DeckList::sortList(SortMethod method) {
-
+std::vector<QuantityCard> DeckList::getSortedList(SortMethod method) {
+    return sortCardList(mCards, method);
 }
 
-std::vector<DeckList::DeckEntry> DeckList::getCards() {
+std::vector<QuantityCard> DeckList::getCards() {
     return mCards;
 }
 

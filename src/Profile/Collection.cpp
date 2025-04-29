@@ -9,22 +9,10 @@ const std::vector<QuantityCard>& Collection::entries() {
     return mCollection;
 }
 
-const std::vector<QuantityCard> sortByNumber(std::vector<QuantityCard>& cards) {
-    std::vector<QuantityCard> sorted { cards };
-
-    std::sort(sorted.begin(), sorted.end(), 
-        [](QuantityCard& a, QuantityCard& b) {
-            return (a.expansion() < b.expansion()) || 
-                ((a.expansion() == b.expansion()) && (a.cardNumber() < b.cardNumber()));
-    });
-
-    return sorted;
-}
-
 //const std::vector<QuantityCard
 
 const std::vector<QuantityCard> Collection::getSorted(SortMethod method) {
-    return mCollection;
+    return sortCardList(mCollection, method);
     /*std::vector<QuantityCard> sorted { mCollection };
     switch(method) {
 

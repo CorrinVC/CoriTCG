@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Card.h"
+#include "../Profile/QuantityCard.h"
 #include "../Profile/SortMethod.h"
 
 namespace Cori {
@@ -8,16 +9,16 @@ namespace Cori {
 
 class DeckList {
 public:
-    struct DeckEntry {
+    /*struct DeckEntry {
         DataCard* card {};
         int quantity { 1 }; 
 
         void addCard() { ++quantity; }
-    };
+    };*/
 
 private:
 
-    std::vector<DeckEntry> mCards {};
+    std::vector<QuantityCard> mCards {};
     int mCardCount {};
 
     bool mEnoughCards { false };
@@ -27,14 +28,14 @@ private:
     void updateValidity(DataCard* card);
 
     SortMethod mSortMethod { SortMethod::NumberSort };
-    void insertBySort(DataCard* card);
 
 public:
 
     bool addCard(DataCard* card);
-    void sortList(SortMethod method);
 
-    std::vector<DeckEntry> getCards();
+    std::vector<QuantityCard> getCards();
+    std::vector<QuantityCard> getSortedList(SortMethod method);
+
     bool isValid();
 
     int findCardIndex(DataCard* card);
