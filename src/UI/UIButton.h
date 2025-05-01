@@ -27,4 +27,13 @@ public:
     void centerButtonText();
 };
 
+class BackButton : public UIButton {
+private:
+    bool mSaysBack { true };
+    void init();
+public:
+    BackButton(float width, float height, bool saysBack = true);
+    BackButton(float x, float y, float width, float height, bool saysBack = true);
+};
+
 }

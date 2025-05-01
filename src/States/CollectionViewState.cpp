@@ -18,6 +18,7 @@ State gCollectionViewState {};
 UIScrollPanel* panel;
 
 UIButton* backButton;
+UIButton* decksButton;
 UIDropdown* sortDropdown;
 
 SortMethod currentSortMethod { SortMethod::NoSort };
@@ -116,11 +117,15 @@ void initCollectionViewState() {
     //std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
 
     // Init Back Button
-    backButton = new UIButton(10.0f, 10.0f, 50.0f, 50.0f);
-    backButton->setText("Back");
-    backButton->createClickFunction(
-        []() {
-            gSetState(PackSimulator::gPackSimulatorState);
+    backButton = new BackButton(10.0f, 10.0f, 60.0f, 50.0f);
+
+    decksButton = new UIButton(60.0f, 50.0f);
+    decksButton->setPositionRelativeTo(*backButton, 70.0f, 0.0f);
+    decksButton->setText("Decks");
+    decksButton->centerButtonText();
+    decksButton->createClickFunction(
+        [=]() {
+            gSetState(SavedDecks::gSavedDecksState);
         }
     );
 
@@ -139,6 +144,7 @@ void initCollectionViewState() {
 
     gCollectionViewState.addUIElement(panel);
     gCollectionViewState.addUIElement(backButton);
+    gCollectionViewState.addUIElement(decksButton);
     gCollectionViewState.addUIElement(sortDropdown);
     /*Collection collection {};
 

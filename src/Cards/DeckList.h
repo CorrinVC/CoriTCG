@@ -17,6 +17,7 @@ public:
     };*/
 
 private:
+    sf::String mDeckName {};
 
     std::vector<QuantityCard> mCards {};
     int mCardCount {};
@@ -33,10 +34,13 @@ public:
 
     bool addCard(DataCard* card);
 
+    void setName(sf::String name);
+
     std::vector<QuantityCard> getCards();
     std::vector<QuantityCard> getSortedList(SortMethod method);
 
     bool isValid();
+    sf::String& getName();
 
     int findCardIndex(DataCard* card);
     int getCountOfCard(DataCard* card);

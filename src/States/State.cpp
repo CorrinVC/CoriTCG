@@ -5,8 +5,11 @@
 namespace Cori {
 
 State* gCurrentState {};
+std::stack<State*> gPreviousStates {};
 
-void gSetState(State& state) {
+void gSetState(State& state, bool back) {
+    if(!back) gPreviousStates.push(gCurrentState);
+    
     gCurrentState = &state;
     gCurrentState->onSwitch();
 }

@@ -182,13 +182,18 @@ void UIElement::destroyClickFunction() {
     gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
 }
 
+void UIElement::printDimensions() {
+    std::cout << '(' << getX() << ", " << getY() << ") "
+    << mWidth << 'x' << mHeight << std::endl;
+}
+
 void UIElement::onClick()  {
     //std::cout << this << ':' << gMouseManager.checkPressedSlot(this) << std::endl;
     if(!gMouseManager.checkPressedSlot(this)) return;
     if(mClickFunc) mClickFunc();
     //std::cout << "onClick Clearing" << std::endl;
     //gMouseManager.clearPressedSlot();
-
+    //printDimensions();
     if(!mClickFuncCreated) return;
     gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
 }

@@ -187,13 +187,7 @@ void initPackSimState() {
     expansionDropdown->alignText();
 
     // Init Back Button
-    backButton = new UIButton(10.0f, 10.0f, 50.0f, 50.0f);
-    backButton->setText("Back");
-    backButton->createClickFunction(
-        []() {
-            gSetState(MainMenu::gMenuState);
-        }
-    );
+    backButton = new BackButton(10.0f, 10.0f, 50.0f, 50.0f);
 
     // Init Collection State Button
     collectionButton = new UIButton(100.0f, 50.0f);

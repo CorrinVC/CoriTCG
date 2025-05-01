@@ -93,6 +93,9 @@ public:
     float getWidth() const { return mWidth; }
     float getHeight() const { return mHeight; }
 
+    sf::RectangleShape& getRect() { return mRect; }
+    void printDimensions();
+
 private:
     sf::Vector2f getStartPosition(ScreenPosition position);
 };

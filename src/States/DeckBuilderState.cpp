@@ -1,6 +1,7 @@
 #include "State.h"
 #include "../Window.h"
 #include "../Cards/DeckList.h"
+#include "../Profile/Profile.h"
 #include "../UI/CollectionLayout.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
@@ -156,13 +157,19 @@ void initDeckBuilderState() {
     deckButtonPanel->getView().setViewport({ {0.01f, 0.01f}, {0.98f, buttonPanelHeight / gWindowHeight} });
 
     // Init Back Button
-    backButton = new UIButton(40.0f, buttonPanelHeight);
-    backButton->setText("Back");
-    backButton->centerButtonText();
+    backButton = new BackButton(40.0f, buttonPanelHeight);
     backButton->setBackgroundColor(menuButtonColor);
-    backButton->createClickFunction(
-        []() {
-            gSetState(MainMenu::gMenuState);
+
+    finishButton = new UIButton(80.0f, buttonPanelHeight);
+    finishButton->setBackgroundColor(menuButtonColor);
+    finishButton->setPositionRelativeTo(UIElement::ScreenTop);
+    finishButton->setText("Save");
+    finishButton->centerButtonText();
+    finishButton->createClickFunction(
+        [=]() {
+            gCurrentProfile.decks.push_back(currentDeck);
+            SavedDecks::updateDeckList();
+            gSetState(SavedDecks::gSavedDecksState, true);
         }
     );
 
@@ -214,6 +221,7 @@ void initDeckBuilderState() {
     );
 
     deckButtonPanel->addElement(backButton);
+    deckButtonPanel->addElement(finishButton);
     deckButtonPanel->addElement(deckZoomIn);
     deckButtonPanel->addElement(deckZoomOut);
     //deckButtonPanel->addElement(deckSortDropdown);

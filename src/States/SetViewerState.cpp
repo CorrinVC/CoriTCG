@@ -104,13 +104,7 @@ void initSetViewerState() {
     );
 
     // Back Button - TODO Set to Variable Previous State
-    backButton = new UIButton(20.0f, 20.0f, 75.0f, 40.0f);
-    backButton->setText("Back");
-    backButton->createClickFunction(
-        [=]() {
-            gSetState(CollectionView::gCollectionViewState);
-        }
-    );
+    backButton = new BackButton(20.0f, 20.0f, 75.0f, 40.0f);
 
     // Button to Cycle (Up/Right) Through Expansion
     incrementButton = new UIButton(gWindowWidth - 100.0f, mainCardDisplay->getY(), 50.0f, 50.0f);

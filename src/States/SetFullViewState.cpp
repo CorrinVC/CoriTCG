@@ -21,10 +21,11 @@ UIDropdown* expansionDropdown;
 UIGridLayout* gridLayout;
 UIScrollPanel* panel;
 
+UIButton* backButton;
 UIButton* scaleDown;
 UIButton* scaleUp;
-UIButton* scrollDown;
-UIButton* scrollUp;
+//UIButton* scrollDown;
+//UIButton* scrollUp;
 
 /*
 // Layout Variables
@@ -130,15 +131,15 @@ void initFullViewState() {
     );
 
     // Main Panel on which to Display main Card UIImages
-    panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
+    panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f);
     panel->setBackgroundColor(sf::Color(255, 100, 100));
-    panel->setInnerBorder(12.0f);
+    //panel->setInnerBorder(12.0f);
 
     // Set Panel Size to 95% of Screen Height, Aligned to Bottom of Screen
     panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
 
     // Grid Layout to Organize Cards
-    gridLayout = new UIGridLayout(12.0f, 10.0f, panel->getWidth(), panel->getHeight());
+    gridLayout = new UIGridLayout(10.0f, 10.0f, panel->getWidthMinusScrollbar(), panel->getHeight());
     gridLayout->setScale(currentScale); // Set Card Grid to 1/2 Scale
     gridLayout->setBackgroundColor(sf::Color(200, 200, 255));
 
@@ -148,20 +149,13 @@ void initFullViewState() {
     }
     panel->addElement(gridLayout);
 
-    // Temporary? Scales UIElements Down
-    scaleDown = new UIButton(0.0f, 0.0f, 50.0f, 50.0f);
-    scaleDown->setText("Down");
-    scaleDown->createClickFunction(
-        [=]() {
-            currentScale += 1.0f;
-            gridLayout->setScale(currentScale);
-            panel->calculateContentHeight();
-        }
-    );
+    // Init Back Button
+    backButton = new BackButton(10.0f, 0.0f, 60.0f, 50.0f);
 
     // Temporary? Scales UIElements Up
     scaleUp = new UIButton(gWindowWidth - 50.0f, 0.0f, 50.0f, 50.0f);
-    scaleUp->setText("Up");
+    scaleUp->setText("+");
+    scaleUp->centerButtonText();
     scaleUp->createClickFunction(
         [=]() {
             if(currentScale > 1.0f) {
@@ -172,7 +166,20 @@ void initFullViewState() {
         }
     );
 
-    // Temporary Button in Place of Scroll Functionality
+    // Temporary? Scales UIElements Down
+    scaleDown = new UIButton(50.0f, 50.0f);
+    scaleDown->setPositionRelativeTo(*scaleUp, -50.0f, 0.0f);
+    scaleDown->setText("-");
+    scaleDown->centerButtonText();
+    scaleDown->createClickFunction(
+        [=]() {
+            currentScale += 1.0f;
+            gridLayout->setScale(currentScale);
+            panel->calculateContentHeight();
+        }
+    );
+
+    /*// Temporary Button in Place of Scroll Functionality
     scrollDown = new UIButton(0.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
     scrollDown->setText("-");
     scrollDown->createClickFunction(
@@ -192,14 +199,16 @@ void initFullViewState() {
             panel->calculateContentHeight();
             //gSetState(CollectionView::gCollectionViewState);
         }
-    );
+    );*/
 
     gSetFullViewState.addUIElement(panel);
     gSetFullViewState.addUIElement(expansionDropdown);
+
+    gSetFullViewState.addUIElement(backButton);
     gSetFullViewState.addUIElement(scaleDown);
     gSetFullViewState.addUIElement(scaleUp);
-    gSetFullViewState.addUIElement(scrollUp);
-    gSetFullViewState.addUIElement(scrollDown);
+    //gSetFullViewState.addUIElement(scrollUp);
+    //gSetFullViewState.addUIElement(scrollDown);
 }
 
 

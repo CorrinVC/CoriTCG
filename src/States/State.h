@@ -3,6 +3,7 @@
 #include "../Profile/QuantityCard.h"
 #include "../UI/UIElement.h"
 #include <SFML/Graphics.hpp>
+#include <stack>
 #include <vector>
 
 namespace Cori {
@@ -28,7 +29,9 @@ public:
 
 // Global Current State Ptr
 extern State* gCurrentState;
-void gSetState(State& state);
+extern std::stack<State*> gPreviousStates;
+
+void gSetState(State& state, bool back = false);
 sf::Vector2f centeredCardPosition();
 
 namespace MainMenu { // Main Menu State
@@ -60,9 +63,10 @@ extern void destroyCollectionState();
 //extern void updateCollection();
 }
 
-namespace SavedDecksView { // TODO - Saved Decks, to have "New Deck" Button
+namespace SavedDecks { // TODO - Saved Decks, to have "New Deck" Button
 extern State gSavedDecksState;
 extern void initSavedDecksState();
+extern void updateDeckList();
 }
 
 namespace DeckBuilder { // Deck Builder State

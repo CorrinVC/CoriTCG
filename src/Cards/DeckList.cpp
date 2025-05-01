@@ -56,6 +56,10 @@ bool DeckList::addCard(DataCard* card) {
     } else return false;
 }
 
+void DeckList::setName(sf::String name) {
+    mDeckName = name;
+}
+
 std::vector<QuantityCard> DeckList::getSortedList(SortMethod method) {
     return sortCardList(mCards, method);
 }
@@ -66,6 +70,10 @@ std::vector<QuantityCard> DeckList::getCards() {
 
 bool DeckList::isValid() {
     return mEnoughCards && mHasBasic;
+}
+
+sf::String& DeckList::getName() {
+    return mDeckName;
 }
 
 int DeckList::getCountOfCard(DataCard* card) {
