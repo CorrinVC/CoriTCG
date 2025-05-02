@@ -76,6 +76,21 @@ sf::String& DeckList::getName() {
     return mDeckName;
 }
 
+int DeckList::findSortedIndex(DataCard* card, SortMethod method) {
+    int foundIndex { -1 };
+
+    std::vector<QuantityCard> sorted { getSortedList(method) };
+
+    for(int i { 0 }; i < int(sorted.size()); ++i) {
+        if(sorted[i].card == card) {
+            foundIndex = i;
+            break;
+        }
+    }
+
+    return foundIndex;
+}
+
 int DeckList::getCountOfCard(DataCard* card) {
     int count { 0 };
     if(findCardIndex(card) >= 0)

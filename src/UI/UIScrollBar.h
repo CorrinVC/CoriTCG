@@ -20,6 +20,8 @@ public:
 
     void setScrollBarBkgdColor(sf::Color color);
     void setBarHeight(float height);
+
+    void setPosition(float x, float y) override;
 };
 
 }

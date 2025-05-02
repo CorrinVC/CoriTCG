@@ -43,6 +43,7 @@ public:
     sf::String& getName();
 
     int findCardIndex(DataCard* card);
+    int findSortedIndex(DataCard* card, SortMethod method);
     int getCountOfCard(DataCard* card);
 
 };

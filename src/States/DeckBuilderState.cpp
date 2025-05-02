@@ -35,7 +35,7 @@ UIDropdown* deckSortDropdown;
 
 // Collection Panel Buttons;
 UIButton* collectionZoomIn;
-UIButton* collectionZoomOut;
+UIButton* collectionZoomOut; 
 UIDropdown* collectionSortDropdown;
 
 DeckList currentDeck {};
@@ -51,7 +51,6 @@ SortMethod currentDeckSort { SortMethod::TypeSort };
 SortMethod currentCollectionSort { SortMethod::NoSort };
 
 void addImage(sf::Texture cardImage) {
-    std::cout << "Adding Image" << std::endl;
     UIImage* card = new UIImage(0.0f, 0.0f, cardImage);
 
     card->addCaption({ 100.0f, 50.0f, "1" });
@@ -61,7 +60,6 @@ void addImage(sf::Texture cardImage) {
 }
 
 void incrementImage(int imgPosition) {
-    std::cout << "Incrementing Image at Position " << imgPosition << std::endl;
     UIImage* card { static_cast<UIImage*>(deckGrid->getElements()[imgPosition]) };
 
     card->getCaption().setText(std::format("{}", currentDeck.getCards()[imgPosition].quantity));
@@ -83,31 +81,42 @@ void printDeck() {
 }
 
 void sortDeckList() {
-    std::cout << "Sorting Deck" << std::endl;
     int cardIndex { 0 };
     for(QuantityCard card : currentDeck.getSortedList(currentDeckSort)) {
         changeImage(card, cardIndex);
         ++cardIndex;
     }
-    std::cout << "Deck Sorted" << std::endl;
+}
+
+float padding(UIElement* element) {
+    return { (element->getOriginY() == deckGrid->getBorderPadding(Direction::Top))
+        ? deckGrid->getBorderPadding(Direction::Top)
+        : deckGrid->getInnerPadding(true) };
+}
+
+void offsetScroll(QuantityCard& card) {
+    UIElement* element { deckGrid->getElements()[currentDeck.findSortedIndex(card.card, currentDeckSort)] };
+    std::cout << element->getOriginY() << " - " << padding(element) << "= offset " 
+                << element->getOriginY() - padding(element) << std::endl;
+    deckPanel->setScrollOffset(element->getOriginY() - padding(element));
 }
 
 void addToDeck(QuantityCard& card) {
     if(currentDeck.getCountOfCard(card.card) >= card.quantity) return;
-    std::cout << "Quantity of\n\t";
-    card.print();
-    std::cout << "Is Not Exceeded By Count in Deck." << std::endl;
+    //card.print();
+    //std::cout << "Is Not Exceeded By Count in Deck." << std::endl;
     if(currentDeck.addCard(card.card)) {
         if(currentDeck.getCountOfCard(card.card) > 1)
             incrementImage(currentDeck.findCardIndex(card.card));
         else
             addImage(card.card->mTexture);
     }
-    
     sortDeckList();
-    std::cout << "--------------" << std::endl;
+    //std::cout << "--------------" << std::endl;
     //printDeck();
     deckPanel->calculateContentHeight();
+
+    offsetScroll(card);    
 }
 
 void adjustCollectionView() {

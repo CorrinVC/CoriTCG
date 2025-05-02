@@ -30,7 +30,7 @@ bool lowerEnergyType(QuantityCard a, QuantityCard b) {
 }
 
 std::vector<QuantityCard> sortByNumber(std::vector<QuantityCard> cardList) {
-    std::sort(cardList.begin(), cardList.end(),
+    std::stable_sort(cardList.begin(), cardList.end(),
         [](QuantityCard a, QuantityCard b) {
             return(lowerExpansion(a, b) || // Earlier Expansion
                   (sameExpansion(a, b) && // Same Expansion, Lower Card #
@@ -41,7 +41,7 @@ std::vector<QuantityCard> sortByNumber(std::vector<QuantityCard> cardList) {
 }
 
 std::vector<QuantityCard> sortByName(std::vector<QuantityCard> cardList) {
-    std::sort(cardList.begin(), cardList.end(),
+    std::stable_sort(cardList.begin(), cardList.end(),
         [](QuantityCard a, QuantityCard b) {
             return lowerName(a, b);
         }
@@ -50,7 +50,7 @@ std::vector<QuantityCard> sortByName(std::vector<QuantityCard> cardList) {
 }
 
 std::vector<QuantityCard> sortByType(std::vector<QuantityCard> cardList) {
-    std::sort(cardList.begin(), cardList.end(),
+    std::stable_sort(cardList.begin(), cardList.end(),
         [](QuantityCard a, QuantityCard b) {
             return lowerCardType(a, b) || lowerEnergyType(a, b);
         }

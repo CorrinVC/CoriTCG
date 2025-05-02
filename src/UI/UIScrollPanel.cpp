@@ -83,6 +83,11 @@ void UIScrollPanel::addElement(UIElement* element) {
     calculateContentHeight();
 }
 
+void UIScrollPanel::setScrollOffset(float offsetPosition) {
+    mScrollBar.setPosition(mScrollBar.getX(), std::min(offsetPosition * (mHeight / mContentHeight), double(mHeight - mScrollBar.getHeight()))); 
+    updateScrollOffset();
+}
+
 void UIScrollPanel::setInnerBorder(float border) {
     mInnerBorder = border;
 }

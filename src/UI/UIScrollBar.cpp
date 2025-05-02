@@ -60,4 +60,9 @@ void UIScrollBar::setBarHeight(float height) {
     setSize({ getWidth(), height });
 }
 
+void UIScrollBar::setPosition(float x, float y) {
+    UIElement::setPosition(x, y);
+    std::cout << "Scroll Bar Set to " << x << ',' << y << std::endl;
+}
+
 }
