@@ -11,8 +11,9 @@ int main() {
     Cori::CollectionView::initCollectionViewState();
     Cori::SavedDecks::initSavedDecksState();
     Cori::DeckBuilder::initDeckBuilderState();
+    Cori::DeckViewer::initDeckViewerState();
 
-    Cori::gSetState(Cori::MainMenu::gMenuState);
+    Cori::gCurrentState = &Cori::MainMenu::gMenuState;
     
     // Initialize Window
     Cori::Window window("CoriTCG", Cori::gWindowWidth, Cori::gWindowHeight);
@@ -26,5 +27,6 @@ int main() {
     }
 
     Cori::CollectionView::destroyCollectionState();
+    Cori::DeckViewer::destroyDeckViewState();
 
 } 

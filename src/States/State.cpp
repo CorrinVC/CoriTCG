@@ -7,8 +7,10 @@ namespace Cori {
 State* gCurrentState {};
 std::stack<State*> gPreviousStates {};
 
-void gSetState(State& state, bool back) {
-    if(!back) gPreviousStates.push(gCurrentState);
+// If Going Back, Set addToPrevStack to false
+void gSetState(State& state, bool addToPrevStack) {
+    if(addToPrevStack) gPreviousStates.push(gCurrentState);
+    gCurrentState->offSwitch();
     
     gCurrentState = &state;
     gCurrentState->onSwitch();
@@ -33,6 +35,11 @@ State::~State() {
 void State::onSwitch() {
     if(mOnSwitch != nullptr)
         mOnSwitch();
+}
+
+void State::offSwitch() {
+    if(mOffSwitch != nullptr)
+        mOffSwitch();
 }
 
 void State::update() { 
@@ -60,6 +67,10 @@ void State::popUIElement() {
 
 void State::setOnSwitch(std::function<void()> func) {
     mOnSwitch = func;
+}
+
+void State::setOffSwitch(std::function<void()> func) {
+    mOffSwitch = func;
 }
 
 std::vector<UIElement*> State::getElements() {

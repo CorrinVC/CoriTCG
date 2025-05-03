@@ -45,6 +45,10 @@ sf::Color menuButtonColor { sf::Color(220, 220, 220) };
 //float deckScaleFactor { 3.0f };
 // SortMethod currentDeckSort { SortMethod::NoSort };
 
+bool editingExistingDeck { false };
+int editingDeckIndex {};
+DeckList editingDeck {};
+
 SortMethod currentDeckSort { SortMethod::TypeSort };
 SortMethod currentCollectionSort { SortMethod::NoSort };
 
@@ -108,6 +112,13 @@ void addToDeck(QuantityCard& card) {
     offsetScroll(card);    
 }
 
+void editDeck(int deckIndex) {
+    editingExistingDeck = true;
+    editingDeckIndex = deckIndex;
+    editingDeck = gCurrentProfile.decks[deckIndex];
+    gDecklistLayout->setDeck(editingDeck);
+}
+
 void resetDeckBuilder() {
     deckPanel->resetScrollbar();
     collectionPanel->resetScrollbar();
@@ -148,6 +159,7 @@ void initDeckBuilderState() {
 
     gDeckBuilderState.setOnSwitch(
         [=]() {
+            if(!editingExistingDeck) resetDeckBuilder();
             adjustDecklistView();
             adjustCollectionView();
             updateCollection();
@@ -174,6 +186,13 @@ void initDeckBuilderState() {
     // Init Back Button
     backButton = new BackButton(40.0f, buttonPanelHeight);
     backButton->setBackgroundColor(menuButtonColor);
+    backButton->createClickFunction(
+        [=]() {
+            if(editingExistingDeck)
+                gDecklistLayout->setDeck(editingDeck);
+            gOnBackClick();
+        }
+    );
 
     finishButton = new UIButton(80.0f, buttonPanelHeight);
     finishButton->setBackgroundColor(menuButtonColor);
@@ -182,10 +201,15 @@ void initDeckBuilderState() {
     finishButton->centerButtonText();
     finishButton->createClickFunction(
         [=]() {
-            gCurrentProfile.decks.push_back(gDecklistLayout->getCurrentDeck());
+            if(editingExistingDeck)
+                gCurrentProfile.decks[editingDeckIndex] = gDecklistLayout->getCurrentDeck();
+            else
+                gCurrentProfile.decks.push_back(gDecklistLayout->getCurrentDeck());
             SavedDecks::updateDeckList();
-            gSetState(SavedDecks::gSavedDecksState, true);
-            resetDeckBuilder();
+            gSetState(
+                editingExistingDeck ? DeckViewer::gDeckViewerState
+                : SavedDecks::gSavedDecksState, false
+            );
         }
     );
 

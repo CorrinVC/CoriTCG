@@ -2,6 +2,7 @@
 #include "../Window.h"
 #include "../Cards/DeckList.h"
 #include "../Profile/Profile.h"
+#include "../UI/DecklistLayout.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIGridLayout.h"
 #include "../UI/UIScrollPanel.h"
@@ -23,6 +24,13 @@ void initDeckButton(int index) {
     button->setBackgroundColor(sf::Color((0xFFFFFF * colorFactor) * 0xFF));
     
     button->setText(gCurrentProfile.decks[index].getName());
+
+    button->createClickFunction(
+        [=]() {
+            DeckViewer::setViewingDeck(index);
+            gSetState(DeckViewer::gDeckViewerState);
+        }
+    );
 
     deckListGrid->addElement(button);
     button->printDimensions();

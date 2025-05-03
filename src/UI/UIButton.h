@@ -27,6 +27,8 @@ public:
     void centerButtonText();
 };
 
+extern std::function<void()> gOnBackClick;
+
 class BackButton : public UIButton {
 private:
     bool mSaysBack { true };

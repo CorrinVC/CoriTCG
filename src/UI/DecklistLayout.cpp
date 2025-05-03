@@ -55,8 +55,8 @@ void DecklistLayout::sortDecklist() {
 
 void DecklistLayout::updateDecklist() {
     clearElements();
-    for(QuantityCard card : mCurrentDeck.getSortedList(mSortMethod))
-        addToDeck(card);
+    for(QuantityCard card : mCurrentDeck.getCards())
+        generateImage(card);
 }
 
 void DecklistLayout::addToDeck(QuantityCard& card) {

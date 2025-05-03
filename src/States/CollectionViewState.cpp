@@ -99,7 +99,7 @@ void initCollectionViewState() {
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
     // Offset Panel to y=5%, Shrink Height to 95%
     panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
-    panel->setInnerBorder(12.0f);
+    //panel->setInnerBorder(12.0f);
 
     updateCollection();  
     panel->addElement(gCollectionLayout);

@@ -12,10 +12,13 @@ class State {
 protected:
     std::vector<UIElement*> mUIElements {};
     std::function<void()> mOnSwitch { nullptr };
+    std::function<void()> mOffSwitch { nullptr };
 public:    
     ~State();
 
     void onSwitch();
+    void offSwitch();
+
     void update();
     void draw(sf::RenderWindow& window);
 
@@ -23,6 +26,7 @@ public:
     void popUIElement();
 
     void setOnSwitch(std::function<void()> func);
+    void setOffSwitch(std::function<void()> func);
 
     std::vector<UIElement*> getElements();
 };
@@ -31,7 +35,7 @@ public:
 extern State* gCurrentState;
 extern std::stack<State*> gPreviousStates;
 
-void gSetState(State& state, bool back = false);
+void gSetState(State& state, bool addToPrevStack = true);
 sf::Vector2f centeredCardPosition();
 
 namespace MainMenu { // Main Menu State
@@ -72,12 +76,15 @@ extern void updateDeckList();
 namespace DeckViewer {
 extern State gDeckViewerState;
 extern void initDeckViewerState();
+extern void destroyDeckViewState();
+extern void setViewingDeck(int deckIndex);
 }
 
 namespace DeckBuilder { // Deck Builder State
 extern State gDeckBuilderState;
 extern void initDeckBuilderState();    
 extern void addToDeck(QuantityCard& card);
+extern void editDeck(int deckIndex);
 }
 
 }

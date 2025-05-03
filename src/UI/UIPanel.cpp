@@ -1,5 +1,6 @@
 #include "UIPanel.h"
 #include "CollectionLayout.h"
+#include "DecklistLayout.h"
 #include "../Input/MouseManager.h"
 
 namespace Cori {
@@ -15,7 +16,7 @@ UIPanel::UIPanel(float x, float y, float width, float height)
 
 UIPanel::~UIPanel() {
     for(auto* element : mPanelElements) {
-        if(element == gCollectionLayout) continue;
+        if(element == gCollectionLayout || element == gDecklistLayout) continue;
         delete element;
         element = NULL;
     }
