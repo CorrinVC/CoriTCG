@@ -43,7 +43,6 @@ void updateDeckList() {
     //std::cout << gCurrentProfile.decks.size() << std::endl;
 
     for(std::size_t i { 0 }; i < gCurrentProfile.decks.size(); ++i) {
-        gCurrentProfile.decks[i].setName(std::format("Deck {}", i + 1));
         initDeckButton(i);
     }
 }

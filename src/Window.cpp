@@ -1,4 +1,5 @@
 #include "Window.h"
+#include "Input/KeyboardManager.h"
 #include "Input/MouseManager.h"
 #include "States/State.h"
 #include <optional>
@@ -27,6 +28,9 @@ void pollEvent(const std::optional<sf::Event> event, sf::RenderWindow& window) {
     // Mouse Released Event
     else if(const auto* buttonReleased = event->getIf<sf::Event::MouseButtonReleased>())
         gMouseManager.setMouseButtonReleased(buttonReleased->button);
+
+    else if(const auto* textEntered = event->getIf<sf::Event::TextEntered>())
+        if(gKeyboardManager.acceptingTextInput()) gKeyboardManager.appendInput(textEntered->unicode);
 }
 
 void Window::update() {

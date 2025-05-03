@@ -29,7 +29,7 @@ public:
 
     void setDeck(DeckList deck);
 
-    DeckList getCurrentDeck();
+    DeckList& getCurrentDeck();
     int findCardIndex(QuantityCard& card);
 };
 

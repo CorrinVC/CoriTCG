@@ -8,6 +8,7 @@
 #include "../UI/UIDropdown.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIScrollPanel.h"
+#include "../UI/UITextField.h"
 #include "../UI/UIPanel.h"
 
 namespace Cori {
@@ -23,6 +24,8 @@ UIScrollPanel* collectionPanel;
 UIPanel* deckButtonPanel;
 UIPanel* collectionButtonPanel;
 //UIGridLayout* collectionGrid;
+
+UITextField* deckNameField;
 
 // Deck Panel Buttons
 UIButton* backButton;
@@ -178,6 +181,8 @@ void initDeckBuilderState() {
     
     deckPanel->addElement(gDecklistLayout);
 
+    deckNameField = new UITextField(gWindowWidth / 2 - 100.0f, 0.0f, 200.0f, 10.0f);
+
     // Init Deck Button Panel
     deckButtonPanel = new UIPanel(gWindowWidth - 20.0f, buttonPanelHeight);
     deckButtonPanel->setBackgroundColor(sf::Color::White);
@@ -201,6 +206,7 @@ void initDeckBuilderState() {
     finishButton->centerButtonText();
     finishButton->createClickFunction(
         [=]() {
+            gDecklistLayout->getCurrentDeck().setName(deckNameField->flushTextInput());
             if(editingExistingDeck)
                 gCurrentProfile.decks[editingDeckIndex] = gDecklistLayout->getCurrentDeck();
             else
@@ -320,6 +326,8 @@ void initDeckBuilderState() {
 
     collectionButtonPanel->addElement(collectionZoomIn);
     collectionButtonPanel->addElement(collectionZoomOut);
+
+    gDeckBuilderState.addUIElement(deckNameField);
 
     gDeckBuilderState.addUIElement(deckPanel);
     gDeckBuilderState.addUIElement(deckButtonPanel);

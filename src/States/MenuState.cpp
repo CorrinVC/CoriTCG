@@ -1,5 +1,7 @@
 #include "State.h"
+#include "../Window.h"
 #include "../UI/UIButton.h"
+#include "../UI/UITextField.h"
 
 namespace Cori {
 
@@ -13,6 +15,8 @@ UIButton* setViewButton;
 UIButton* packSimButton;
 UIButton* collectionButton;
 UIButton* deckBuilderButton;
+
+//UITextField* testField;
 
 void initMenuState() {
 
@@ -78,11 +82,16 @@ void initMenuState() {
         }
     );
 
+    //testField = new UITextField(gWindowWidth / 2 - 100.0f, 100.0f, 200.0f, 75.0f);
+
+
     gMenuState.addUIElement(cardViewButton);
     gMenuState.addUIElement(setViewButton);
     gMenuState.addUIElement(packSimButton);
     gMenuState.addUIElement(collectionButton);
     gMenuState.addUIElement(deckBuilderButton);
+
+    //gMenuState.addUIElement(testField);
 }
 
 }

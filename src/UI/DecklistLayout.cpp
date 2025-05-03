@@ -96,7 +96,7 @@ void DecklistLayout::setDeck(DeckList deck) {
     updateDecklist();
 }
 
-DeckList DecklistLayout::getCurrentDeck() {
+DeckList& DecklistLayout::getCurrentDeck() {
     return mCurrentDeck;
 }
 
