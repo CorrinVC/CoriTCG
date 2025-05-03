@@ -1,6 +1,7 @@
 #include "UIScrollBar.h"
 #include "../Input/MouseManager.h"
 #include <algorithm>
+#include <cmath>
 
 namespace Cori {
 
@@ -57,12 +58,12 @@ void UIScrollBar::setScrollBarBkgdColor(sf::Color color) {
 }
 
 void UIScrollBar::setBarHeight(float height) {
-    setSize({ getWidth(), height });
+    setSize({ getWidth(), float(floor(height)) });
 }
 
 void UIScrollBar::setPosition(float x, float y) {
     UIElement::setPosition(x, y);
-    std::cout << "Scroll Bar Set to " << x << ',' << y << std::endl;
+    //std::cout << "Scroll Bar Set to " << x << ',' << y << std::endl;
 }
 
 }

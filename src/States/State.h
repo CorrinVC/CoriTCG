@@ -63,10 +63,15 @@ extern void destroyCollectionState();
 //extern void updateCollection();
 }
 
-namespace SavedDecks { // TODO - Saved Decks, to have "New Deck" Button
+namespace SavedDecks {
 extern State gSavedDecksState;
 extern void initSavedDecksState();
 extern void updateDeckList();
+}
+
+namespace DeckViewer {
+extern State gDeckViewerState;
+extern void initDeckViewerState();
 }
 
 namespace DeckBuilder { // Deck Builder State

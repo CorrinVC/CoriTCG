@@ -42,7 +42,7 @@ void CollectionLayout::generateImage(QuantityCard& card) {
         }
     );
 
-    image->addCaption({ 100.0f, 50.0f, std::format("{}", card.quantity) });
+    image->addCaption({ 50.0f, 25.0f, std::format("{}", card.quantity) });
     image->getCaption().setBackgroundColor(sf::Color::Black);
 
     addElement(image);

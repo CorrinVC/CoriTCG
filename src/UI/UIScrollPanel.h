@@ -28,6 +28,7 @@ public:
     void addElement(UIElement* element) override;
 
     void setScrollOffset(float offsetPosition);
+    void resetScrollbar();
     void setInnerBorder(float border);
 
     float getWidthMinusScrollbar();

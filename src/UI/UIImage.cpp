@@ -64,7 +64,7 @@ void UIImage::changeTexture(sf::Texture texture) {
 void UIImage::setPosition(float x, float y) {
     UIElement::setPosition(x, y);
     mSprite.setPosition({ x, y });
-    if(mHasCaption) mCaption.setPosition(x, y);
+    if(mHasCaption) positionCaption();
 }
 
 void UIImage::move(float x, float y) {
@@ -79,7 +79,7 @@ void UIImage::move(float x, float y) {
 void UIImage::offsetFromOrigin(float xOffset, float yOffset) {
     UIElement::offsetFromOrigin(xOffset, yOffset);
     if(mHasCaption) {
-        mCaption.offsetFromOrigin(xOffset, yOffset);
+        positionCaption();
         //mCaption.centerText();
     }
     mSprite.setPosition({ mOriginX + xOffset, mOriginY + yOffset });
@@ -92,25 +92,39 @@ void UIImage::setScale(float scaleFactor) {
 void UIImage::setScale(float scaleX, float scaleY) {
     mSprite.setScale({ scaleX, scaleY });
     UIElement::setScale(scaleX, scaleY);
-    if(mHasCaption) mCaption.setScale(scaleX, scaleY);
+    if(mHasCaption) positionCaption();
 }
 
 void UIImage::setSize() {
     mWidth = mImage.getSize().x;
     mHeight = mImage.getSize().y;
     mRect.setSize({ mWidth, mHeight });
+    if(mHasCaption) positionCaption();
 }
 
 void UIImage::addCaption(UITextbox caption, float xOffset, float yOffset) {
     mCaption = caption;
     mCaptionXOffset = xOffset;
     mCaptionYOffset = yOffset;
+    positionCaption();
     mCaption.centerText();
 
     //mCaption.setPosition(getX(), getY());
     //mCaption.setBackgroundColor(sf::Color(255,0,255));
     mHasCaption = true;
-};
+}
+
+void UIImage::positionCaption() {
+    float xOffset { 
+        mCaptionXOffset >= 0 ? mCaptionXOffset
+        : mRect.getSize().x + mCaptionXOffset 
+    };
+    float yOffset { 
+        mCaptionYOffset >= 0 ? mCaptionYOffset
+        : mRect.getSize().y + mCaptionYOffset
+    };
+    mCaption.setPosition(getX() + xOffset, getY() + yOffset);
+}
 
 sf::Texture UIImage::getImage() {
     return mImage;

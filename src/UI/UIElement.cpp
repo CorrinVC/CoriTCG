@@ -183,8 +183,8 @@ void UIElement::destroyClickFunction() {
 }
 
 void UIElement::printDimensions() {
-    std::cout << '(' << getX() << ", " << getY() << ") "
-    << mWidth << 'x' << mHeight << std::endl;
+    std::cout << '(' << getOriginX() << ", " << getOriginY() << ") "
+    << mRect.getSize().x << 'x' << mRect.getSize().y << std::endl;
 }
 
 void UIElement::onClick()  {
@@ -193,7 +193,7 @@ void UIElement::onClick()  {
     if(mClickFunc) mClickFunc();
     //std::cout << "onClick Clearing" << std::endl;
     //gMouseManager.clearPressedSlot();
-    //printDimensions();
+    printDimensions();
     if(!mClickFuncCreated) return;
     gMouseManager.setMouseButtonReleased(sf::Mouse::Button::Left, false);
 }

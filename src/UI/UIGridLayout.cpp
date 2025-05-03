@@ -205,9 +205,9 @@ float UIGridLayout::getBorderPadding(Direction direction) {
 
 float UIGridLayout::getInnerPadding(bool vertical) {
     if(vertical)
-        return mMaxVertPadding;
+        return mVerticalInnerPadding;
     else
-        return mMaxHorizPadding;
+        return mHorizontalInnerPadding;
 }
 
 }

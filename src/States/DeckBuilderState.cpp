@@ -3,9 +3,9 @@
 #include "../Cards/DeckList.h"
 #include "../Profile/Profile.h"
 #include "../UI/CollectionLayout.h"
+#include "../UI/DecklistLayout.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
-#include "../UI/UIGridLayout.h"
 #include "../UI/UIImage.h"
 #include "../UI/UIScrollPanel.h"
 #include "../UI/UIPanel.h"
@@ -19,8 +19,6 @@ State gDeckBuilderState {};
 // UI Elements
 UIScrollPanel* deckPanel;
 UIScrollPanel* collectionPanel;
-
-UIGridLayout* deckGrid;
 
 UIPanel* deckButtonPanel;
 UIPanel* collectionButtonPanel;
@@ -38,25 +36,25 @@ UIButton* collectionZoomIn;
 UIButton* collectionZoomOut; 
 UIDropdown* collectionSortDropdown;
 
-DeckList currentDeck {};
+//DeckList currentDeck {};
 
 // Reference Variables
 float buttonPanelHeight { 20.0f };
 sf::Color menuButtonColor { sf::Color(220, 220, 220) };
 
-float deckScaleFactor { 3.0f };
+//float deckScaleFactor { 3.0f };
 // SortMethod currentDeckSort { SortMethod::NoSort };
 
 SortMethod currentDeckSort { SortMethod::TypeSort };
 SortMethod currentCollectionSort { SortMethod::NoSort };
 
-void addImage(sf::Texture cardImage) {
+/*void addImage(sf::Texture cardImage) {
     UIImage* card = new UIImage(0.0f, 0.0f, cardImage);
 
     card->addCaption({ 100.0f, 50.0f, "1" });
     card->getCaption().setBackgroundColor(sf::Color::Black);
 
-    deckGrid->addElement(card);
+    gDeckl->addElement(card);
 }
 
 void incrementImage(int imgPosition) {
@@ -86,42 +84,47 @@ void sortDeckList() {
         changeImage(card, cardIndex);
         ++cardIndex;
     }
-}
+}*/
 
 float padding(UIElement* element) {
-    return { (element->getOriginY() == deckGrid->getBorderPadding(Direction::Top))
-        ? deckGrid->getBorderPadding(Direction::Top)
-        : deckGrid->getInnerPadding(true) };
+    return { (element->getOriginY() == gDecklistLayout->getBorderPadding(Direction::Top))
+        ? gDecklistLayout->getBorderPadding(Direction::Top)
+        : gDecklistLayout->getInnerPadding(true) };
 }
 
 void offsetScroll(QuantityCard& card) {
-    UIElement* element { deckGrid->getElements()[currentDeck.findSortedIndex(card.card, currentDeckSort)] };
+    UIElement* element { gDecklistLayout->getElements()[
+        gDecklistLayout->findCardIndex(card)
+    ] };
     std::cout << element->getOriginY() << " - " << padding(element) << "= offset " 
                 << element->getOriginY() - padding(element) << std::endl;
     deckPanel->setScrollOffset(element->getOriginY() - padding(element));
 }
 
 void addToDeck(QuantityCard& card) {
-    if(currentDeck.getCountOfCard(card.card) >= card.quantity) return;
-    //card.print();
-    //std::cout << "Is Not Exceeded By Count in Deck." << std::endl;
-    if(currentDeck.addCard(card.card)) {
-        if(currentDeck.getCountOfCard(card.card) > 1)
-            incrementImage(currentDeck.findCardIndex(card.card));
-        else
-            addImage(card.card->mTexture);
-    }
-    sortDeckList();
-    //std::cout << "--------------" << std::endl;
-    //printDeck();
+    gDecklistLayout->addToDeck(card);
     deckPanel->calculateContentHeight();
 
     offsetScroll(card);    
 }
 
+void resetDeckBuilder() {
+    deckPanel->resetScrollbar();
+    collectionPanel->resetScrollbar();
+    gDecklistLayout->reset();
+}
+
+void adjustDecklistView() {
+    gDecklistLayout->setScale(3.0f);
+    gDecklistLayout->changeSortMethod(currentDeckSort);
+    gDecklistLayout->setSize({ deckPanel->getWidthMinusScrollbar(), deckPanel->getHeight() });
+    deckPanel->calculateContentHeight();
+}
+
 void adjustCollectionView() {
     gCollectionLayout->changeSortMethod(currentCollectionSort);
     gCollectionLayout->setSize({ collectionPanel->getWidthMinusScrollbar(), collectionPanel->getHeight() });
+    collectionPanel->calculateContentHeight();
 }
 
 void updateCollection() {
@@ -129,12 +132,14 @@ void updateCollection() {
     collectionPanel->calculateContentHeight();
 }
 
-void resizeGrid(UIGridLayout* layout, UIScrollPanel* panel, float scaleFactor = deckScaleFactor) {
+void resizeGrid(UIGridLayout* layout, UIScrollPanel* panel, float scaleFactor) {
     layout->setScale(scaleFactor);
     panel->calculateContentHeight();
 }
 
 void initDeckBuilderState() {
+    initDecklistLayout();
+
     collectionPanel = new UIScrollPanel(gWindowWidth - 20.0f, gWindowHeight - 320.0f, 20.0f, 50.0f);
     //collectionPanel->setBackgroundColor(sf::Color::Blue);
     collectionPanel->getView().setViewport({ { 0.01f, 0.34f }, { 0.98f, 0.65f } });
@@ -143,6 +148,7 @@ void initDeckBuilderState() {
 
     gDeckBuilderState.setOnSwitch(
         [=]() {
+            adjustDecklistView();
             adjustCollectionView();
             updateCollection();
         }
@@ -153,12 +159,12 @@ void initDeckBuilderState() {
     deckPanel->setBackgroundColor(sf::Color::Red);
     deckPanel->getView().setViewport({ { 0.01f, 0.03f }, { 0.98f, 0.29f } });
 
-    deckGrid = new UIGridLayout(10.0f, 8.0f, deckPanel->getWidthMinusScrollbar(), deckPanel->getHeight());
+    /*deckGrid = new DecklistLayout(deckPanel->getWidthMinusScrollbar(), deckPanel->getHeight());
     deckGrid->setBackgroundColor(sf::Color::Green);
     deckGrid->setScale(deckScaleFactor);
-    deckGrid->setInnerPadding(13.0f);
+    deckGrid->setInnerPadding(13.0f);*/
     
-    deckPanel->addElement(deckGrid);
+    deckPanel->addElement(gDecklistLayout);
 
     // Init Deck Button Panel
     deckButtonPanel = new UIPanel(gWindowWidth - 20.0f, buttonPanelHeight);
@@ -176,9 +182,10 @@ void initDeckBuilderState() {
     finishButton->centerButtonText();
     finishButton->createClickFunction(
         [=]() {
-            gCurrentProfile.decks.push_back(currentDeck);
+            gCurrentProfile.decks.push_back(gDecklistLayout->getCurrentDeck());
             SavedDecks::updateDeckList();
             gSetState(SavedDecks::gSavedDecksState, true);
+            resetDeckBuilder();
         }
     );
 
@@ -193,7 +200,7 @@ void initDeckBuilderState() {
         [=]() {
             if(deckSortDropdown->getSelectedIndex() >= 0) {
                 currentDeckSort = SortMethod(deckSortDropdown->getSelectedIndex());
-                sortDeckList();
+                gDecklistLayout->changeSortMethod(currentDeckSort);
             }
         }
     );
@@ -205,10 +212,11 @@ void initDeckBuilderState() {
     deckZoomOut->setBackgroundColor(menuButtonColor);
     deckZoomOut->createClickFunction(
         [=]() {
-            deckScaleFactor += 1.0f;
-            if(deckGrid->getInnerPadding(true) == 13.0f)
-                deckGrid->setInnerPadding(8.0f);
-            resizeGrid(deckGrid, deckPanel);
+            resizeGrid(gDecklistLayout, deckPanel,
+                gDecklistLayout->getScaleFactor() + 1);
+            
+            if(gDecklistLayout->getInnerPadding(true) == 12.0f)
+                gDecklistLayout->setInnerPadding(8.0f);
         }
     );
 
@@ -219,12 +227,13 @@ void initDeckBuilderState() {
     deckZoomIn->setBackgroundColor(menuButtonColor);
     deckZoomIn->createClickFunction(
         [=]() {
-            if(deckScaleFactor > 3.0f) {
-                deckScaleFactor -= 1.0f;
-                if(deckScaleFactor == 3.0f && deckGrid->getInnerPadding(true) != 13.0f)
-                    deckGrid->setInnerPadding(13.0f);
-                    
-                resizeGrid(deckGrid, deckPanel);
+            if(gDecklistLayout->getScaleFactor() > 3.0f) {
+                resizeGrid(gDecklistLayout, deckPanel,
+                    gDecklistLayout->getScaleFactor() - 1);
+
+                if(gDecklistLayout->getScaleFactor() == 3.0f && 
+                   gDecklistLayout->getInnerPadding(true) != 12.0f)
+                    gDecklistLayout->setInnerPadding(12.0f);
             }
         }
     );

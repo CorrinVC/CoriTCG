@@ -42,6 +42,7 @@ public:
     void setSize();
 
     void addCaption(UITextbox caption, float xOffset = 0.0f, float yOffset = 0.0f);
+    void positionCaption();
 
     sf::Texture getImage();
     sf::Sprite getSprite();

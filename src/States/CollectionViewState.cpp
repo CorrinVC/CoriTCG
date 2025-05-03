@@ -85,6 +85,7 @@ void updateCollection() {
 void adjustCollectionView() {
     gCollectionLayout->changeSortMethod(currentSortMethod);
     gCollectionLayout->setSize({ panel->getWidthMinusScrollbar(), panel->getHeight() });
+    panel->calculateContentHeight();
 }
 
 void updateCollection() {

@@ -1,5 +1,6 @@
 #include "UIScrollPanel.h"
 #include "../Input/MouseManager.h"
+#include <cmath>
 
 namespace Cori {
 
@@ -84,8 +85,12 @@ void UIScrollPanel::addElement(UIElement* element) {
 }
 
 void UIScrollPanel::setScrollOffset(float offsetPosition) {
-    mScrollBar.setPosition(mScrollBar.getX(), std::min(offsetPosition * (mHeight / mContentHeight), double(mHeight - mScrollBar.getHeight()))); 
+    mScrollBar.setPosition(mScrollBar.getX(), std::min(ceil(offsetPosition * (mHeight / mContentHeight)), double(mHeight - mScrollBar.getHeight()))); 
     updateScrollOffset();
+}
+
+void UIScrollPanel::resetScrollbar() {
+    setScrollOffset(0.0f);
 }
 
 void UIScrollPanel::setInnerBorder(float border) {
