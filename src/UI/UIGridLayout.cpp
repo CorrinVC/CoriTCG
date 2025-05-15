@@ -1,4 +1,5 @@
 #include "UIGridLayout.h"
+#include "../DeletionProtection.h"
 
 namespace Cori {
 
@@ -28,6 +29,7 @@ UIGridLayout::UIGridLayout(float borderPadding, float innerPadding, float width,
 
 UIGridLayout::~UIGridLayout() {
     for(UIElement* element : mGridElements) {
+        if(deletionProtectionContains(element)) continue;
         delete element;
         element = NULL;
     }
@@ -116,6 +118,7 @@ void UIGridLayout::updateLayoutHeight() {
         mHeight = mRect.getSize().y;
     else
         mHeight = mGridElements.back()->getOriginY() + (mGridElements.back()->getHeight() / mScaleFactor) + mBottomPadding;
+    mRect.setSize({ mWidth, mHeight });
 }
 
 void UIGridLayout::updateScale() {
@@ -156,8 +159,16 @@ void UIGridLayout::setScale(float scaleFactor) {
 void UIGridLayout::setSize(const sf::Vector2f& size) {
     UIElement::setSize(size);
     if(mGridElements.size() > 0) {
+        adjustElementSizes();
         updateElementsPerLine();
         updateLayoutHeight();
+    }
+}
+
+void UIGridLayout::adjustElementSizes() {
+    for(UIElement* element : mGridElements) {
+        if(element->getWidth() > mWidth)
+            element->setSize({ mWidth, element->getHeight() });
     }
 }
 

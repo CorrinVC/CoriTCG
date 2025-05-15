@@ -12,7 +12,8 @@ private:
 
     double mContentHeight {};
     int mScrollOffset {};
-    float mInnerBorder {};
+
+    bool mScrollbarHidden { true };
 public:
     UIScrollPanel(float width, float height, float scrollerWidth = 20.0f, float scrollerHeight = 50.0f);
     UIScrollPanel(float x, float y, float width, float height, float scrollerWidth, float scrollerHeight);
@@ -28,8 +29,8 @@ public:
     void addElement(UIElement* element) override;
 
     void setScrollOffset(float offsetPosition);
+    void setScrollbarHidden(bool hidden);
     void resetScrollbar();
-    void setInnerBorder(float border);
 
     float getWidthMinusScrollbar();
     UIScrollBar& getScrollbar();

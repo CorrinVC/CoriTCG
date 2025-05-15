@@ -43,6 +43,11 @@ extern State gMenuState;
 extern void initMenuState();
 }
 
+namespace ProfileView { // Profile View State
+extern State gProfileViewState;
+extern void initProfileViewState();
+}
+
 namespace SetViewer { // Individual Card View State
 extern State gSetViewerState;
 extern void initSetViewerState();
@@ -63,7 +68,6 @@ extern void initPackSimState();
 namespace CollectionView { // Collection Showcase State
 extern State gCollectionViewState;
 extern void initCollectionViewState();
-extern void destroyCollectionState();
 //extern void updateCollection();
 }
 
@@ -76,7 +80,6 @@ extern void updateDeckList();
 namespace DeckViewer {
 extern State gDeckViewerState;
 extern void initDeckViewerState();
-extern void destroyDeckViewState();
 extern void setViewingDeck(int deckIndex);
 }
 

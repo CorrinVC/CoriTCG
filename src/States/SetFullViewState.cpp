@@ -1,7 +1,6 @@
 #include "State.h"
 #include "../Window.h"
 #include "../Cards/Expansions/Expansions.h"
-
 #include "../UI/UIElement.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIDropdown.h"
@@ -10,13 +9,13 @@
 #include "../UI/UIScrollBar.h"
 #include "../UI/UIScrollPanel.h"
 #include "../UI/UITextbox.h"
-#include <format>
 
 namespace Cori { namespace SetFullView {
 
 State gSetFullViewState {};
 
 // UI Elements
+
 UIDropdown* expansionDropdown;
 UIGridLayout* gridLayout;
 UIScrollPanel* panel;
@@ -24,192 +23,109 @@ UIScrollPanel* panel;
 UIButton* backButton;
 UIButton* scaleDown;
 UIButton* scaleUp;
-//UIButton* scrollDown;
-//UIButton* scrollUp;
 
-/*
-// Layout Variables
-int currentImgCount { 102 }; // Temporary - Replace with Expansion var & Expansion Card Count var
-const float regionBorder { 12.0f }; // CHANGE? Panel Inner Padding, in Pixels
-float cardGap { regionBorder - currentScale }; // Padding Between Cards, in Pixels
+// Reference Variables
 
-// Amount of Cards that fit in a row, given Scale, Gap, and Border
-int cardsPerLine { int((gWindowWidth - regionBorder * 2) / (gCardWidth / currentScale + cardGap)) };
-*/
+float currentScale { 2.0f };
+Expansion* currentExpansion{ Expansions::gExpansionList[0] };
 
-float currentScale { 2.0f }; // Card Image Scale Factor (Represented as 1/x)
-// Current Set Var(s)
-Expansion* currentExpansion { Expansions::gExpansionList[ExpansionID::BaseSet] };
-
-/*
-// Returns Position of Card Relative to its Indexed Location in grid
-sf::Vector2f getIndexedPosition(int index) {
-    return {
-        ((gWindowWidth - (gCardWidth / currentScale + cardGap) * cardsPerLine + cardGap) / 2) 
-        + (index % cardsPerLine) * (gCardWidth / currentScale + cardGap),
-        regionBorder + (index / cardsPerLine) * (gCardHeight / currentScale + cardGap) 
-    };
-}
-
-void setImgPosition(int index, UIImage* image) {
-    image->setPosition(getIndexedPosition(index).x, getIndexedPosition(index).y);
-}
-
-// Update Card Gap & Cards Per Line when Scaling
-// Cycle Through Card UIImages, Adjust Scale & Position
-void adjustScale() {
-    cardGap = std::max(1.0f, 12.0f - currentScale);
-    cardsPerLine = int((gWindowWidth - regionBorder * 2) / (gCardWidth / currentScale + cardGap));
-}
-
-void updateImgTransformation(int imgIndex, UIImage* img) {
-    img->setScale(1.0f / currentScale);
-    setImgPosition(imgIndex, img);
-}
-
-void updateImgTransformations(std::vector<UIElement*>& elements) {
-    for(int i = 0; i < currentImgCount; ++i) {
-        updateImgTransformation(i, static_cast<UIImage*>(elements[i]));
-    }   
-}
-
-float panelScaleFactor { 1.0f }; // Viewport size factor (Relative to Screen Size)
-
-// Temporary? Used for experimenting with Viewports
-void updatePanelScale(UIPanel* panel) {
-    panel->getView().setViewport({
-        { (1.0f - panelScaleFactor) / 2.0f, (1.0f - panelScaleFactor) / 2.0f },
-        { panelScaleFactor, panelScaleFactor }
-    });
-}
-
-void reduceElements(int elementsNeeded) {
-    for(int i = static_cast<int>(panel->getElements().size()) - 1; i >= elementsNeeded; --i) {
-        delete panel->getElements()[i];
-        panel->getElements().pop_back();
-    }
-}*/
-
-// Create and Add Card Image to Layout
 void generateImage(int index) {
-    UIImage* image = new UIImage(0.0f, 0.0f, 
+    UIImage* image = new UIImage(0.0f, 0.0f,
         currentExpansion->cards[index]->mTexture);
-
-    image->createClickFunction(
-        [=]() {
-            SetViewer::setSelectedCard(index + 1, currentExpansion->expansionID);
-            gSetState(SetViewer::gSetViewerState);
-            //std::cout << image->getX() << ',' << image->getY() << ',' << image->getWidth() << ',' << image->getHeight() << std::endl;
-        }
-    );
-
+    
+    image->createClickFunction([=]() {
+        SetViewer::setSelectedCard(index + 1, currentExpansion->expansionID);
+        gSetState(SetViewer::gSetViewerState);
+    });
     gridLayout->addElement(image);
 }
 
 void updateExpansion() {
-    gridLayout->clearElements(); // Reset Imgs
-
-    for(int i { 0 }; i < currentExpansion->cardCount(); ++i)
+    gridLayout->clearElements();
+    for(int i { 0 }; i < currentExpansion->cardCount(); ++i) 
         generateImage(i);
-    
     panel->calculateContentHeight();
+
+    if(gridLayout->getWidth() != panel->getWidthMinusScrollbar())
+        gridLayout->setSize({ panel->getWidthMinusScrollbar(), gridLayout->getHeight() });
 }
 
-
-void initFullViewState() {
-
-    // Init Expansion Dropdown
+void initExpansionDropdown() {
     expansionDropdown = new UIDropdown(gWindowWidth / 2.0f - 150.0f, 10.0f, 300.0f, 40.0f, "Select Expansion",
         Expansions::gExpansionNames());
-    expansionDropdown->createClickFunction(
-        []() {
-            if(expansionDropdown->getSelectedText() != gDefaultString) {
-                currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()];
-                updateExpansion();
-            }
+    expansionDropdown->createClickFunction([=]() {
+        if(expansionDropdown->getSelectedIndex() >= 0) {
+            currentExpansion = Expansions::gExpansionList[expansionDropdown->getSelectedIndex()];
+            updateExpansion();
         }
-    );
+    });
+}
 
-    // Main Panel on which to Display main Card UIImages
+void initSetViewPanel() {
     panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f);
     panel->setBackgroundColor(sf::Color(255, 100, 100));
-    //panel->setInnerBorder(12.0f);
+    panel->setViewport(0.0f, 0.05f, 1.0f, 0.95f);
+}
 
-    // Set Panel Size to 95% of Screen Height, Aligned to Bottom of Screen
-    panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
-
-    // Grid Layout to Organize Cards
-    gridLayout = new UIGridLayout(10.0f, 10.0f, panel->getWidthMinusScrollbar(), panel->getHeight());
-    gridLayout->setScale(currentScale); // Set Card Grid to 1/2 Scale
+void initGridLayout() {
+    gridLayout = new UIGridLayout(10.0f, 10.0f, panel->getWidthMinusScrollbar());
+    gridLayout->setScale(currentScale);
     gridLayout->setBackgroundColor(sf::Color(200, 200, 255));
-
-    // Initialize Amount of UIImages equal to Current Expansion Card Count
-    for(int i = 0; i < currentExpansion->cardCount(); ++i) {
-        generateImage(i);
-    }
+    
     panel->addElement(gridLayout);
+    updateExpansion();
+}
 
-    // Init Back Button
-    backButton = new BackButton(10.0f, 0.0f, 60.0f, 50.0f);
-
-    // Temporary? Scales UIElements Up
+void initScaleUpButton() {
     scaleUp = new UIButton(gWindowWidth - 50.0f, 0.0f, 50.0f, 50.0f);
     scaleUp->setText("+");
     scaleUp->centerButtonText();
-    scaleUp->createClickFunction(
-        [=]() {
-            if(currentScale > 1.0f) {
-                currentScale -= 1.0f;
-                gridLayout->setScale(currentScale);
-                panel->calculateContentHeight();
-            }
+    
+    scaleUp->createClickFunction([=]() {
+        if(currentScale > 1.0f) {
+            currentScale -= 1.0f;
+            gridLayout->setScale(currentScale);
+            panel->calculateContentHeight();
         }
-    );
+    });
+}
 
-    // Temporary? Scales UIElements Down
+void initScaleDownButton() {
     scaleDown = new UIButton(50.0f, 50.0f);
     scaleDown->setPositionRelativeTo(*scaleUp, -50.0f, 0.0f);
     scaleDown->setText("-");
     scaleDown->centerButtonText();
-    scaleDown->createClickFunction(
-        [=]() {
-            currentScale += 1.0f;
-            gridLayout->setScale(currentScale);
-            panel->calculateContentHeight();
-        }
-    );
+    
+    scaleDown->createClickFunction([=]() {
+        currentScale += 1.0f;
+        gridLayout->setScale(currentScale);
+        panel->calculateContentHeight();
+    });
+}
 
-    /*// Temporary Button in Place of Scroll Functionality
-    scrollDown = new UIButton(0.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
-    scrollDown->setText("-");
-    scrollDown->createClickFunction(
-        [=]() {
-            gridLayout->clearElements();
-            panel->calculateContentHeight();
-        }
-    );
-
-    // Temporary Button in Place of Scroll Functionality
-    scrollUp = new UIButton(gWindowWidth - 50.0f, gWindowHeight - 100.0f, 50.0f, 50.0f);
-    scrollUp->setText("+");
-    scrollUp->createClickFunction(
-        [=]() {
-            std::cout << "Click" << std::endl;
-            gridLayout->clearElements(1);
-            panel->calculateContentHeight();
-            //gSetState(CollectionView::gCollectionViewState);
-        }
-    );*/
-
+void addElements() {
     gSetFullViewState.addUIElement(panel);
     gSetFullViewState.addUIElement(expansionDropdown);
 
     gSetFullViewState.addUIElement(backButton);
     gSetFullViewState.addUIElement(scaleDown);
     gSetFullViewState.addUIElement(scaleUp);
-    //gSetFullViewState.addUIElement(scrollUp);
-    //gSetFullViewState.addUIElement(scrollDown);
 }
 
+void initFullViewState() {
+    gSetFullViewState.setOffSwitch([=]() {
+        panel->resetScrollbar();
+    });
+
+    initExpansionDropdown();
+    initSetViewPanel();
+    initGridLayout();
+
+    backButton = new BackButton(10.0f, 0.0f, 60.0f, 50.0f);
+    initScaleUpButton();
+    initScaleDownButton();
+
+    addElements();
+}
 
 }}

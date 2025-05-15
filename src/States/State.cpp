@@ -1,4 +1,5 @@
 #include "State.h"
+#include "../DeletionProtection.h"
 #include "../Window.h"
 #include "../Cards/Card.h"
 
@@ -26,9 +27,10 @@ sf::Vector2f centeredCardPosition() {
 
 State::~State() {
     // Free UIElement Ptrs
-    for(auto* e : mUIElements) {
-        delete e;
-        e = NULL;
+    for(UIElement* element : mUIElements) {
+        if(deletionProtectionContains(element)) continue;
+        delete element;
+        element = NULL;
     }
 }
 

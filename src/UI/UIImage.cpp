@@ -96,10 +96,19 @@ void UIImage::setScale(float scaleX, float scaleY) {
 }
 
 void UIImage::setSize() {
-    mWidth = mImage.getSize().x;
-    mHeight = mImage.getSize().y;
+    setSize(mImage.getSize().x, mImage.getSize().y);
+}
+
+void UIImage::setSize(float width, float height) {
+    mWidth = width;
+    mHeight = height;
     mRect.setSize({ mWidth, mHeight });
     if(mHasCaption) positionCaption();
+}
+
+void UIImage::setSubImage(int startX, int startY, int width, int height) {
+    mSprite.setTextureRect({{ startX, startY }, { width, height }});
+    setSize(mSprite.getTextureRect().size.x, mSprite.getTextureRect().size.y);
 }
 
 void UIImage::addCaption(UITextbox caption, float xOffset, float yOffset) {

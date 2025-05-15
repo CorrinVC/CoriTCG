@@ -1,10 +1,19 @@
+
+#include "DeletionProtection.h"
 #include "Window.h"
+#include "Profile/Profile.h"
 #include "States/State.h"
 #include "UI/CollectionLayout.h"
 
 int main() {
+    // Placeholder Profile
+    Cori::gCurrentProfile = {
+        "CoriVC", "", sf::Texture("res/cards/BS/bs3.png")
+    };
+
     // Initialize States
     Cori::MainMenu::initMenuState();
+    Cori::ProfileView::initProfileViewState();
     Cori::SetViewer::initSetViewerState();
     Cori::SetFullView::initFullViewState();
     Cori::PackSimulator::initPackSimState();
@@ -26,7 +35,6 @@ int main() {
 
     }
 
-    Cori::CollectionView::destroyCollectionState();
-    Cori::DeckViewer::destroyDeckViewState();
+    Cori::cleanupMultiParentElements();
 
 } 

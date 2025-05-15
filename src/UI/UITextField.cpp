@@ -30,7 +30,8 @@ void UITextField::update() {
 
 sf::String UITextField::getTextInput() {
     sf::String input { mText.getString() };
-    input.erase(mText.getString().find("_"));
+    if(input.getSize() > 0)
+        input.erase(mText.getString().find("_"));
     return input;
 }
 

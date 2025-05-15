@@ -1,99 +1,116 @@
 #include "State.h"
 #include "../Window.h"
+#include "../Profile/Profile.h"
 #include "../UI/UIButton.h"
-#include "../UI/UITextField.h"
 
-namespace Cori {
-
-namespace MainMenu {
+namespace Cori { namespace MainMenu {
 
 State gMenuState {};
 
 // UI Elements
+
 UIButton* cardViewButton;
 UIButton* setViewButton;
 UIButton* packSimButton;
 UIButton* collectionButton;
 UIButton* deckBuilderButton;
 
-//UITextField* testField;
+UIButton* profileButton;
 
-void initMenuState() {
-
-    // "Play" Button
-    cardViewButton = new UIButton(100.0f, 60.0f);
-    cardViewButton->setPositionRelativeTo(UIElement::ScreenCenter);
+void setCardViewColors() {
     cardViewButton->setPressedColor(sf::Color::Red);
     cardViewButton->setHoverColor(sf::Color::Green);
     cardViewButton->setBackgroundColor(sf::Color::Cyan);
 
-    cardViewButton->createClickFunction(
-        []() {
-            gSetState(SetViewer::gSetViewerState);    
-        }
-    );
-
-    cardViewButton->setText("Card View");
-    cardViewButton->centerButtonText();
     cardViewButton->getTextbox().setTextPressedColor(sf::Color::Black);
     cardViewButton->getTextbox().setTextHoverColor(sf::Color::Magenta);
     cardViewButton->getTextbox().setTextColor(sf::Color::Red);
+}
 
-    // Init Set Viewer Button
+void initCardViewButton() {
+    cardViewButton = new UIButton(100.0f, 60.0f);
+    cardViewButton->setPositionRelativeTo(UIElement::ScreenCenter);
+    cardViewButton->setText("Card View");
+    cardViewButton->centerButtonText();
+
+    setCardViewColors();
+
+    cardViewButton->createClickFunction([]() {
+        gSetState(SetViewer::gSetViewerState);
+    });
+}
+
+void initSetViewButton() {
     setViewButton = new UIButton(100.0f, 60.0f);
     setViewButton->setText("Set View");
     setViewButton->centerButtonText();
-    setViewButton->createClickFunction(
-        []() {
-            gSetState(SetFullView::gSetFullViewState);
-        }
-    );
 
-    // Init Pack Simulator Button
+    setViewButton->createClickFunction([]() {
+        gSetState(SetFullView::gSetFullViewState);
+    });
+}
+
+void initPackSimButton() {
     packSimButton = new UIButton(100.0f, 60.0f);
     packSimButton->setText("Pack Sim");
     packSimButton->setPositionRelativeTo(*setViewButton, 110.0f, 0.0f);
     packSimButton->centerButtonText();
-    packSimButton->createClickFunction(
-        []() {
-            gSetState(PackSimulator::gPackSimulatorState);
-        }
-    );
 
-    // Init Collection Showcase Button
+    packSimButton->createClickFunction([]() {
+        gSetState(PackSimulator::gPackSimulatorState);
+    });
+}
+
+void initCollectionButton() {
     collectionButton = new UIButton(100.0f, 60.0f);
     collectionButton->setText("Collection");
     collectionButton->setPositionRelativeTo(*packSimButton, 110.0f, 0.0f);
     collectionButton->centerButtonText();
-    collectionButton->createClickFunction(
-        []() {
-            gSetState(CollectionView::gCollectionViewState);
-        }
-    );
+    
+    collectionButton->createClickFunction([]() {
+        gSetState(CollectionView::gCollectionViewState);
+    });
+}
 
-    // Init Deck Builder Button
+void initDeckBuilderButton() {
     deckBuilderButton = new UIButton(100.0f, 60.0f);
     deckBuilderButton->setText("Deck Builder");
     deckBuilderButton->setPositionRelativeTo(*collectionButton, 110.0f, 0.0f);
     deckBuilderButton->centerButtonText();
-    deckBuilderButton->createClickFunction(
-        []() {
-            gSetState(DeckBuilder::gDeckBuilderState);
-        }
-    );
+    
+    deckBuilderButton->createClickFunction([]() {
+        gSetState(DeckBuilder::gDeckBuilderState);
+    });
+}
 
-    //testField = new UITextField(gWindowWidth / 2 - 100.0f, 100.0f, 200.0f, 75.0f);
+void initProfileButton() {
+    profileButton = new UIButton(gWindowWidth - 100.0f, 0.0f, 100.0f, 60.0f);
+    profileButton->setText(gCurrentProfile.username);
+    profileButton->centerButtonText();
 
+    profileButton->createClickFunction([]() {
+        gSetState(ProfileView::gProfileViewState);
+    });
+}
 
+void addElements() {
     gMenuState.addUIElement(cardViewButton);
     gMenuState.addUIElement(setViewButton);
     gMenuState.addUIElement(packSimButton);
     gMenuState.addUIElement(collectionButton);
     gMenuState.addUIElement(deckBuilderButton);
-
-    //gMenuState.addUIElement(testField);
+    gMenuState.addUIElement(profileButton);
 }
 
+void initMenuState() {
+    initCardViewButton();
+    initSetViewButton();
+    initPackSimButton();
+    initCollectionButton();
+    initDeckBuilderButton();
+    initProfileButton();
+
+    addElements();
 }
 
-}
+}}

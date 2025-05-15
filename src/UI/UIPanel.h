@@ -24,6 +24,8 @@ public:
 
     virtual void addElement(UIElement* element);
 
+    void setViewport(float startX, float startY, float width, float height);
+
     sf::View& getView();
     std::vector<UIElement*>& getElements();
 };

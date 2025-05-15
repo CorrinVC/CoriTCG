@@ -14,8 +14,8 @@ namespace Cori { namespace CollectionView {
 State gCollectionViewState {};
 
 // UI Elements
-//CollectionLayout* layout;
-UIScrollPanel* panel;
+
+UIScrollPanel* collectionPanel;
 
 UIButton* backButton;
 UIButton* decksButton;
@@ -23,144 +23,72 @@ UIDropdown* sortDropdown;
 
 SortMethod currentSortMethod { SortMethod::NoSort };
 
-/*void printImageDetails() {
-    int i {0};
-    for(UIElement* e : layout->getElements()) {
-        UIImage* image {static_cast<UIImage*>(e)};
-        std::cout << "Image #" << i << ":\nCaption Text: "
-            << image->getCaption().getText() << "\n============" << std::endl;
-        ++i;
-    }
-    std::cout << "ENDING PRINT" << std::endl;
-}*/
-
-/*void generateImage(Collection::CollectionEntry& entry) {
-    UIImage* image = new UIImage(0.0f, 0.0f, entry.getCard()->mTexture);
-
-    // Switch to Card Viewer on Img Click
-    image->createClickFunction(
-        [=]() {
-            SetViewer::setSelectedCard(entry.cardNumber, entry.expansion);
-            gSetState(SetViewer::gSetViewerState);
-        }
-    );
-
-    // Set Image Caption to Quantity of Cards in Collection
-    image->addCaption({ 100.0f, 50.0f, std::format("{}", entry.quantity) });
-    image->getCaption().setBackgroundColor(sf::Color::Black);
-
-    layout->addElement(image);
-}
-
-void changeImage(Collection::CollectionEntry& entry, int entryIndex) {
-    UIImage* image { static_cast<UIImage*>( layout->getElements()[entryIndex] ) };
-
-    image->changeTexture(entry.getCard()->mTexture);
-    image->getCaption().setText(std::format("{}", entry.quantity));
-}
-
-void updateEntry(Collection::CollectionEntry& entry, int entryIndex, int imagesInLayout) {
-    if(entryIndex >= imagesInLayout)
-        generateImage(entry);
-    else
-        changeImage(entry, entryIndex);
-}
-
-void updateCollection() {
-    int entryIndex { 0 };
-    int imagesInLayout { int(layout->getElements().size()) };
-
-    for(Collection::CollectionEntry entry : gCurrentProfile.collection.getSorted(currentSortMethod)) {
-        updateEntry(entry, entryIndex, imagesInLayout);
-        ++entryIndex;
-    }
-
-    // Check if Elements Need Removed
-    if(entryIndex < imagesInLayout)
-        layout->clearElements(imagesInLayout - entryIndex - 1);
-
-    panel->calculateContentHeight();
-}*/
-
 void adjustCollectionView() {
     gCollectionLayout->changeSortMethod(currentSortMethod);
-    gCollectionLayout->setSize({ panel->getWidthMinusScrollbar(), panel->getHeight() });
-    panel->calculateContentHeight();
+    gCollectionLayout->setSize({ collectionPanel->getWidthMinusScrollbar(), collectionPanel->getHeight() });
+    collectionPanel->calculateContentHeight();
 }
 
 void updateCollection() {
     gCollectionLayout->updateCollection();
-    panel->calculateContentHeight();
+    collectionPanel->calculateContentHeight();
 }
 
-void initCollectionViewState() {
-    initCollectionLayout();
+void initCollectionPanel() {
+    collectionPanel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9);
+    collectionPanel->setViewport(0.0f, 0.07f, 1.0f, 0.93f);
+    
+    collectionPanel->addElement(gCollectionLayout);
+    updateCollection();
+}
 
-    panel = new UIScrollPanel(gWindowWidth, gWindowHeight * 0.9f, 20.0f, 50.0f);
-    // Offset Panel to y=5%, Shrink Height to 95%
-    panel->getView().setViewport({{ 0.0f, 0.05f }, { 1.0f, 0.95f }});
-    //panel->setInnerBorder(12.0f);
-
-    updateCollection();  
-    panel->addElement(gCollectionLayout);
-
-    gCollectionViewState.setOnSwitch(
-        [=]() {
-            adjustCollectionView();
-            updateCollection();
-        }
-    );
-
-    /*for(int i = 0; i < 102; ++i) {
-        UIImage* image = new UIImage(0.0f, 0.0f, Expansions::gExpansionList[0]->cards[i]->mTexture);
-        layout->addElement(image);
-    }*/
-    //std::cout << layout->getHeight() << "\n ==================Penis" << std::endl;
-
-    // Init Back Button
-    backButton = new BackButton(10.0f, 10.0f, 60.0f, 50.0f);
-
+void initDecksButton() {
     decksButton = new UIButton(60.0f, 50.0f);
     decksButton->setPositionRelativeTo(*backButton, 70.0f, 0.0f);
     decksButton->setText("Decks");
     decksButton->centerButtonText();
-    decksButton->createClickFunction(
-        [=]() {
-            gSetState(SavedDecks::gSavedDecksState);
-        }
-    );
+    decksButton->createClickFunction([]() {
+        gSetState(SavedDecks::gSavedDecksState);
+    });
+}
 
-    // Init Sort Dropdown
+void initSortDropdown() {
     sortDropdown = new UIDropdown(gWindowWidth - 110.0f, 10.0f, 100.0f, 50.0f, "Sort",
         { "Recent", "Card #", "Name", "Type" });
-    sortDropdown->createClickFunction(
-        [=]() {
-            if(sortDropdown->getSelectedText() != gDefaultString) {
-                currentSortMethod = SortMethod(sortDropdown->getSelectedIndex());
-                gCollectionLayout->changeSortMethod(currentSortMethod);
-                updateCollection();
-            }
-        }
-    );
 
-    gCollectionViewState.addUIElement(panel);
+    sortDropdown->createClickFunction([=]() {
+        if(sortDropdown->getSelectedText() != gDefaultString) {
+            currentSortMethod = SortMethod(sortDropdown->getSelectedIndex());
+            gCollectionLayout->changeSortMethod(currentSortMethod);
+            updateCollection();
+        }
+    });
+}
+
+void addElements() {
+    gCollectionViewState.addUIElement(collectionPanel);
     gCollectionViewState.addUIElement(backButton);
     gCollectionViewState.addUIElement(decksButton);
     gCollectionViewState.addUIElement(sortDropdown);
-    /*Collection collection {};
-
-    collection.addToCollection({ ExpansionID::BaseSet, 1 });
-    collection.addToCollection({ ExpansionID::Jungle, 43 });
-    collection.addToCollection({ ExpansionID::BaseSet, 4 });
-    collection.addToCollection({ ExpansionID::BaseSet, 1 });
-
-    for(Collection::CollectionEntry entry : collection.entries()) {
-        std::cout << "Expansion " << entry.expansion << ' ' << entry.getCard()->cardNameString() << " x" << entry.quantity;
-    }*/
 }
 
-void destroyCollectionState() {
-    delete gCollectionLayout;
+void initCollectionViewState() {
+    gCollectionViewState.setOnSwitch([]() {
+            updateCollection();
+            adjustCollectionView();
+    }); 
+    gCollectionViewState.setOffSwitch([]() {
+            collectionPanel->resetScrollbar();
+    });
+
+    initCollectionLayout();
+    initCollectionPanel();
+
+    backButton = new BackButton(10.0f, 10.0f, 60.0f, 50.0f);
+    initDecksButton();
+    initSortDropdown();
+
+    addElements();
 }
 
 }}

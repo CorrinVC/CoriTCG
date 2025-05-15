@@ -19,12 +19,19 @@ public:
     void update();
     void draw(sf::RenderWindow& window) override;
 
+    void offsetFromOrigin(float xOffset, float yOffset) override;
+    void setSize(const sf::Vector2f& size) override;
+
     // Prefer Wrapper Functions
     UITextbox& getTextbox();
 
     // Wrapper Functions
     void setText(const sf::String& text);
     void centerButtonText();
+
+    void setTextColor(sf::Color color);
+    void setTextHoverColor(sf::Color color);
+    void setTextPressedColor(sf::Color color);
 };
 
 extern std::function<void()> gOnBackClick;

@@ -5,6 +5,18 @@ namespace Cori {
 
 KeyboardManager gKeyboardManager {};
 
+void KeyboardManager::update() {
+    mKeyReleased = sf::Keyboard::Key(-1);
+}
+
+void KeyboardManager::setKeyReleased(sf::Keyboard::Key keyCode) {
+    mKeyReleased = keyCode;
+}
+
+bool KeyboardManager::keyReleased(sf::Keyboard::Key keyCode) {
+    return keyCode == mKeyReleased;
+}
+
 void KeyboardManager::acceptTextInput(bool accept) {
     mAcceptingTextInput = accept;
 }

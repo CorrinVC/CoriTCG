@@ -1,7 +1,8 @@
 #include "CollectionLayout.h"
+#include "UIImage.h"
+#include "../DeletionProtection.h"
 #include "../Profile/Profile.h"
 #include "../States/State.h"
-#include "UIImage.h"
 
 namespace Cori {
 
@@ -10,6 +11,7 @@ CollectionLayout* gCollectionLayout = new CollectionLayout();
 void initCollectionLayout() {
     gCollectionLayout->setScale(2.0f);
     gCollectionLayout->setBackgroundColor(sf::Color(200, 180, 200));
+    gMultiParentElements.push_back(gCollectionLayout);
 }
 
 CollectionLayout::CollectionLayout(float width, float height)

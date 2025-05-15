@@ -43,8 +43,10 @@ void UIScrollPanel::update() {
 
     updateElements();
 
-    mScrollBar.update();
-    updateScrollOffset();
+    if(!mScrollbarHidden) {
+        mScrollBar.update();
+        updateScrollOffset();
+    }
 
     mouseCheck(mouseClickOutOfPanel, true); // Turn Mouse Click Back On
     
@@ -55,7 +57,8 @@ void UIScrollPanel::draw(sf::RenderWindow& window) {
     window.setView(mPanelView);
 
     drawElements(window);
-    mScrollBar.draw(window); // Draw ScrollBar within view, on top of all elements
+    if(!mScrollbarHidden)
+        mScrollBar.draw(window); // Draw ScrollBar within view, on top of all elements
 
     window.setView(window.getDefaultView());
 }
@@ -69,7 +72,10 @@ void UIScrollPanel::calculateContentHeight() {
         if(elementBottom > lowestElementPos)
             lowestElementPos = elementBottom;
     }
-    mContentHeight = lowestElementPos + mInnerBorder;
+    mContentHeight = lowestElementPos;
+
+    if(mContentHeight > mHeight && mScrollbarHidden)
+        setScrollbarHidden(false);
 
     if(mContentHeight > previousContentHeight)
         mScrollBar.setPosition(mScrollBar.getX(), mScrollBar.getY() * (previousContentHeight / mContentHeight));
@@ -89,16 +95,20 @@ void UIScrollPanel::setScrollOffset(float offsetPosition) {
     updateScrollOffset();
 }
 
+void UIScrollPanel::setScrollbarHidden(bool hidden) {
+    mScrollbarHidden = hidden;
+}
+
 void UIScrollPanel::resetScrollbar() {
     setScrollOffset(0.0f);
 }
 
-void UIScrollPanel::setInnerBorder(float border) {
-    mInnerBorder = border;
-}
-
 float UIScrollPanel::getWidthMinusScrollbar() {
-    return mWidth - mScrollBar.getWidth();
+    float width {
+        mScrollbarHidden ? mWidth
+        : mWidth - mScrollBar.getWidth()
+    };
+    return width;
 }
 
 UIScrollBar& UIScrollPanel::getScrollbar() {

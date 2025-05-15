@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Collection.h"
+#include "DeckList.h"
 #include "QuantityCard.h"
-#include "../Cards/DeckList.h"
 #include <SFML/Graphics.hpp>
 
 namespace Cori {

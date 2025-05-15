@@ -19,7 +19,7 @@ private:
     void changeImage(QuantityCard& card, int entryIndex);
     void updateEntry(QuantityCard& card, int entryIndex);
 public:
-    CollectionLayout(float width = gWindowWidth, float height = gWindowHeight);
+    CollectionLayout(float width = gWindowWidth, float height = 10.0f);
 
     void updateCollection();
     void changeSortMethod(SortMethod method);

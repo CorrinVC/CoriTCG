@@ -1,5 +1,6 @@
 #include "DecklistLayout.h"
 #include "UIImage.h"
+#include "../DeletionProtection.h"
 
 namespace Cori {
 
@@ -8,10 +9,11 @@ DecklistLayout* gDecklistLayout = new DecklistLayout();
 void initDecklistLayout() {
     gDecklistLayout->setBackgroundColor(sf::Color::Green);
     gDecklistLayout->setInnerPadding(13.0f);
+    gMultiParentElements.push_back(gDecklistLayout);
 }
 
 DecklistLayout::DecklistLayout()
-: DecklistLayout(gWindowWidth, gWindowHeight)
+: DecklistLayout(gWindowWidth)
 {}
 
 DecklistLayout::DecklistLayout(float width, float height)

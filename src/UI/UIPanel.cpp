@@ -1,6 +1,7 @@
 #include "UIPanel.h"
 #include "CollectionLayout.h"
 #include "DecklistLayout.h"
+#include "../DeletionProtection.h"
 #include "../Input/MouseManager.h"
 
 namespace Cori {
@@ -16,7 +17,7 @@ UIPanel::UIPanel(float x, float y, float width, float height)
 
 UIPanel::~UIPanel() {
     for(auto* element : mPanelElements) {
-        if(element == gCollectionLayout || element == gDecklistLayout) continue;
+        if(deletionProtectionContains(element)) continue;
         delete element;
         element = NULL;
     }
@@ -62,6 +63,15 @@ void UIPanel::draw(sf::RenderWindow& window) {
 
 void UIPanel::addElement(UIElement* element) {
     mPanelElements.push_back(element);
+}
+
+void UIPanel::setViewport(float startX, float startY, float width, float height) {
+    if(startX > 1.0f) startX /= gWindowWidth;
+    if(startY > 1.0f) startY /= gWindowHeight;
+    if(width > 1.0f) width /= gWindowWidth;
+    if(height > 1.0f) height /= gWindowHeight;
+
+    mPanelView.setViewport({{ startX, startY }, { width, height }});
 }
 
 sf::View& UIPanel::getView() {

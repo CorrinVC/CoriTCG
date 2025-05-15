@@ -49,7 +49,7 @@ protected:
     void updateLayoutHeight();
 
 public:
-    UIGridLayout(float borderPadding = 0, float innerPadding = 0, float width = gWindowWidth, float height = gWindowHeight);
+    UIGridLayout(float borderPadding = 0, float innerPadding = 0, float width = gWindowWidth, float height = 10.0f);
     ~UIGridLayout();
 
     void offsetFromOrigin(float xOffset, float yOffset) override;
@@ -62,6 +62,7 @@ public:
 
     void setScale(float scaleFactor);
     void setSize(const sf::Vector2f& size) override;
+    void adjustElementSizes();
 
     void setBorderPadding(Direction direction, float value);
     // Bool Vertical Automatically True

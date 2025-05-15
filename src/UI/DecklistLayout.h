@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UIGridLayout.h"
-#include "../Cards/DeckList.h"
+#include "../Profile/DeckList.h"
 #include "../Profile/SortMethod.h"
 
 namespace Cori {
@@ -20,7 +20,7 @@ private:
     void updateDecklist();
 public:
     DecklistLayout();
-    DecklistLayout(float width, float height);
+    DecklistLayout(float width, float height = 10.0f);
 
     void addToDeck(QuantityCard& card);
     void changeSortMethod(SortMethod method);

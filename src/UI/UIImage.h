@@ -40,6 +40,9 @@ public:
     void setScale(float scaleFactor);
     void setScale(float scaleX, float scaleY);
     void setSize();
+    void setSize(float width, float height);
+
+    void setSubImage(int startX, int startY, int width, int height);
 
     void addCaption(UITextbox caption, float xOffset = 0.0f, float yOffset = 0.0f);
     void positionCaption();
