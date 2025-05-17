@@ -22,9 +22,9 @@ void setCardViewColors() {
     cardViewButton->setHoverColor(sf::Color::Green);
     cardViewButton->setBackgroundColor(sf::Color::Cyan);
 
-    cardViewButton->getTextbox().setTextPressedColor(sf::Color::Black);
-    cardViewButton->getTextbox().setTextHoverColor(sf::Color::Magenta);
-    cardViewButton->getTextbox().setTextColor(sf::Color::Red);
+    cardViewButton->setTextPressedColor(sf::Color::Black);
+    cardViewButton->setTextHoverColor(sf::Color::Magenta);
+    cardViewButton->setTextColor(sf::Color::Red);
 }
 
 void initCardViewButton() {
@@ -85,11 +85,13 @@ void initDeckBuilderButton() {
 
 void initProfileButton() {
     profileButton = new UIButton(gWindowWidth - 100.0f, 0.0f, 100.0f, 60.0f);
-    profileButton->setText(gCurrentProfile.username);
+    if(gLoggedIn) profileButton->setText(gCurrentProfile.username);
+    else profileButton->setText("Log In");
     profileButton->centerButtonText();
 
-    profileButton->createClickFunction([]() {
-        gSetState(ProfileView::gProfileViewState);
+    profileButton->createClickFunction([=]() {
+        if(gLoggedIn) gSetState(ProfileView::gProfileViewState);
+        else gSetState(Login::gLoginState);
     });
 }
 
@@ -103,6 +105,13 @@ void addElements() {
 }
 
 void initMenuState() {
+    gMenuState.setOnSwitch([=]() {
+        if(gLoggedIn && profileButton->getButtonText() != gCurrentProfile.username) {
+            profileButton->setText(gCurrentProfile.username);
+            profileButton->centerButtonText();
+        }
+    });
+    
     initCardViewButton();
     initSetViewButton();
     initPackSimButton();

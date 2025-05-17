@@ -41,6 +41,10 @@ UITextbox& UIButton::getTextbox() {
     return mTextbox;
 }
 
+const std::string UIButton::getButtonText() {
+    return mTextbox.getText();
+}
+
 void UIButton::setText(const sf::String& text) {
     mTextbox.setText(text);
 }

@@ -43,6 +43,11 @@ extern State gMenuState;
 extern void initMenuState();
 }
 
+namespace Login {
+extern State gLoginState;
+extern void initLoginState();
+}
+
 namespace ProfileView { // Profile View State
 extern State gProfileViewState;
 extern void initProfileViewState();

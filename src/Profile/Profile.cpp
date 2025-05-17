@@ -3,9 +3,13 @@
 namespace Cori {
 
 Profile gCurrentProfile {};
+std::vector<Profile> gProfileDB {};
 
-void loadProfile(Profile profile) {
+void gLoadProfile(Profile profile) {
     gCurrentProfile = profile;
+    gLoggedIn = true;
 }
+
+bool gLoggedIn { false };
 
 }

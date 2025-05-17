@@ -59,6 +59,12 @@ void addElements() {
 }
 
 void initProfileViewState() {
+    gProfileViewState.setOnSwitch([=](){
+        usernameBox->setText(gCurrentProfile.username);
+        profilePicture->changeTexture(gCurrentProfile.profilePicture);
+        profilePicture->setSubImage(gCardWidth / 2.0f - 100.0f, 100.0f, 200.0f, 200.0f);
+    });
+    
     initUsernameBox();
     initProfilePicture();
 

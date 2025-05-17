@@ -6,14 +6,15 @@
 #include "UI/CollectionLayout.h"
 
 int main() {
-    // Placeholder Profile
-    Cori::gCurrentProfile = {
+    /*// Placeholder Profile
+    Cori::gLoadProfile({
         "CoriVC", "", sf::Texture("res/cards/BS/bs3.png")
-    };
+    });*/
 
     // Initialize States
     Cori::MainMenu::initMenuState();
     Cori::ProfileView::initProfileViewState();
+    Cori::Login::initLoginState();
     Cori::SetViewer::initSetViewerState();
     Cori::SetFullView::initFullViewState();
     Cori::PackSimulator::initPackSimState();

@@ -24,6 +24,8 @@ public:
 
     // Prefer Wrapper Functions
     UITextbox& getTextbox();
+    const std::string getButtonText();
+
 
     // Wrapper Functions
     void setText(const sf::String& text);

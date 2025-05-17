@@ -9,7 +9,7 @@ namespace Cori {
 
 struct Profile {
     sf::String username {};
-    std::string password {};
+    sf::String password {};
     sf::Texture profilePicture {};
 
     Collection collection {};
@@ -23,6 +23,9 @@ struct Profile {
 
 // Defined in Profile.cpp
 extern Profile gCurrentProfile;
-extern void loadProfile(Profile profile);
+extern std::vector<Profile> gProfileDB;
+
+extern void gLoadProfile(Profile profile);
+extern bool gLoggedIn;
 
 }

@@ -31,7 +31,7 @@ void pollEvent(const std::optional<sf::Event> event, sf::RenderWindow& window) {
         gMouseManager.setMouseButtonReleased(buttonReleased->button);
 
     else if(const auto* textEntered = event->getIf<sf::Event::TextEntered>())
-        if(gKeyboardManager.acceptingTextInput()) gKeyboardManager.appendInput(textEntered->unicode); else return;
+        if(gKeyboardManager.currentTextField() != nullptr) gKeyboardManager.appendInput(textEntered->unicode); else return;
 
     else if(const auto* keyReleased = event->getIf<sf::Event::KeyReleased>())
         gKeyboardManager.setKeyReleased(keyReleased->code);
