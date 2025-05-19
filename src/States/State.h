@@ -48,6 +48,11 @@ extern State gLoginState;
 extern void initLoginState();
 }
 
+namespace PFPSelection {
+extern State gPFPSelectionState;
+extern void initPFPSelectionState();
+}
+
 namespace ProfileView { // Profile View State
 extern State gProfileViewState;
 extern void initProfileViewState();

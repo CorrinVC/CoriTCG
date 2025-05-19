@@ -17,6 +17,17 @@ UIButton* deckBuilderButton;
 
 UIButton* profileButton;
 
+void updateProfileButton() {
+    if(gLoggedIn) {
+        if(profileButton->getButtonText() != gCurrentProfile.username)
+            profileButton->setText(gCurrentProfile.username);
+    } else {
+        if(profileButton->getButtonText() != "Log In")
+            profileButton->setText("Log In");
+    }
+    profileButton->centerButtonText();
+}
+
 void setCardViewColors() {
     cardViewButton->setPressedColor(sf::Color::Red);
     cardViewButton->setHoverColor(sf::Color::Green);
@@ -106,10 +117,7 @@ void addElements() {
 
 void initMenuState() {
     gMenuState.setOnSwitch([=]() {
-        if(gLoggedIn && profileButton->getButtonText() != gCurrentProfile.username) {
-            profileButton->setText(gCurrentProfile.username);
-            profileButton->centerButtonText();
-        }
+        updateProfileButton();
     });
     
     initCardViewButton();

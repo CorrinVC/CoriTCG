@@ -15,6 +15,7 @@ int main() {
     Cori::MainMenu::initMenuState();
     Cori::ProfileView::initProfileViewState();
     Cori::Login::initLoginState();
+    Cori::PFPSelection::initPFPSelectionState();
     Cori::SetViewer::initSetViewerState();
     Cori::SetFullView::initFullViewState();
     Cori::PackSimulator::initPackSimState();

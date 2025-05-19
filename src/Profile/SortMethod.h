@@ -12,6 +12,7 @@ enum SortMethod {
     EvolutionSort,
 };
 
+extern std::vector<std::string> gSortMethods;
 extern std::vector<QuantityCard> sortCardList(std::vector<QuantityCard> list, SortMethod method);
 
 }

@@ -3,6 +3,10 @@
 
 namespace Cori {
 
+std::vector<std::string> gSortMethods {
+    "Recent", "Card #", "Name", "Type"
+};
+
 bool lowerExpansion(QuantityCard a, QuantityCard b) {
     return a.expansion() < b.expansion();
 }

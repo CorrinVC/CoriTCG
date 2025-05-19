@@ -53,8 +53,7 @@ void initDecksButton() {
 }
 
 void initSortDropdown() {
-    sortDropdown = new UIDropdown(gWindowWidth - 110.0f, 10.0f, 100.0f, 50.0f, "Sort",
-        { "Recent", "Card #", "Name", "Type" });
+    sortDropdown = new UIDropdown(gWindowWidth - 110.0f, 10.0f, 100.0f, 50.0f, "Sort", gSortMethods);
 
     sortDropdown->createClickFunction([=]() {
         if(sortDropdown->getSelectedText() != gDefaultString) {

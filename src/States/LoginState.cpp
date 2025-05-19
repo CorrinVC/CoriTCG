@@ -22,6 +22,11 @@ UIButton* backButton;
 
 bool isSigningUp { true };
 
+void clearFields() {
+    usernameField->flushTextInput();
+    passwordField->flushTextInput();
+}
+
 void switchSignUp() {
     instructText->setText("Create a Username and Password");
     instructText->centerText();
@@ -44,21 +49,20 @@ void initTextFields() {
     usernameField = new UITextField(passwordField->getX(), passwordField->getY() - 75.0f, 150.0f, 50.0f);
 }
 
+
 void loginFailed()  {
-    usernameField->flushTextInput();
-    passwordField->flushTextInput();
     instructText->setText("Incorrect Username or Password");
     instructText->centerText();
 }
 
 void validateLogin() {
-    for(Profile profile : gProfileDB) {
-        if(usernameField->getTextInput() == profile.username
-            && passwordField->getTextInput() == profile.password) {
-                gLoadProfile(profile);
-                gSetState(ProfileView::gProfileViewState, false);
-        } else loginFailed();
-    }
+    std::size_t index { gFindProfileIndex({ usernameField->getTextInput(), passwordField->getTextInput() }) };
+    if(index != gProfileDB.size()) {
+        gLoadProfile(gProfileDB[index]);
+        gSetState(ProfileView::gProfileViewState, false);
+    } else loginFailed();
+
+    clearFields();
 }
 
 void initConfirmButton() {
@@ -68,15 +72,16 @@ void initConfirmButton() {
     confirmButton->createClickFunction([=]() {
         if(isSigningUp) {
             gLoadProfile({ usernameField->flushTextInput(), passwordField->flushTextInput() });
-            gProfileDB.push_back({gCurrentProfile});
             isSigningUp = false;
-            gSetState(ProfileView::gProfileViewState, false);
+            gProfileDB.push_back({gCurrentProfile});
+            gSetState(PFPSelection::gPFPSelectionState, false);
         }
         else validateLogin();
     });
 }
 
 void addElements() {
+    gLoginState.addUIElement(instructText);
     gLoginState.addUIElement(usernameField);
     gLoginState.addUIElement(passwordField);
     gLoginState.addUIElement(confirmButton);
@@ -85,11 +90,12 @@ void addElements() {
 
 void initLoginState() {
     gLoginState.setOnSwitch([=]() {
+        clearFields();
         if(isSigningUp) switchSignUp();
         else switchLogin();
     });
 
-    instructText = new UITextbox(gWindowWidth / 2.0f - 75.0f, gWindowHeight / 2.0f - 100.0f, 150.0f, 50.0f, "", true);
+    instructText = new UITextbox(gWindowWidth / 2.0f - 75.0f, gWindowHeight / 2.0f - 175.0f, 150.0f, 50.0f, "", true);
     initTextFields();
     initConfirmButton();
     backButton = new BackButton(25.0f, 25.0f, 50.0f, 50.0f);

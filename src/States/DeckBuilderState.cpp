@@ -155,8 +155,7 @@ void initFinishButton() {
 void initDeckSortDropdown() {
     deckSortDropdown = new UIDropdown(
         gWindowWidth * 0.99f - deckPanel->getScrollbar().getWidth() - 50.0f,
-        gWindowHeight * 0.01f, 50.0f, buttonPanelHeight, "Sort",
-        { "Recent", "Card #", "Name", "Type" });
+        gWindowHeight * 0.01f, 50.0f, buttonPanelHeight, "Sort", gSortMethods);
     deckSortDropdown->setBackgroundColor(menuButtonColor);
 
     deckSortDropdown->createClickFunction([=]() {
@@ -229,8 +228,7 @@ void initDeckButtonPanel() {
 void initCollectionSortDropdown() {
     collectionSortDropdown = new UIDropdown(
         gWindowWidth * 0.99f - collectionPanel->getScrollbar().getWidth() - 50.0f,
-        gWindowHeight * 0.32f, 50.0f, buttonPanelHeight, "Sort",
-        { "Recent", "Card #", "Name", "Type" });
+        gWindowHeight * 0.32f, 50.0f, buttonPanelHeight, "Sort", gSortMethods);
     collectionSortDropdown->setBackgroundColor(menuButtonColor);
     
     collectionSortDropdown->createClickFunction([=]() {

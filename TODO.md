@@ -1,14 +1,16 @@
 TODO
 
 DONE:
-- Login/Sign Up Screen
+- Create Sort Method String List for Sort Dropdowns
 
 Minor Urgent:
 - Implement Case for Backspace/Other Function Keys
+    - Enter, Tab
+- Initialize DeckViewerState sortDropdown
 - **Refactor setSize(), Create Separate setWidth & setHeight Functions
 
 Minor Non Urgent:
-- Create Sort Dropdown/Expansion Dropdown subclasses
+- Refactor main.cpp State Init to State.h / .cpp
 - **UIElement Hide/Show Functionality
 - **Investigate UIDropdown alignText()
 

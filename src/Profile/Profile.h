@@ -24,8 +24,13 @@ struct Profile {
 // Defined in Profile.cpp
 extern Profile gCurrentProfile;
 extern std::vector<Profile> gProfileDB;
+extern std::size_t gFindProfileIndex(Profile profile);
+extern void gUpdateUsername(sf::String username);
+extern void gUpdatePassword(sf::String password);
+extern void gUpdatePFP(sf::Texture texture);
 
 extern void gLoadProfile(Profile profile);
+extern void gLogout();
 extern bool gLoggedIn;
 
 }
