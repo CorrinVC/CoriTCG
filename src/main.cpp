@@ -10,6 +10,7 @@ int main() {
     Cori::gLoadProfile({
         "CoriVC", "", sf::Texture("res/cards/BS/bs3.png")
     });*/
+    Cori::gLoadSavedProfiles();
 
     // Initialize States
     Cori::MainMenu::initMenuState();

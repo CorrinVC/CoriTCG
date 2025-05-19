@@ -10,7 +10,13 @@ namespace Cori {
 struct Profile {
     sf::String username {};
     sf::String password {};
-    sf::Texture profilePicture {};
+
+    std::string pfpFilePath {};
+    sf::Texture profilePicture() {
+        return pfpFilePath != ""
+            ? sf::Texture(pfpFilePath)
+            : sf::Texture();
+    };
 
     Collection collection {};
     std::vector<DeckList> decks {};
@@ -19,18 +25,26 @@ struct Profile {
     void addToCollection(QuantityCard card) {
         collection.addToCollection(card);
     }
+
+    void print() {
+        std::cout << "Username: " << username.toAnsiString() << "\nPassowrd: " << password.toAnsiString() << "\nPFP File Path: " << pfpFilePath << std::endl;
+    }
 };
 
 // Defined in Profile.cpp
 extern Profile gCurrentProfile;
 extern std::vector<Profile> gProfileDB;
 extern std::size_t gFindProfileIndex(Profile profile);
+
 extern void gUpdateUsername(sf::String username);
 extern void gUpdatePassword(sf::String password);
-extern void gUpdatePFP(sf::Texture texture);
+extern void gUpdatePFP(std::string texture);
 
 extern void gLoadProfile(Profile profile);
 extern void gLogout();
 extern bool gLoggedIn;
+
+extern void gLoadSavedProfiles();
+extern void gSaveProfiles();
 
 }

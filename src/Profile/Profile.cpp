@@ -1,4 +1,5 @@
 #include "Profile.h"
+#include "../JSON.h"
 
 namespace Cori {
 
@@ -26,9 +27,9 @@ void gUpdatePassword(sf::String password) {
     gProfileDB[index] = gCurrentProfile;
 }
 
-void gUpdatePFP(sf::Texture texture) {
+void gUpdatePFP(std::string texturePath) {
     std::size_t index { gFindProfileIndex(gCurrentProfile) };
-    gCurrentProfile.profilePicture = texture;
+    gCurrentProfile.pfpFilePath = texturePath;
     gProfileDB[index] = gCurrentProfile;
 }
 
@@ -43,5 +44,30 @@ void gLogout() {
 }
 
 bool gLoggedIn { false };
+
+void gLoadSavedProfiles() {
+    for(auto d : JSON::read("profiles.json")) {
+        Profile p {
+            d["username"].template get<std::string>(), 
+            d["password"].template get<std::string>(), 
+            d["profilePicture"].template get<std::string>()
+        };
+        gProfileDB.push_back(p);
+    }
+    for(Profile p : gProfileDB) p.print();
+}
+
+void gSaveProfiles() {
+    nlohmann::ordered_json data;
+    std::size_t userID {};
+    for(Profile p : gProfileDB) {
+        data[std::format("{}", userID++)] = {
+            {"username", p.username},
+            {"password", p.password},
+            {"profilePicture", p.pfpFilePath}
+        };
+    }
+    JSON::write(data, "profiles.json");
+}
 
 }

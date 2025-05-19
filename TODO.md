@@ -1,7 +1,6 @@
 TODO
 
 DONE:
-- Create Sort Method String List for Sort Dropdowns
 
 Minor Urgent:
 - Implement Case for Backspace/Other Function Keys
@@ -15,7 +14,6 @@ Minor Non Urgent:
 - **Investigate UIDropdown alignText()
 
 Major Urgent:
-- Profile Picture Selector
 - Debug Commands
 - **Give UIElements Scale Factor Member Variable
 

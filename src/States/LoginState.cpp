@@ -20,7 +20,7 @@ UIButton* backButton;
 
 // Reference Variables;
 
-bool isSigningUp { true };
+bool isSigningUp {};
 
 void clearFields() {
     usernameField->flushTextInput();
@@ -89,6 +89,8 @@ void addElements() {
 }
 
 void initLoginState() {
+    isSigningUp = gProfileDB.empty();
+
     gLoginState.setOnSwitch([=]() {
         clearFields();
         if(isSigningUp) switchSignUp();

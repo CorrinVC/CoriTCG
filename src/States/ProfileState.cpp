@@ -27,7 +27,7 @@ void initUsernameBox() {
 }
 
 void initProfilePicture() {
-    profilePicture = new UIProfilePicture(&gCurrentProfile.profilePicture, gWindowWidth / 2.0f - 150.0f, 200.0f);
+    profilePicture = new UIProfilePicture(gCurrentProfile.profilePicture(), gWindowWidth / 2.0f - 150.0f, 200.0f);
     
     profilePicture->createClickFunction([]() {
         gSetState(PFPSelection::gPFPSelectionState);
@@ -78,7 +78,7 @@ void addElements() {
 void initProfileViewState() {
     gProfileViewState.setOnSwitch([=](){
         usernameBox->setText(gCurrentProfile.username);
-        profilePicture->changeTexture(&gCurrentProfile.profilePicture);
+        profilePicture->changeTexture(gCurrentProfile.profilePicture());
     });
     
     initUsernameBox();

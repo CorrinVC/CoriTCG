@@ -19,13 +19,13 @@ UIGridLayout* picGrid;
 UITextbox* instructText;
 
 // Reference Variables
-std::vector<const sf::Texture*> profilePictures {
-    &Expansions::BaseSet::_070ClefairyDoll->mTexture,
-    &Expansions::BaseSet::_091Bill->mTexture,
-    &Expansions::Jungle::_064PokéBall->mTexture,
-    &Expansions::BaseSet::_088ProfessorOak->mTexture,
-    &Expansions::BaseSet::_075Lass->mTexture,
-    &Expansions::BaseSet::_073ImposterProfessorOak->mTexture
+std::vector<std::string> profilePictures {
+    Expansions::BaseSet::_070ClefairyDoll->mTexturePath,
+    Expansions::BaseSet::_091Bill->mTexturePath,
+    Expansions::Jungle::_064PokéBall->mTexturePath,
+    Expansions::BaseSet::_088ProfessorOak->mTexturePath,
+    Expansions::BaseSet::_075Lass->mTexturePath,
+    Expansions::BaseSet::_073ImposterProfessorOak->mTexturePath
 };
 
 void initPicPanel() {
@@ -34,10 +34,11 @@ void initPicPanel() {
 }
 
 void initGridElements() {
-    for(const sf::Texture* texture : profilePictures) {
-        UIProfilePicture* pic = new UIProfilePicture(texture);
+    for(std::string texturePath : profilePictures) {
+        UIProfilePicture* pic = new UIProfilePicture(sf::Texture(texturePath));
         pic->createClickFunction([=]() {
-            gUpdatePFP(*texture);
+            gUpdatePFP(texturePath);
+            gSaveProfiles();
             gSetState(ProfileView::gProfileViewState, false);
         });
         picGrid->addElement(pic);

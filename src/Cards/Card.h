@@ -51,6 +51,7 @@ public:
     const int mCardNumber {};
     const Rarity mRarity {};
 
+    const std::string mTexturePath {};
     const sf::Texture mTexture {};
 
     DataCard(const sf::String name, const CardType type, const std::string_view illustrator,
@@ -61,12 +62,13 @@ public:
     , mExpansion { expansion }
     , mCardNumber { cardNumber }
     , mRarity { rarity }
-    , mTexture { 
+    , mTexturePath {
         std::format("res/cards/{}/{}{}.png",
             Expansions::getExpansionAbbreviation(expansion),
             Expansions::getExpansionLowerAbbreviation(expansion),
             cardNumber) 
     }
+    , mTexture { mTexturePath }
     { }
 
     // For Logging?
