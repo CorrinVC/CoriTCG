@@ -1,5 +1,6 @@
 #include "Collection.h"
 #include "../Cards/PokemonCard.h"
+#include "../Cards/Expansions/Expansions.h"
 #include <algorithm>
 #include <iostream>
 
@@ -67,6 +68,24 @@ void Collection::addToCollection(const QuantityCard card) {
 void Collection::printCollection(SortMethod method) {
     for(QuantityCard card : getSorted(method)) {
         card.print();
+    }
+}
+
+void Collection::loadFromFileData(nlohmann::ordered_json& data) {
+    for(auto entry : data) {
+        ExpansionID expId = ExpansionID(entry[0]);
+        std::size_t cardNum = entry[1];
+
+        DataCard* card { Expansions::gExpansionList[expId]->cards[cardNum - 1] };
+        int quantity = entry[2];
+
+        addToCollection(QuantityCard(card, quantity));
+    }
+}
+
+void Collection::saveCollection(nlohmann::ordered_json& data) {
+    for(QuantityCard card : mCollection) {
+        data["collection"].push_back({ card.expansion(), card.cardNumber(), card.quantity });
     }
 }
 

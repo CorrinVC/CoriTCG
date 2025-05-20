@@ -84,7 +84,6 @@ extern void initCollectionViewState();
 namespace SavedDecks {
 extern State gSavedDecksState;
 extern void initSavedDecksState();
-extern void updateDeckList();
 }
 
 namespace DeckViewer {

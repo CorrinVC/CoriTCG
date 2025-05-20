@@ -2,6 +2,7 @@
 
 #include "QuantityCard.h"
 #include "SortMethod.h"
+#include "../JSON.h"
 #include "../Cards/Card.h"
 #include "../Cards/ExpansionID.h"
 #include "../Cards/Expansions/Expansions.h"
@@ -39,9 +40,13 @@ private:
 public:
     const std::vector<QuantityCard>& entries();
     const std::vector<QuantityCard> getSorted(SortMethod method); // TODO
+    
 
     void addToCollection(QuantityCard entry);
     void printCollection(SortMethod method = NoSort); // Temporary?
+
+    void loadFromFileData(nlohmann::ordered_json& data);
+    void saveCollection(nlohmann::ordered_json& data);
 };
 
 }

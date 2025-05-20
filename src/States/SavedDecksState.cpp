@@ -77,6 +77,9 @@ void addElements() {
 }
 
 void initSavedDecksState() {
+    gSavedDecksState.setOnSwitch([=]() {
+        updateDeckList();
+    });
     gSavedDecksState.setOffSwitch([=]() {
         deckListPanel->resetScrollbar();
     });

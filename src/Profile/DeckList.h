@@ -1,8 +1,9 @@
 #pragma once
 
-#include "../Cards/Card.h"
 #include "QuantityCard.h"
 #include "SortMethod.h"
+#include "../JSON.h"
+#include "../Cards/Card.h"
 
 namespace Cori {
     
@@ -45,6 +46,8 @@ public:
     int findCardIndex(DataCard* card);
     int findSortedIndex(DataCard* card, SortMethod method);
     int getCountOfCard(DataCard* card);
+
+    void saveDecklist(nlohmann::ordered_json& data);
 
 };
 

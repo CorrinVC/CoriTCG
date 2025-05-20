@@ -109,9 +109,11 @@ std::vector<DataCard*> generatePulls() {
         cards.push_back(card);
         gCurrentProfile.addToCollection({ card });
     }
+    std::cout << std::endl;
+    gUpdateProfileDB();
+    gSaveProfiles();
 
     generateCardImages(cards);
-    std::cout << std::endl;
 
     return cards;
 }

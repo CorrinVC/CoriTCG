@@ -21,13 +21,20 @@ struct Profile {
     Collection collection {};
     std::vector<DeckList> decks {};
 
-    // Wrapper Function;
+    // Wrapper Functions;
     void addToCollection(QuantityCard card) {
         collection.addToCollection(card);
     }
 
+    void saveCollection(nlohmann::ordered_json& data) {
+        collection.saveCollection(data);
+    }
+
+    void loadDecksFromFileData(nlohmann::ordered_json& data);
+
     void print() {
         std::cout << "Username: " << username.toAnsiString() << "\nPassowrd: " << password.toAnsiString() << "\nPFP File Path: " << pfpFilePath << std::endl;
+        collection.printCollection();
     }
 };
 
@@ -36,9 +43,9 @@ extern Profile gCurrentProfile;
 extern std::vector<Profile> gProfileDB;
 extern std::size_t gFindProfileIndex(Profile profile);
 
+extern void gUpdateProfileDB();
 extern void gUpdateUsername(sf::String username);
 extern void gUpdatePassword(sf::String password);
-extern void gUpdatePFP(std::string texture);
 
 extern void gLoadProfile(Profile profile);
 extern void gLogout();

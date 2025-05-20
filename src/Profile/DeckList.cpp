@@ -98,4 +98,9 @@ int DeckList::getCountOfCard(DataCard* card) {
     return count;
 }
 
+void DeckList::saveDecklist(nlohmann::ordered_json& data) {
+    for(QuantityCard card : mCards) 
+        data[mDeckName].push_back({ card.expansion(), card.cardNumber(), card.quantity });
+}
+
 }

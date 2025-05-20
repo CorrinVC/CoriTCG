@@ -128,13 +128,19 @@ void initBackButton() {
 
 void createFinishButtonClick() {
     finishButton->createClickFunction([=]() {
-        gDecklistLayout->getCurrentDeck().setName(deckNameField->flushTextInput());
+        gDecklistLayout->getCurrentDeck().setName(
+            deckNameField->getTextInput() != ""
+            ? deckNameField->flushTextInput()
+            : sf::String(std::format("Deck {}", gCurrentProfile.decks.size()))
+        );
+
         if(editingExistingDeck) {
             gCurrentProfile.decks[editingDeckIndex] = gDecklistLayout->getCurrentDeck();
             editingExistingDeck = false;
         } else
             gCurrentProfile.decks.push_back(gDecklistLayout->getCurrentDeck());
-        SavedDecks::updateDeckList();
+        
+        gUpdateProfileDB();
         gSetState(
             editingExistingDeck ? DeckViewer::gDeckViewerState
             : SavedDecks::gSavedDecksState, false

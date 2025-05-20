@@ -19,7 +19,7 @@ Major Urgent:
 
 Major Non Urgent:
 - Collection Filtering
-- Profile/Collection Saving
+- Collection Saving
 - **UIElement Background Image Member Variable
 - **Refactor UIElement Positioning Methods to be Overridable
 - Replace Magic Numbers

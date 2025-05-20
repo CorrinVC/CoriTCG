@@ -20,11 +20,13 @@ UITextbox* instructText;
 
 // Reference Variables
 std::vector<std::string> profilePictures {
-    Expansions::BaseSet::_070ClefairyDoll->mTexturePath,
     Expansions::BaseSet::_091Bill->mTexturePath,
+    Expansions::BaseSet::_070ClefairyDoll->mTexturePath,
     Expansions::Jungle::_064PokéBall->mTexturePath,
-    Expansions::BaseSet::_088ProfessorOak->mTexturePath,
     Expansions::BaseSet::_075Lass->mTexturePath,
+    Expansions::BaseSet::_088ProfessorOak->mTexturePath,
+    Expansions::BaseSet::_087Pokédex->mTexturePath,
+    Expansions::BaseSet::_079SuperEnergyRemoval->mTexturePath,
     Expansions::BaseSet::_073ImposterProfessorOak->mTexturePath
 };
 
@@ -37,8 +39,8 @@ void initGridElements() {
     for(std::string texturePath : profilePictures) {
         UIProfilePicture* pic = new UIProfilePicture(sf::Texture(texturePath));
         pic->createClickFunction([=]() {
-            gUpdatePFP(texturePath);
-            gSaveProfiles();
+            gCurrentProfile.pfpFilePath = texturePath;
+            gUpdateProfileDB();
             gSetState(ProfileView::gProfileViewState, false);
         });
         picGrid->addElement(pic);
