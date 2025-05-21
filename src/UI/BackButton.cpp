@@ -6,6 +6,8 @@ namespace Cori {
 std::function<void()> gOnBackClick {
     []() {
         if(gPreviousStates.empty()) return;
+        if(gPreviousStates.top() == gCurrentState)
+            gPreviousStates.pop();
         gSetState(*(gPreviousStates.top()), false);
         gPreviousStates.pop();
     }    

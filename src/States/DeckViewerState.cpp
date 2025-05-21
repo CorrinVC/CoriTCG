@@ -63,11 +63,26 @@ void initEditButton() {
     });
 }
 
+void initSortDropdown() {
+    sortDropdown = new UIDropdown(gWindowWidth - 60.0f,
+        10.0f, 50.0f, buttonPanelHeight, "Sort", gSortMethods);
+    sortDropdown->setBackgroundColor(menuButtonColor);
+
+    sortDropdown->createClickFunction([=]() {
+        if(sortDropdown->getSelectedIndex() >= 0) {
+            currentSort = SortMethod(sortDropdown->getSelectedIndex());
+            gDecklistLayout->changeSortMethod(currentSort);
+            adjustDecklistView();
+        }
+    });
+}
+
 void initDeckPanelButtons() {
     backButton = new BackButton(60.0f, buttonPanelHeight);
     backButton->setBackgroundColor(menuButtonColor);
 
     initEditButton();
+    initSortDropdown();
 
     deckButtonPanel->addElement(backButton);
     deckButtonPanel->addElement(editButton);
@@ -84,6 +99,7 @@ void initDeckButtonPanel() {
 void addElements() {
     gDeckViewerState.addUIElement(deckPanel);
     gDeckViewerState.addUIElement(deckButtonPanel);
+    gDeckViewerState.addUIElement(sortDropdown);
 }
 
 void initDeckViewerState() {

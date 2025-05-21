@@ -81,6 +81,8 @@ void editDeck(int deckIndex) {
 void resetDeckBuilder() {
     if(!editingExistingDeck)
         gDecklistLayout->reset();
+    else
+        deckNameField->setText(editingDeck.getName());
 }
 
 void adjustDecklistView() {
@@ -137,6 +139,8 @@ void createFinishButtonClick() {
         if(editingExistingDeck) {
             gCurrentProfile.decks[editingDeckIndex] = gDecklistLayout->getCurrentDeck();
             editingExistingDeck = false;
+            if(gPreviousStates.top() == &DeckViewer::gDeckViewerState)
+                gPreviousStates.pop();
         } else
             gCurrentProfile.decks.push_back(gDecklistLayout->getCurrentDeck());
         
