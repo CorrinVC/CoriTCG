@@ -13,18 +13,7 @@ int main() {
     Cori::gLoadSavedProfiles();
 
     // Initialize States
-    Cori::MainMenu::initMenuState();
-    Cori::ProfileView::initProfileViewState();
-    Cori::Login::initLoginState();
-    Cori::PFPSelection::initPFPSelectionState();
-    Cori::SetViewer::initSetViewerState();
-    Cori::SetFullView::initFullViewState();
-    Cori::PackSimulator::initPackSimState();
-    Cori::CollectionView::initCollectionViewState();
-    Cori::SavedDecks::initSavedDecksState();
-    Cori::DeckBuilder::initDeckBuilderState();
-    Cori::DeckViewer::initDeckViewerState();
-
+    Cori::gInitStates();
     Cori::gCurrentState = &Cori::MainMenu::gMenuState;
     
     // Initialize Window

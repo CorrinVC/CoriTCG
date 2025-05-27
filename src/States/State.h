@@ -36,6 +36,7 @@ extern State* gCurrentState;
 extern std::stack<State*> gPreviousStates;
 
 void gSetState(State& state, bool addToPrevStack = true);
+void gInitStates();
 sf::Vector2f centeredCardPosition();
 
 namespace MainMenu { // Main Menu State

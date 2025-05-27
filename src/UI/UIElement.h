@@ -36,6 +36,7 @@ protected:
     // Hovering & Pressed States
     bool hovering { false };
     bool pressed { false };
+    bool mHidden { false };
 
 public:
     UIElement(float width, float height);
@@ -69,6 +70,10 @@ public:
     // Scale Non-Uniformly
     virtual void setScale(float scaleX, float scaleY);
     virtual void setSize(const sf::Vector2f& size);
+
+    void hide();
+    void show();
+    bool isHidden();
 
     void setTransparent();
     void setBackgroundColor(const sf::Color color);

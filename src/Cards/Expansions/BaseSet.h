@@ -8,415 +8,415 @@
 namespace Cori { namespace Expansions { namespace BaseSet {
 
     inline DataCard* _001Alakazam { (new PokemonCard(
-        "Alakazam", 80, EnergyType::Psychic, Stage::Stage2, 3,
+        "Alakazam", 80, EnergyType::Psychic, Stage::Stage2, 3, 65,
         "Ken Sugimori", ExpansionID::BaseSet, 1, Rarity::HoloRare))
         ->evolvesFrom("Kadabra")->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _002Blastoise { (new PokemonCard(
-        "Blastoise", 100, EnergyType::Water, Stage::Stage2, 3,
+        "Blastoise", 100, EnergyType::Water, Stage::Stage2, 3, 9,
         "Ken Sugimori", ExpansionID::BaseSet, 2, Rarity::HoloRare))
         ->evolvesFrom("Wartortle")->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _003Chansey { (new PokemonCard(
-        "Chansey", 120, EnergyType::Colorless, Stage::Basic, 1,
+        "Chansey", 120, EnergyType::Colorless, Stage::Basic, 1, 113,
         "Ken Sugimori", ExpansionID::BaseSet, 3, Rarity::HoloRare))
         ->weakTo(EnergyType::Fighting)->resists(EnergyType::Psychic)
     };
 
     inline DataCard* _004Charizard { (new PokemonCard(
-        "Charizard", 120, EnergyType::Fire, Stage::Stage2, 3,
+        "Charizard", 120, EnergyType::Fire, Stage::Stage2, 3, 6,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 4, Rarity::HoloRare))
         ->evolvesFrom("Charmeleon")->weakTo(EnergyType::Water)->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _005Clefairy { (new PokemonCard(
-        "Clefairy", 40, EnergyType::Colorless, Stage::Basic, 1,
+        "Clefairy", 40, EnergyType::Colorless, Stage::Basic, 1, 35,
         "Ken Sugimori", ExpansionID::BaseSet, 5, Rarity::HoloRare))
         ->weakTo(EnergyType::Fighting)->resists(EnergyType::Psychic)
     };
 
     inline DataCard* _006Gyarados { (new PokemonCard(
-        "Gyarados", 100, EnergyType::Water, Stage::Stage1, 3,
+        "Gyarados", 100, EnergyType::Water, Stage::Stage1, 3, 130,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 6, Rarity::HoloRare))
         ->evolvesFrom("Magikarp")->weakTo(EnergyType::Grass)->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _007Hitmonchan { (new PokemonCard(
-        "Hitmonchan", 70, EnergyType::Fighting, Stage::Basic, 2,
+        "Hitmonchan", 70, EnergyType::Fighting, Stage::Basic, 2, 107,
         "Ken Sugimori", ExpansionID::BaseSet, 7, Rarity::HoloRare))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _008Machamp { (new PokemonCard(
-        "Machamp", 100, EnergyType::Fighting, Stage::Stage2, 3,
+        "Machamp", 100, EnergyType::Fighting, Stage::Stage2, 3, 68,
         "Ken Sugimori", ExpansionID::BaseSet, 8, Rarity::HoloRare))
         ->evolvesFrom("Machoke")->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _009Magneton { (new PokemonCard(
-        "Magneton", 60, EnergyType::Lightning, Stage::Stage1, 1,
+        "Magneton", 60, EnergyType::Lightning, Stage::Stage1, 1, 82,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 9, Rarity::HoloRare))
         ->evolvesFrom("Magnemite")->weakTo(EnergyType::Fighting)
     };
 
     inline DataCard* _010Mewtwo { (new PokemonCard(
-        "Mewtwo", 60, EnergyType::Psychic, Stage::Basic, 3,
+        "Mewtwo", 60, EnergyType::Psychic, Stage::Basic, 3, 150,
         "Ken Sugimori", ExpansionID::BaseSet, 10, Rarity::HoloRare))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _011Nidoking { (new PokemonCard(
-        "Nidoking", 90, EnergyType::Grass, Stage::Stage2, 3,
+        "Nidoking", 90, EnergyType::Grass, Stage::Stage2, 3, 34,
         "Ken Sugimori", ExpansionID::BaseSet, 11, Rarity::HoloRare))
         ->evolvesFrom("Nidorino")->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _012Ninetales { (new PokemonCard(
-        "Ninetales", 80, EnergyType::Fire, Stage::Stage1, 1,
+        "Ninetales", 80, EnergyType::Fire, Stage::Stage1, 1, 38,
         "Ken Sugimori", ExpansionID::BaseSet, 12, Rarity::HoloRare))
         ->evolvesFrom("Vulpix")->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _013Poliwrath { (new PokemonCard(
-        "Poliwrath", 90, EnergyType::Water, Stage::Stage2, 3,
+        "Poliwrath", 90, EnergyType::Water, Stage::Stage2, 3, 62,
         "Ken Sugimori", ExpansionID::BaseSet, 13, Rarity::HoloRare))
         ->evolvesFrom("Poliwhirl")->weakTo(EnergyType::Grass)
     };
 
     inline DataCard* _014Raichu { (new PokemonCard(
-        "Raichu", 80, EnergyType::Lightning, Stage::Stage1, 1,
+        "Raichu", 80, EnergyType::Lightning, Stage::Stage1, 1, 26,
         "Ken Sugimori", ExpansionID::BaseSet, 14, Rarity::HoloRare))
         ->evolvesFrom("Pikachu")->weakTo(EnergyType::Fighting)
     };
 
     inline DataCard* _015Venusaur { (new PokemonCard(
-        "Venusaur", 100, EnergyType::Grass, Stage::Stage2, 2,
+        "Venusaur", 100, EnergyType::Grass, Stage::Stage2, 2, 3,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 15, Rarity::HoloRare))
         ->evolvesFrom("Ivysaur")->weakTo(EnergyType::Fire)
     };
 
     inline DataCard* _016Zapdos { (new PokemonCard(
-        "Zapdos", 90, EnergyType::Lightning, Stage::Basic, 3,
+        "Zapdos", 90, EnergyType::Lightning, Stage::Basic, 3, 145,
         "Ken Sugimori", ExpansionID::BaseSet, 16, Rarity::HoloRare))
         ->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _017Beedrill { (new PokemonCard(
-        "Beedrill", 80, EnergyType::Grass, Stage::Stage2, 0,
+        "Beedrill", 80, EnergyType::Grass, Stage::Stage2, 0, 15,
         "Ken Sugimori", ExpansionID::BaseSet, 17, Rarity::Rare))
         ->evolvesFrom("Kakuna")->weakTo(EnergyType::Fire)->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _018Dragonair { (new PokemonCard(
-        "Dragonair", 80, EnergyType::Colorless, Stage::Stage1, 2,
+        "Dragonair", 80, EnergyType::Colorless, Stage::Stage1, 2, 148,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 18, Rarity::Rare))
         ->evolvesFrom("Dratini")->resists(EnergyType::Psychic)
     };
 
     inline DataCard* _019Dugtrio { (new PokemonCard(
-        "Dugtrio", 70, EnergyType::Fighting, Stage::Stage1, 2,
+        "Dugtrio", 70, EnergyType::Fighting, Stage::Stage1, 2, 51,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 19, Rarity::Rare))
         ->evolvesFrom("Diglett")->weakTo(EnergyType::Grass)->resists(EnergyType::Lightning)
     };
 
     inline DataCard* _020Electabuzz { (new PokemonCard(
-        "Electabuzz", 70, EnergyType::Lightning, Stage::Basic, 2,
+        "Electabuzz", 70, EnergyType::Lightning, Stage::Basic, 2, 125,
         "Ken Sugimori", ExpansionID::BaseSet, 20, Rarity::Rare))
         ->weakTo(EnergyType::Fighting)
     };
 
     inline DataCard* _021Electrode { (new PokemonCard(
-        "Electrode", 80, EnergyType::Lightning, Stage::Stage1, 1,
+        "Electrode", 80, EnergyType::Lightning, Stage::Stage1, 1, 101,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 21, Rarity::Rare))
         ->evolvesFrom("Voltorb")->weakTo(EnergyType::Fighting)
     };
 
     inline DataCard* _022Pidgeotto { (new PokemonCard(
-        "Pidgeotto", 60, EnergyType::Colorless, Stage::Stage1, 1,
+        "Pidgeotto", 60, EnergyType::Colorless, Stage::Stage1, 1, 17,
         "Ken Sugimori", ExpansionID::BaseSet, 22, Rarity::Rare))
         ->evolvesFrom("Pidgey")->weakTo(EnergyType::Lightning)->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _023Arcanine { (new PokemonCard(
-        "Arcanine", 100, EnergyType::Fire, Stage::Stage1, 3,
+        "Arcanine", 100, EnergyType::Fire, Stage::Stage1, 3, 59,
         "Ken Sugimori", ExpansionID::BaseSet, 23, Rarity::Uncommon))
         ->evolvesFrom("Growlithe")->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _024Charmeleon { (new PokemonCard(
-        "Charmeleon", 80, EnergyType::Fire, Stage::Stage1, 1,
+        "Charmeleon", 80, EnergyType::Fire, Stage::Stage1, 1, 5,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 24, Rarity::Uncommon))
         ->evolvesFrom("Charmander")->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _025Dewgong { (new PokemonCard(
-        "Dewgong", 80, EnergyType::Water, Stage::Stage1, 3,
+        "Dewgong", 80, EnergyType::Water, Stage::Stage1, 3, 87,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 25, Rarity::Uncommon))
         ->evolvesFrom("Seel")->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _026Dratini { (new PokemonCard(
-        "Dratini", 40, EnergyType::Colorless, Stage::Basic, 1,
+        "Dratini", 40, EnergyType::Colorless, Stage::Basic, 1, 147,
         "Ken Sugimori", ExpansionID::BaseSet, 26, Rarity::Uncommon))
         ->resists(EnergyType::Psychic)
     };
 
     inline DataCard* _027Farfetchd { (new PokemonCard(
-        "Farfetch'd", 50, EnergyType::Colorless, Stage::Basic, 1,
+        "Farfetch'd", 50, EnergyType::Colorless, Stage::Basic, 1, 83,
         "Ken Sugimori", ExpansionID::BaseSet, 27, Rarity::Uncommon))
         ->weakTo(EnergyType::Lightning)->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _028Growlithe { (new PokemonCard(
-        "Growlithe", 60, EnergyType::Fire, Stage::Basic, 1,
+        "Growlithe", 60, EnergyType::Fire, Stage::Basic, 1, 58,
         "Ken Sugimori", ExpansionID::BaseSet, 28, Rarity::Uncommon))
         ->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _029Haunter { (new PokemonCard(
-        "Haunter", 60, EnergyType::Psychic, Stage::Stage1, 1,
+        "Haunter", 60, EnergyType::Psychic, Stage::Stage1, 1, 93,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 29, Rarity::Uncommon))
         ->evolvesFrom("Gastly")->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _030Ivysaur { (new PokemonCard(
-        "Ivysaur", 60, EnergyType::Grass, Stage::Stage1, 1,
+        "Ivysaur", 60, EnergyType::Grass, Stage::Stage1, 1, 2,
         "Ken Sugimori", ExpansionID::BaseSet, 30, Rarity::Uncommon))
         ->evolvesFrom("Bulbasaur")->weakTo(EnergyType::Fire)
     };
 
     inline DataCard* _031Jynx { (new PokemonCard(
-        "Jynx", 70, EnergyType::Psychic, Stage::Basic, 2,
+        "Jynx", 70, EnergyType::Psychic, Stage::Basic, 2, 124,
         "Ken Sugimori", ExpansionID::BaseSet, 31, Rarity::Uncommon))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _032Kadabra { (new PokemonCard(
-        "Kadabra", 60, EnergyType::Psychic, Stage::Stage1, 3,
+        "Kadabra", 60, EnergyType::Psychic, Stage::Stage1, 3, 64,
         "Ken Sugimori", ExpansionID::BaseSet, 32, Rarity::Uncommon))
         ->evolvesFrom("Abra")->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _033Kakuna { (new PokemonCard(
-        "Kakuna", 80, EnergyType::Grass, Stage::Stage1, 2,
+        "Kakuna", 80, EnergyType::Grass, Stage::Stage1, 2, 14,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 33, Rarity::Uncommon))
         ->evolvesFrom("Weedle")->weakTo(EnergyType::Fire)
     };
 
     inline DataCard* _034Machoke { (new PokemonCard(
-        "Machoke", 80, EnergyType::Fighting, Stage::Stage1, 3,
+        "Machoke", 80, EnergyType::Fighting, Stage::Stage1, 3, 67,
         "Ken Sugimori", ExpansionID::BaseSet, 34, Rarity::Uncommon))
         ->evolvesFrom("Machop")->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _035Magikarp { (new PokemonCard(
-        "Magikarp", 30, EnergyType::Water, Stage::Basic, 1,
+        "Magikarp", 30, EnergyType::Water, Stage::Basic, 1, 129,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 35, Rarity::Uncommon))
         ->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _036Magmar { (new PokemonCard(
-        "Magmar", 50, EnergyType::Fire, Stage::Basic, 2,
+        "Magmar", 50, EnergyType::Fire, Stage::Basic, 2, 126,
         "Ken Sugimori", ExpansionID::BaseSet, 36, Rarity::Uncommon))
         ->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _037Nidorino { (new PokemonCard(
-        "Nidorino", 60, EnergyType::Grass, Stage::Stage1, 1,
+        "Nidorino", 60, EnergyType::Grass, Stage::Stage1, 1, 33,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 37, Rarity::Uncommon))
         ->evolvesFrom(L"Nidoran ♂")->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _038Poliwhirl { (new PokemonCard(
-        "Poliwhirl", 60, EnergyType::Water, Stage::Stage1, 1,
+        "Poliwhirl", 60, EnergyType::Water, Stage::Stage1, 1, 61,
         "Ken Sugimori", ExpansionID::BaseSet, 38, Rarity::Uncommon))
         ->evolvesFrom("Poliwag")->weakTo(EnergyType::Grass)
     };
 
     inline DataCard* _039Porygon { (new PokemonCard(
-        "Porygon", 30, EnergyType::Colorless, Stage::Basic, 1,
+        "Porygon", 30, EnergyType::Colorless, Stage::Basic, 1, 137,
         "Tomoaki Imakuni", ExpansionID::BaseSet, 39, Rarity::Uncommon))
         ->weakTo(EnergyType::Fighting)->resists(EnergyType::Psychic)
     };
 
     inline DataCard* _040Raticate { (new PokemonCard(
-        "Raticate", 60, EnergyType::Colorless, Stage::Stage1, 1,
+        "Raticate", 60, EnergyType::Colorless, Stage::Stage1, 1, 20,
         "Ken Sugimori", ExpansionID::BaseSet, 40, Rarity::Uncommon))
         ->evolvesFrom("Rattata")->weakTo(EnergyType::Fighting)->resists(EnergyType::Psychic)
     };
 
     inline DataCard* _041Seel { (new PokemonCard(
-        "Seel", 60, EnergyType::Water, Stage::Basic, 1,
+        "Seel", 60, EnergyType::Water, Stage::Basic, 1, 86,
         "Ken Sugimori", ExpansionID::BaseSet, 41, Rarity::Uncommon))
         ->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _042Wartortle { (new PokemonCard(
-        "Wartortle", 70, EnergyType::Water, Stage::Stage1, 1,
+        "Wartortle", 70, EnergyType::Water, Stage::Stage1, 1, 8,
         "Ken Sugimori", ExpansionID::BaseSet, 42, Rarity::Uncommon))
         ->evolvesFrom("Squirtle")->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _043Abra { (new PokemonCard(
-        "Abra", 30, EnergyType::Psychic, Stage::Basic, 0,
+        "Abra", 30, EnergyType::Psychic, Stage::Basic, 0, 63,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 43, Rarity::Common))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _044Bulbasaur { (new PokemonCard(
-        "Bulbasaur", 40, EnergyType::Grass, Stage::Basic, 1,
+        "Bulbasaur", 40, EnergyType::Grass, Stage::Basic, 1, 1,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 44, Rarity::Common))
         ->weakTo(EnergyType::Fire)
     };
 
     inline DataCard* _045Caterpie { (new PokemonCard(
-        "Caterpie", 40, EnergyType::Grass, Stage::Basic, 1,
+        "Caterpie", 40, EnergyType::Grass, Stage::Basic, 1, 10,
         "Ken Sugimori", ExpansionID::BaseSet, 45, Rarity::Common))
         ->weakTo(EnergyType::Fire)
     };
 
     inline DataCard* _046Charmander { (new PokemonCard(
-        "Charmander", 50, EnergyType::Fire, Stage::Basic, 1,
+        "Charmander", 50, EnergyType::Fire, Stage::Basic, 1, 4,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 46, Rarity::Common))
         ->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _047Diglett { (new PokemonCard(
-        "Diglett", 30, EnergyType::Fighting, Stage::Basic, 0,
+        "Diglett", 30, EnergyType::Fighting, Stage::Basic, 0, 50,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 47, Rarity::Common))
         ->weakTo(EnergyType::Grass)->resists(EnergyType::Lightning)
     };
 
     inline DataCard* _048Doduo { (new PokemonCard(
-        "Doduo", 50, EnergyType::Colorless, Stage::Basic, 0,
+        "Doduo", 50, EnergyType::Colorless, Stage::Basic, 0, 84,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 48, Rarity::Common))
         ->weakTo(EnergyType::Lightning)->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _049Drowzee { (new PokemonCard(
-        "Drowzee", 50, EnergyType::Psychic, Stage::Basic, 1,
+        "Drowzee", 50, EnergyType::Psychic, Stage::Basic, 1, 96,
         "Ken Sugimori", ExpansionID::BaseSet, 49, Rarity::Common))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _050Gastly { (new PokemonCard(
-        "Gastly", 30, EnergyType::Psychic, Stage::Basic, 0,
+        "Gastly", 30, EnergyType::Psychic, Stage::Basic, 0, 92,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 50, Rarity::Common))
         ->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _051Koffing { (new PokemonCard(
-        "Koffing", 50, EnergyType::Grass, Stage::Basic, 1,
+        "Koffing", 50, EnergyType::Grass, Stage::Basic, 1, 109,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 51, Rarity::Common))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _052Machop { (new PokemonCard(
-        "Machop", 50, EnergyType::Fighting, Stage::Basic, 1,
+        "Machop", 50, EnergyType::Fighting, Stage::Basic, 1, 66,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 52, Rarity::Common))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _053Magnemite { (new PokemonCard(
-        "Magnemite", 40, EnergyType::Lightning, Stage::Basic, 1,
+        "Magnemite", 40, EnergyType::Lightning, Stage::Basic, 1, 81,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 53, Rarity::Common))
         ->weakTo(EnergyType::Fighting)
     };
 
     inline DataCard* _054Metapod { (new PokemonCard(
-        "Metapod", 70, EnergyType::Grass, Stage::Stage1, 2,
+        "Metapod", 70, EnergyType::Grass, Stage::Stage1, 2, 11,
         "Ken Sugimori", ExpansionID::BaseSet, 54, Rarity::Common))
         ->evolvesFrom("Caterpie")->weakTo(EnergyType::Fire)
     };
 
     inline DataCard* _055NidoranM { (new PokemonCard(
-        L"Nidoran ♂", 40, EnergyType::Grass, Stage::Basic, 1,
+        L"Nidoran ♂", 40, EnergyType::Grass, Stage::Basic, 1, 32,
         "Ken Sugimori", ExpansionID::BaseSet, 55, Rarity::Common))
         ->weakTo(EnergyType::Psychic)
     };
 
     inline DataCard* _056Onix { (new PokemonCard(
-        "Onix", 90, EnergyType::Fighting, Stage::Basic, 3,
+        "Onix", 90, EnergyType::Fighting, Stage::Basic, 3, 95,
         "Ken Sugimori", ExpansionID::BaseSet, 56, Rarity::Common))
         ->weakTo(EnergyType::Grass)
     };
 
     inline DataCard* _057Pidgey { (new PokemonCard(
-        "Pidgey", 40, EnergyType::Colorless, Stage::Basic, 1,
+        "Pidgey", 40, EnergyType::Colorless, Stage::Basic, 1, 16,
         "Ken Sugimori", ExpansionID::BaseSet, 57, Rarity::Common))
         ->weakTo(EnergyType::Lightning)->resists(EnergyType::Fighting)
     };
 
     inline DataCard* _058Pikachu { (new PokemonCard(
-        "Pikachu", 40, EnergyType::Lightning, Stage::Basic, 1,
+        "Pikachu", 40, EnergyType::Lightning, Stage::Basic, 1, 25,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 58, Rarity::Common))
         ->weakTo(EnergyType::Fighting)
     };
 
     inline DataCard* _059Poliwag { (new PokemonCard(
-        "Poliwag", 40, EnergyType::Water, Stage::Basic, 1,
+        "Poliwag", 40, EnergyType::Water, Stage::Basic, 1, 60,
         "Ken Sugimori", ExpansionID::BaseSet, 59, Rarity::Common))
         ->weakTo(EnergyType::Grass)
     };
 
     inline DataCard* _060Ponyta { (new PokemonCard(
-        "Ponyta", 40, EnergyType::Fire, Stage::Basic, 1,
+        "Ponyta", 40, EnergyType::Fire, Stage::Basic, 1, 77,
         "Ken Sugimori", ExpansionID::BaseSet, 60, Rarity::Common))
         ->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _061Rattata { (new PokemonCard(
-        "Rattata", 30, EnergyType::Colorless, Stage::Basic, 0,
+        "Rattata", 30, EnergyType::Colorless, Stage::Basic, 0, 19,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 61, Rarity::Common))
         ->weakTo(EnergyType::Fighting)->resists(EnergyType::Psychic)
     };
 
     inline DataCard* _062Sandshrew { (new PokemonCard(
-        "Sandshrew", 40, EnergyType::Fighting, Stage::Basic, 1,
+        "Sandshrew", 40, EnergyType::Fighting, Stage::Basic, 1, 27,
         "Ken Sugimori", ExpansionID::BaseSet, 62, Rarity::Common))
         ->weakTo(EnergyType::Grass)->resists(EnergyType::Lightning)
     };
 
     inline DataCard* _063Squirtle { (new PokemonCard(
-        "Squirtle", 40, EnergyType::Water, Stage::Basic, 1,
+        "Squirtle", 40, EnergyType::Water, Stage::Basic, 1, 7,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 63, Rarity::Common))
         ->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _064Starmie { (new PokemonCard(
-        "Starmie", 60, EnergyType::Water, Stage::Stage1, 1,
+        "Starmie", 60, EnergyType::Water, Stage::Stage1, 1, 121,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 64, Rarity::Common))
         ->evolvesFrom("Staryu")->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _065Staryu { (new PokemonCard(
-        "Staryu", 40, EnergyType::Water, Stage::Basic, 1,
+        "Staryu", 40, EnergyType::Water, Stage::Basic, 1, 120,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 65, Rarity::Common))
         ->weakTo(EnergyType::Lightning)
     };
 
     inline DataCard* _066Tangela { (new PokemonCard(
-        "Tangela", 50, EnergyType::Grass, Stage::Basic, 2,
+        "Tangela", 50, EnergyType::Grass, Stage::Basic, 2, 114,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 66, Rarity::Common))
         ->weakTo(EnergyType::Fire)
     };
 
     inline DataCard* _067Voltorb { (new PokemonCard(
-        "Voltorb", 40, EnergyType::Lightning, Stage::Basic, 1,
+        "Voltorb", 40, EnergyType::Lightning, Stage::Basic, 1, 100,
         "Keiji Kinebuchi", ExpansionID::BaseSet, 67, Rarity::Common))
         ->weakTo(EnergyType::Fighting)
     };
 
     inline DataCard* _068Vulpix { (new PokemonCard(
-        "Vulpix", 50, EnergyType::Fire, Stage::Basic, 1,
+        "Vulpix", 50, EnergyType::Fire, Stage::Basic, 1, 37,
         "Ken Sugimori", ExpansionID::BaseSet, 68, Rarity::Common))
         ->weakTo(EnergyType::Water)
     };
 
     inline DataCard* _069Weedle { (new PokemonCard(
-        "Weedle", 40, EnergyType::Grass, Stage::Basic, 1,
+        "Weedle", 40, EnergyType::Grass, Stage::Basic, 1, 14,
         "Mitsuhiro Arita", ExpansionID::BaseSet, 69, Rarity::Common))
         ->weakTo(EnergyType::Fire)
     };

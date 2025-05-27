@@ -125,4 +125,8 @@ void UITextbox::centerTextRelativeTo(UIElement& element) {
     mRect.setPosition({ element.getX(), element.getY() });
 }
 
+bool UITextbox::isCentered() {
+    return centered;
+}
+
 }

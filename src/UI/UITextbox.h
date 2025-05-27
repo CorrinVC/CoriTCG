@@ -49,6 +49,7 @@ public:
     // Text Centering Functions
     void centerText();
     void centerTextRelativeTo(UIElement& element);
+    bool isCentered();
 };
 
 }

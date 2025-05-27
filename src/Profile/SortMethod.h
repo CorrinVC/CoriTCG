@@ -8,6 +8,7 @@ enum SortMethod {
     NoSort,
     NumberSort,
     NameSort,
+    DexSort,
     TypeSort,
     EvolutionSort,
 };

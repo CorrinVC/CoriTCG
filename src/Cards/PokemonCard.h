@@ -18,19 +18,21 @@ public:
 
     const Stage mStage {};
     sf::String mEvolvesFrom {};
+    const int mDexNumber {};
 
     EnergyType mWeakness {};
     EnergyType mResistance {};
     const int mRetreatCost {};
 
     PokemonCard(const sf::String name, const int hp, 
-        const EnergyType energyType, const Stage stage, const int retreatCost, 
+        const EnergyType energyType, const Stage stage, const int retreatCost, const int dexNum,
         const std::string_view illustrator, const ExpansionID expansion, 
         const int cardNumber, const Rarity rarity)
     : DataCard(name, CardType::Pokemon, illustrator, expansion, cardNumber, rarity)
     , mHP { hp }
     , mEnergyType { energyType }
     , mStage { stage }
+    , mDexNumber { dexNum }
     , mRetreatCost { retreatCost }
     {}
 

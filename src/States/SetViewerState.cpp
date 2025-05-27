@@ -61,7 +61,7 @@ void initCurrentCardTextbox() {
 
 void updateExpansion(int expIndex) {
     if(expIndex < 0) currentCardID = 0;
-    else if(currentExpansion->expansionID != expIndex) {
+    else {
         currentCardID = 1;
         currentExpansion = Expansions::gExpansionList[expIndex];
     }

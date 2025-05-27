@@ -17,6 +17,20 @@ void gSetState(State& state, bool addToPrevStack) {
     gCurrentState->onSwitch();
 }
 
+void gInitStates() {
+    MainMenu::initMenuState();
+    ProfileView::initProfileViewState();
+    Login::initLoginState();
+    PFPSelection::initPFPSelectionState();
+    SetViewer::initSetViewerState();
+    SetFullView::initFullViewState();
+    PackSimulator::initPackSimState();
+    CollectionView::initCollectionViewState();
+    SavedDecks::initSavedDecksState();
+    DeckBuilder::initDeckBuilderState();
+    DeckViewer::initDeckViewerState();
+}
+
 // Top Left Co-ordinate of a Centered Card Image
 sf::Vector2f centeredCardPosition() {
     return { 
@@ -55,7 +69,8 @@ void State::update() {
 void State::draw(sf::RenderWindow& window) {
     // Render UIElements
     for(auto* e : mUIElements) {
-        e->draw(window);
+        if(!e->isHidden())
+            e->draw(window);
     }
 }
 

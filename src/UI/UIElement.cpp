@@ -144,6 +144,18 @@ void UIElement::setSize(const sf::Vector2f& size) {
     mRect.setSize(size);
 }
 
+void UIElement::hide() {
+    mHidden = true;
+}
+
+void UIElement::show() {
+    mHidden = false;
+}
+
+bool UIElement::isHidden() {
+    return mHidden;
+}
+
 void UIElement::setTransparent() {
     mBackgroundColor = sf::Color::Transparent;
     mHoverColor = mBackgroundColor;

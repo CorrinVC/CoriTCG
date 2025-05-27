@@ -4,7 +4,7 @@
 namespace Cori {
 
 std::vector<std::string> gSortMethods {
-    "Recent", "Card #", "Name", "Type"
+    "Recent", "Card #", "Name", "Dex #", "Type"
 };
 
 bool lowerExpansion(QuantityCard a, QuantityCard b) {
@@ -21,6 +21,12 @@ bool lowerCardNum(QuantityCard a, QuantityCard b) {
 
 bool lowerName(QuantityCard a, QuantityCard b) {
     return a.card->cardNameString() < b.card->cardNameString();
+}
+
+bool lowerDexNum(QuantityCard a, QuantityCard b) {
+    return ((a.card->mCardType == Pokemon) && (b.card->mCardType == Pokemon)) &&
+           (static_cast<PokemonCard*>(a.card)->mDexNumber <
+            static_cast<PokemonCard*>(b.card)->mDexNumber);
 }
 
 bool lowerCardType(QuantityCard a, QuantityCard b) {
@@ -53,10 +59,28 @@ std::vector<QuantityCard> sortByName(std::vector<QuantityCard> cardList) {
     return cardList;
 }
 
+std::vector<QuantityCard> sortByCardType(std::vector<QuantityCard> cardList) {
+    std::stable_sort(cardList.begin(), cardList.end(),
+        [](QuantityCard a, QuantityCard b) {
+            return lowerCardType(a, b);
+        }
+    );
+    return cardList;
+}
+
+std::vector<QuantityCard> sortByDexNum(std::vector<QuantityCard> cardList) {
+    std::stable_sort(cardList.begin(), cardList.end(),
+        [](QuantityCard a, QuantityCard b) {
+            return lowerDexNum(a, b);
+        }
+    );
+    return cardList;
+}
+
 std::vector<QuantityCard> sortByType(std::vector<QuantityCard> cardList) {
     std::stable_sort(cardList.begin(), cardList.end(),
         [](QuantityCard a, QuantityCard b) {
-            return lowerCardType(a, b) || lowerEnergyType(a, b);
+            return lowerEnergyType(a, b);
         }
     );
     return cardList;
@@ -70,8 +94,11 @@ std::vector<QuantityCard> sortCardList(std::vector<QuantityCard> cardList, SortM
     case NameSort:
         cardList = sortByName(sortByNumber(cardList));
         break;
+    case DexSort:
+        cardList = sortByDexNum(sortByCardType(sortByNumber(cardList)));
+        break;
     case TypeSort:
-        cardList = sortByType(sortByNumber(cardList));
+        cardList = sortByType(sortByCardType(sortByNumber(cardList)));
         break;
     default:
         break;
