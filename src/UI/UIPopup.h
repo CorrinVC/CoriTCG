@@ -25,6 +25,9 @@ public:
     void centerTitle();
     void setTitleSize(float width, float height);
     void setTitle(sf::String text);
+
+    UITextbox& getTitleBox();
+    UIButton& getConfirmButton();
 };
 
 }

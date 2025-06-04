@@ -23,7 +23,7 @@ UIPopup::UIPopup(float x, float y, float width, float height, sf::String title)
     mConfirmButton.setText("OK");
     mConfirmButton.centerButtonText();
     mConfirmButton.createClickFunction([this]() {
-        UIPopup::~UIPopup();
+        hide();
     });
 }
 
@@ -66,7 +66,7 @@ void UIPopup::setConfirmButtonText(sf::String text) {
 void UIPopup::setConfirmFunction(std::function<void(void)> func) {
     mConfirmButton.createClickFunction([=, this]() {
         func();
-        UIPopup::~UIPopup();
+        hide();
     });
 }
 
@@ -87,6 +87,14 @@ void UIPopup::setTitleSize(float width, float height) {
 void UIPopup::setTitle(sf::String text) {
     mTitle.setText(text);
     if(mTitle.isCentered()) mTitle.centerText();
+}
+
+UITextbox& UIPopup::getTitleBox() {
+    return mTitle;
+}
+
+UIButton& UIPopup::getConfirmButton() {
+    return mConfirmButton;
 }
 
 }

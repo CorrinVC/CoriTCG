@@ -1,11 +1,7 @@
 TODO
 
 DONE:
-- Pokedex # Attribute & Sorting
-- Investigate Card Viewer Expansion Selection Bug
-- Refactor main.cpp State Init to State.h / .cpp
-- **UIElement Hide/Show Functionality
-- Created UIPopup
+- Create UICheckbox
 
 Minor Urgent:
 - **Refactor setSize(), Create Separate setWidth & setHeight Functions
@@ -16,9 +12,10 @@ Minor Non Urgent:
 - **Investigate UIDropdown alignText()
 
 Major Urgent:
-- Create UICheckbox
 - Debug Commands
 - **Give UIElements Scale Factor Member Variable
+- **Create Member Function to Add Multiple Elements to State/Element Container
+- **Adjust Text Size Based on Width as Well as Height
 
 Major Non Urgent:
 - Binder Feature
